@@ -27,50 +27,28 @@ public class PlayerController : MonoBehaviour
     {
         characon = GetComponent<CharacterController>();
         animcon = GetComponent<Animator>();
+        mynameForInputmanager = "Gamepad" + playerID + "_";
     }
     // Use this for initialization
     void Start () {
-        mynameForInputmanager = "Gamepad" + playerID + "_";
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        
-        characon.Move(playerMoveDirection * Time.deltaTime);
         transform.Rotate(new Vector3(0, Input.GetAxis(mynameForInputmanager + "CameraX") * playerLookSpeed * Time.deltaTime, 0), Space.Self);
-        /*
-        float CampivRotationX = CameraPivot.transform.eulerAngles.x;
-        if (CampivRotationX > cameraVerticalUpperLimit)
-        {
-            CameraPivot.transform.eulerAngles = new Vector3(cameraVerticalUpperLimit,0, 0);
-        }
-        else if (CampivRotationX < cameraVerticalUnderLimit)
-        {
-            CameraPivot.transform.eulerAngles = new Vector3(cameraVerticalUnderLimit,0, 0);
-        }
-        else
-        {
-            CameraPivot.transform.Rotate(new Vector3(Input.GetAxis(mynameForInputmanager + "CameraY") * cameraAngleSpeed * Time.deltaTime, 0, 0), Space.Self);
-        }
-        */
-        
         cameraVerticalAngel = Mathf.Clamp(cameraVerticalAngel + Input.GetAxis(mynameForInputmanager + "CameraY") * cameraAngleSpeed * Time.deltaTime,
             cameraVerticalUnderLimit, cameraVerticalUpperLimit);
         CameraPivot.transform.eulerAngles = new Vector3(cameraVerticalAngel, CameraPivot.transform.eulerAngles.y, CameraPivot.transform.eulerAngles.z);
         
         //プレイヤー基準で向きを決める。
         var playerForward = Vector3.Scale(transform.forward, new Vector3(1, 0, 1)).normalized;
-        Vector3 direction = playerForward * Input.GetAxis(mynameForInputmanager + "Y") +
-            transform.right * Input.GetAxis(mynameForInputmanager + "X");
+        float right = Input.GetAxis(mynameForInputmanager + "X");
+        float forward = Input.GetAxis(mynameForInputmanager + "Y");
+        Vector3 direction = playerForward * forward + transform.right.normalized * right;
 
-        if (Input.GetAxis(mynameForInputmanager + "X") == 0 && Input.GetAxis(mynameForInputmanager + "Y") == 0)
-        {
-            //animcon.SetBool("Run", false);
-        }
-        else
-        {
-            //animcon.SetBool("Run", true);
-        }
+        //animcon.SetFloat("Right", right);
+        animcon.SetFloat("Forward", forward);
 
         if (characon.isGrounded)
         {
@@ -90,15 +68,12 @@ public class PlayerController : MonoBehaviour
         {
             playerMoveDirection.y -= gravityStrength * Time.deltaTime;
         }
-	}
 
-    private void FixedUpdate()
-    {
+        characon.Move(playerMoveDirection * Time.deltaTime);
     }
-    /* 仮メソッド
-    void PlayerRotateChange(Vector3 lookDirection)
+
+    public void ChangeGameController(int id)
     {
-        Quaternion quaternion = Quaternion.LookRotation(lookDirection);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation,quaternion, playerLookSpeed * Time.deltaTime);
-    }*/
+        if(1 <= id && id <= 4) playerID = id;
+    }
 }

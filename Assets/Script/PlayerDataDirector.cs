@@ -42,10 +42,22 @@ public class PlayerDataDirector : Singleton<PlayerDataDirector> {
         }
     }
 
+    public int[] PlayerKills { get; set; }
+
+    public void PlayerKillInit()
+    {
+        PlayerKills = new int[MaxPlayerNumber];
+        for(int i = 0;i < PlayerKills.Length; i++)
+        {
+            PlayerKills[i] = 0;
+        }
+    }
+
     private new void Awake()
     {
         base.Awake();
         PlayerTypeInit();
+        PlayerKillInit();
     }
 
     // Use this for initialization

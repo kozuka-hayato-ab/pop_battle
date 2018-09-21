@@ -105,6 +105,8 @@ public class PlayerController : MonoBehaviour
         bombShotPossible = true;
     }
 
+
+
     public void ChangeGameController(int id)
     {
         if(1 <= id && id <= 4) playerID = id;

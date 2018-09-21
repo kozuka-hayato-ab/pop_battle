@@ -6,7 +6,14 @@ public class GameDirector : Singleton<GameDirector>
 {
     [SerializeField] private Vector3[] playerStartPosition;
     [SerializeField] private GameObject[] charactors;
-    public GameObject[] player;
+    private GameObject[] player;
+    public GameObject[] Player
+    {
+        get
+        {
+            return player;
+        }
+    }
 
     // Use this for initialization
     void Start()

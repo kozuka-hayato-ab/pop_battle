@@ -53,6 +53,7 @@ public class PlayerDataDirector : Singleton<PlayerDataDirector> {
         }
     }
 
+<<<<<<< HEAD
     public int[] PlayerRank { get; set; }
 
     public void PlayerRankInit()
@@ -64,12 +65,17 @@ public class PlayerDataDirector : Singleton<PlayerDataDirector> {
         }
     }
 
+=======
+>>>>>>> bulletcontroller
     private new void Awake()
     {
         base.Awake();
         PlayerTypeInit();
         PlayerKillInit();
+<<<<<<< HEAD
         PlayerRankInit();
+=======
+>>>>>>> bulletcontroller
     }
 
     // Use this for initialization

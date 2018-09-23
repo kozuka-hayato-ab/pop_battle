@@ -6,8 +6,8 @@ public class GameDirector : Singleton<GameDirector>
 {
     [SerializeField] private Vector3[] playerStartPosition;
     [SerializeField] private GameObject[] charactors;
-    private GameObject[] player;
-    public GameObject[] Player
+    private PlayerController[] player;
+    public PlayerController[] Player
     {
         get
         {
@@ -30,7 +30,7 @@ public class GameDirector : Singleton<GameDirector>
     private void GeneratePlayer()
     {
         int participantsNumber = PlayerDataDirector.Instance.participantsNumber();
-        player = new GameObject[participantsNumber];
+        player = new PlayerController[participantsNumber];
         int playerIndex = 0;
         for (int i = 0; i < PlayerDataDirector.Instance.MaxPlayerNumber; i++)
         {
@@ -39,7 +39,7 @@ public class GameDirector : Singleton<GameDirector>
                 player[playerIndex] = Instantiate(
                     charactors[(int)PlayerDataDirector.Instance.PlayerTypes[i] - 1],
                     playerStartPosition[i],
-                    Quaternion.identity);
+                    Quaternion.identity).GetComponent<PlayerController>();
 
                 player[playerIndex].SendMessage("ChangeGameController", i + 1);
                 CameraViewSetting(playerIndex, participantsNumber);

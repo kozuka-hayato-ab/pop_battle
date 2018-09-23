@@ -15,7 +15,8 @@ public class PlayerController : MonoBehaviour
     private Animator animcon;
     private Vector3 playerMoveDirection = Vector3.zero;
 
-    [SerializeField] int playerHealth = 10;
+    private const int maxHealth = 10;
+    [SerializeField] int playerHealth = maxHealth;
     [SerializeField] float playerSpeedValue = 5.0f;
     [SerializeField] float playerLookSpeed = 400f;
     [SerializeField] float cameraAngleSpeed = 400f;
@@ -23,6 +24,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float abilityOfItemGetValue = 1.5f;
     [SerializeField] float playerJumpValue;
 
+    [SerializeField] int cureItemNumber = 1;
+    [SerializeField] int bulletNumber = 15;
+    [SerializeField] int bombNumber = 3;
+    [SerializeField] float healthCureInterval;
+    private bool healthCurePossible = true;
+    private int healthCureValue = 2;//回復量
+    
     [SerializeField] GameObject myGun;
     [SerializeField] float bulletShotInterval;
     private bool bulletShotPossible = true;
@@ -76,18 +84,29 @@ public class PlayerController : MonoBehaviour
             playerMoveDirection.y -= gravityStrength * Time.deltaTime;
         }
 
-        if((Input.GetButton(mynameForInputmanager + "Shot2") || Input.GetKey(KeyCode.KeypadEnter)) && bulletShotPossible == true)
+
+        if((Input.GetButton(mynameForInputmanager + "Shot2") || Input.GetKey(KeyCode.KeypadEnter)) && bulletShotPossible == true && bulletNumber > 0)
         {
             myGun.SendMessage("BulletShot");
+            bulletNumber--;
             bulletShotPossible = false;
             StartCoroutine(WaitBulletShotInterval());
         }
 
-        if((Input.GetButton(mynameForInputmanager + "Shot1") || Input.GetKey(KeyCode.KeypadPlus)) && bombShotPossible == true)
+        if((Input.GetButton(mynameForInputmanager + "Shot1") || Input.GetKey(KeyCode.KeypadPlus)) && bombShotPossible == true && bombNumber > 0)
         {
             myGun.SendMessage("BombShot");
+            bombNumber--;
             bombShotPossible = false;
             StartCoroutine(WaitBombShotInterval());
+        }
+
+        if ((Input.GetButtonDown(mynameForInputmanager + "Function2") || Input.GetKeyDown(KeyCode.H)) && healthCurePossible == true && cureItemNumber > 0)
+        {
+            cureItemNumber--;
+            HealthCure(healthCureValue);
+            healthCurePossible = false;
+            StartCoroutine(WaitCureHealthInterval());
         }
 
         characon.Move(playerMoveDirection * Time.deltaTime);
@@ -105,10 +124,44 @@ public class PlayerController : MonoBehaviour
         bombShotPossible = true;
     }
 
+    IEnumerator WaitCureHealthInterval()
+    {
+        yield return new WaitForSeconds(healthCureInterval);
+        healthCurePossible = true;
+    }
 
+    public void HealthCure(int healthCureValue)
+    {
+        if(playerHealth > 0 || playerHealth < 10)
+        {
+            playerHealth += healthCureValue;
+            if (playerHealth > 10) playerHealth = 10;
+        }
+    }
+
+    public void PickUpBullet(int bulletValue)
+    {
+        bulletNumber += bulletValue;
+    }
+
+    public void PickUpBomb(int bombValue)
+    {
+        bombNumber += bombValue;
+    }
+
+    public void PickUpCureItem(int cureItemValue)
+    {
+        cureItemNumber += cureItemValue;
+    }
+
+    public void Damage(int damageValue)
+    {
+        playerHealth -= damageValue;
+    }
 
     public void ChangeGameController(int id)
     {
         if(1 <= id && id <= 4) playerID = id;
     }
+
 }

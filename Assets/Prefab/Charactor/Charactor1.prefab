@@ -2319,9 +2319,9 @@ MonoBehaviour:
   cameraVerticalUpperLimit: 30
   playerID: 1
   playerHealth: 10
-  playerSpeedValue: 5
-  playerLookSpeed: 400
-  cameraAngleSpeed: 400
+  playerSpeedValue: 3
+  playerLookSpeed: 200
+  cameraAngleSpeed: 200
   gravityStrength: 10
   abilityOfItemGetValue: 1.5
   playerJumpValue: 4

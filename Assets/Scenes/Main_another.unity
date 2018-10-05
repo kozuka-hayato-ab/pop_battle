@@ -216,11 +216,12 @@ MonoBehaviour:
   CameraPivot: {fileID: 1197832742}
   cameraVerticalUnderLimit: -60
   cameraVerticalUpperLimit: 30
+  camera: {fileID: 615862091}
   playerID: 1
   playerSpeedValue: 5
   playerLookSpeed: 400
   cameraAngleSpeed: 400
-  gravityStrength: 10
+  gravityStrength: 20
   abilityOfItemGetValue: 1.5
   playerJumpValue: 5
 --- !u!1 &562489778 stripped
@@ -265,13 +266,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 615862088}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.861}
+  m_LocalRotation: {x: 0.043619405, y: 0, z: 0, w: 0.9990483}
+  m_LocalPosition: {x: 0, y: 0.2, z: -1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1197832743}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 5, y: 0, z: 0}
 --- !u!124 &615862090
 Behaviour:
   m_ObjectHideFlags: 0
@@ -303,7 +304,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 50
   orthographic: 0
   orthographic size: 5
   m_Depth: -1

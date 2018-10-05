@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController_boy : MonoBehaviour {
+    
     [SerializeField] GameObject CameraPivot;
     [SerializeField] float cameraVerticalUnderLimit = -60f;
     [SerializeField] float cameraVerticalUpperLimit = 30f;
     private float cameraVerticalAngel;
+    [SerializeField] Camera camera;
+    private Vector3 SwitchTPS;//TPS視点の切り替え
 
     [SerializeField, Range(1, 4)] private int playerID;
     private string mynameForInputmanager;
@@ -48,16 +51,17 @@ public class PlayerController_boy : MonoBehaviour {
         characon = GetComponent<CharacterController>();
         //animcon = GetComponent<Animator>();
         mynameForInputmanager = "Gamepad" + playerID + "_";
+        SwitchTPS = camera.transform.localPosition;//元のカメラの相対座標
+        Debug.Log(SwitchTPS);
     }
 
 
-    // Update is called once per frame
+    //sec per frame が不安定
     void Update()
     {
         //視点操作　水平はプレイヤーの向きを変える　垂直はcamerapivotを回転
         transform.Rotate(new Vector3(0, Input.GetAxis(mynameForInputmanager + "CameraX") * playerLookSpeed * Time.deltaTime, 0), Space.Self);
-        cameraVerticalAngel = Mathf.Clamp(cameraVerticalAngel + Input.GetAxis(mynameForInputmanager + "CameraY") * cameraAngleSpeed * Time.deltaTime,
-            cameraVerticalUnderLimit, cameraVerticalUpperLimit);
+        cameraVerticalAngel = Mathf.Clamp(cameraVerticalAngel + Input.GetAxis(mynameForInputmanager + "CameraY") * cameraAngleSpeed * Time.deltaTime, cameraVerticalUnderLimit, cameraVerticalUpperLimit);
         CameraPivot.transform.eulerAngles = new Vector3(cameraVerticalAngel, CameraPivot.transform.eulerAngles.y, CameraPivot.transform.eulerAngles.z);
 
         //プレイヤー基準で移動方向を決める。
@@ -69,19 +73,30 @@ public class PlayerController_boy : MonoBehaviour {
         //animcon.SetFloat("Right", right);
         //animcon.SetFloat("Forward", forward);
 
+        //playerが接地しているとき
         if (characon.isGrounded)
         {
             playerMoveDirection.y = 0f;
             playerMoveDirection = direction * playerSpeedValue;
 
+            //3ボタンでJump
             if (Input.GetButtonDown(mynameForInputmanager + "Jump"))
             {
-                Debug.Log("unko");
                 playerMoveDirection.y = playerJumpValue;
             }
             else
             {
                 playerMoveDirection.y -= gravityStrength * Time.deltaTime;
+            }
+
+            if(Input.GetButtonDown(mynameForInputmanager + "Aim"))
+            {
+                Debug.Log("綺羅星！！");
+                camera.transform.localPosition = new Vector3(0, 0, 0);
+            }
+
+            if(Input.GetButtonUp(mynameForInputmanager + "Aim")){
+                camera.transform.localPosition = SwitchTPS;
             }
         }
         else
@@ -114,9 +129,14 @@ public class PlayerController_boy : MonoBehaviour {
             StartCoroutine(WaitCureHealthInterval());
         }
         */
-        characon.Move(playerMoveDirection * Time.deltaTime);
+
     }
 
+    //sec per Frameが固定
+    private void FixedUpdate()
+    {
+        characon.Move(playerMoveDirection * Time.deltaTime);
+    }
     /*
     IEnumerator WaitBulletShotInterval()
     {

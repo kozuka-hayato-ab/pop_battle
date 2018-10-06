@@ -18,7 +18,8 @@ public class GameDirector : Singleton<GameDirector>
     // Use this for initialization
     void Start()
     {
-        GeneratePlayer();
+        player = new PlayerController[PlayerDataDirector.Instance.MaxPlayerNumber];
+        GenerateAllPlayer();
     }
 
     // Update is called once per frame
@@ -27,34 +28,37 @@ public class GameDirector : Singleton<GameDirector>
 
     }
 
-    private void GeneratePlayer()
+    private void GenerateAllPlayer()
     {
-        int participantsNumber = PlayerDataDirector.Instance.participantsNumber();
-        player = new PlayerController[participantsNumber];
-        int playerIndex = 0;
         for (int i = 0; i < PlayerDataDirector.Instance.MaxPlayerNumber; i++)
         {
             if (PlayerDataDirector.Instance.PlayerTypes[i] != PlayerType.None)
             {
-                player[playerIndex] = Instantiate(
-                    charactors[(int)PlayerDataDirector.Instance.PlayerTypes[i] - 1],
-                    playerStartPosition[i],
-                    Quaternion.identity).GetComponent<PlayerController>();
-
-                player[playerIndex].SendMessage("ChangeGameController", i + 1);
-                CameraViewSetting(playerIndex, participantsNumber);
-                playerIndex++;
+                GeneratePlayer(i);
             }
         }
     }
 
-    private void CameraViewSetting(int playerIndex,int participantsNumber)
+    //プレイヤー番号、何PなどはPlayerNumber
+    //PlayerIndexとはプレイヤーのデータの配列のインデックス
+    public void GeneratePlayer(int playerIndex)
+    {
+        player[playerIndex] = Instantiate(
+            charactors[(int)PlayerDataDirector.Instance.PlayerTypes[playerIndex] - 1],//enum型の先頭はNoneのため
+            playerStartPosition[playerIndex],
+            Quaternion.identity).GetComponent<PlayerController>();
+
+        player[playerIndex].SendMessage("ChangeGameController", playerIndex + 1);
+        CameraViewSetting(playerIndex, PlayerDataDirector.Instance.participantsNumber());
+    }
+
+    private void CameraViewSetting(int playerIndex, int participantsNumber)
     {
         Camera camera = player[playerIndex].transform.Find("CameraPivot").Find("Camera").GetComponent<Camera>();
         switch (playerIndex + 1)
         {
             case 1:
-                if(participantsNumber == 2 || participantsNumber == 3)
+                if (participantsNumber == 2 || participantsNumber == 3)
                 {
                     camera.rect = new Rect(0f, 0.5f, 1f, 0.5f);
                 }
@@ -64,11 +68,11 @@ public class GameDirector : Singleton<GameDirector>
                 }
                 break;
             case 2:
-                if(participantsNumber == 2)
+                if (participantsNumber == 2)
                 {
                     camera.rect = new Rect(0f, 0f, 1f, 0.5f);
                 }
-                else if(participantsNumber == 3)
+                else if (participantsNumber == 3)
                 {
                     camera.rect = new Rect(0f, 0f, 0.5f, 0.5f);
                 }
@@ -78,7 +82,7 @@ public class GameDirector : Singleton<GameDirector>
                 }
                 break;
             case 3:
-                if(participantsNumber == 3)
+                if (participantsNumber == 3)
                 {
                     camera.rect = new Rect(0.5f, 0f, 0.5f, 0.5f);
                 }

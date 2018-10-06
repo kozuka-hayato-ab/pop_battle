@@ -309,6 +309,7 @@
     <Compile Include="Assets\ImportAsset\Character Animation Pack\SuperCharacterController\SuperCharacterController\Core\SuperStateMachine.cs" />
     <Compile Include="Assets\ImportAsset\Character Animation Pack\SuperCharacterController\SuperCharacterController\DebugDraw.cs" />
     <Compile Include="Assets\ImportAsset\Character Animation Pack\SuperCharacterController\SuperCharacterController\Math3d.cs" />
+    <Compile Include="Assets\ImportAsset\Controller Tester\Scripts\DetectUnknownControllerMappings.cs" />
     <Compile Include="Assets\ImportAsset\Ethan Anim\Characters\FirstPersonCharacter\Scripts\FirstPersonController.cs" />
     <Compile Include="Assets\ImportAsset\Ethan Anim\Characters\FirstPersonCharacter\Scripts\HeadBob.cs" />
     <Compile Include="Assets\ImportAsset\Ethan Anim\Characters\FirstPersonCharacter\Scripts\MouseLook.cs" />

@@ -1,8 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class PlayerController : MonoBehaviour
+public interface PlayerControllerRecieveInterface: IEventSystemHandler
+{
+    void Damage(int damageValue,int playerNumber);
+}
+
+public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
 {
     [SerializeField] GameObject CameraPivot;
     [SerializeField] float cameraVerticalUnderLimit = -60f;
@@ -43,8 +49,9 @@ public class PlayerController : MonoBehaviour
     {
         characon = GetComponent<CharacterController>();
         animcon = GetComponent<Animator>();
-        mynameForInputmanager = "Gamepad" + playerID + "_";
+        MynameUpdate();
     }
+
     // Use this for initialization
     void Start()
     {
@@ -84,8 +91,6 @@ public class PlayerController : MonoBehaviour
         {
             playerMoveDirection.y -= gravityStrength * Time.deltaTime;
         }
-
-        Debug.Log(playerMoveDirection.y);
 
         if ((Input.GetButton(mynameForInputmanager + "Shot2") || Input.GetKey(KeyCode.KeypadEnter)) && bulletShotPossible == true && bulletNumber > 0)
         {
@@ -172,14 +177,32 @@ public class PlayerController : MonoBehaviour
         cureItemNumber += cureItemValue;
     }
 
-    public void Damage(int damageValue)
+    public void Damage(int damageValue,int shotPlayerNumber)
     {
+        Debug.Log(shotPlayerNumber);
         playerHealth -= damageValue;
+        if(playerHealth <= 0)
+        {
+            Death(shotPlayerNumber);
+        } 
+    }
+
+    private void Death(int killerNumber)
+    {
+        PlayerDataDirector.Instance.PlayerKills[killerNumber - 1] += 1;
+        GameDirector.Instance.GeneratePlayer(playerID);
+        Destroy(gameObject);
     }
 
     public void ChangeGameController(int id)
     {
         if (1 <= id && id <= 4) playerID = id;
+        MynameUpdate();
+    }
+
+    public void MynameUpdate()
+    {
+        mynameForInputmanager = "Gamepad" + playerID + "_";
     }
 
 }

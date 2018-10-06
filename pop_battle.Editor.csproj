@@ -289,6 +289,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ImportAsset\Controller Tester\Scripts\Editor\TestGamepadEditor.cs" />
     <Compile Include="Assets\ImportAsset\Ethan Anim\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
   </ItemGroup>
   <ItemGroup>

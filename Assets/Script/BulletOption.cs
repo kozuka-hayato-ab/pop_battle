@@ -1,9 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BulletOption : MonoBehaviour {
     [SerializeField] private const int damageValue = 1;
+    [Range(1,4)] private int shotPlayerNumber;
+    public void ChangeShotPlayerNumber(int playerNumber)
+    {
+        shotPlayerNumber = playerNumber;
+    }
+
 	// Use this for initialization
 	void Start () {
 		
@@ -18,7 +25,11 @@ public class BulletOption : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Player")
         {
-            collision.transform.root.gameObject.SendMessage("Damage", damageValue);
+            ExecuteEvents.Execute<PlayerControllerRecieveInterface>(
+                target: collision.transform.root.gameObject,
+                eventData: null,
+                functor: (reciever, y) => reciever.Damage(damageValue, shotPlayerNumber)
+                );
             Destroy(gameObject);
         }
         if(collision.gameObject.tag == "Stage")

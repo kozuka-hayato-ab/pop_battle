@@ -9,7 +9,11 @@ public class PlayerController_boy : MonoBehaviour {
     [SerializeField] float cameraVerticalUpperLimit = 30f;
     private float cameraVerticalAngel;
     [SerializeField] Camera camera;
-    private Vector3 SwitchTPS;//TPS視点の切り替え
+    private bool SwitchTPS;
+    private Vector3 TPS_pos;//TPS視点の切り替え
+    private Vector3 FPS_pos;
+    private float rate_switch = 0f;
+    [SerializeField] float switch_speed;//[0, 1]の小数
 
     [SerializeField, Range(1, 4)] private int playerID;
     private string mynameForInputmanager;
@@ -51,8 +55,11 @@ public class PlayerController_boy : MonoBehaviour {
         characon = GetComponent<CharacterController>();
         //animcon = GetComponent<Animator>();
         mynameForInputmanager = "Gamepad" + playerID + "_";
-        SwitchTPS = camera.transform.localPosition;//元のカメラの相対座標
-        Debug.Log(SwitchTPS);
+        TPS_pos = camera.transform.localPosition;//元のカメラの相対座標
+        FPS_pos = new Vector3(0, 0.2f, -0.25f);//Player変えたら調節
+        SwitchTPS = false;
+        Debug.Log(FPS_pos);
+        Debug.Log(TPS_pos);
     }
 
 
@@ -91,12 +98,13 @@ public class PlayerController_boy : MonoBehaviour {
 
             if(Input.GetButtonDown(mynameForInputmanager + "Aim"))
             {
-                Debug.Log("綺羅星！！");
-                camera.transform.localPosition = new Vector3(0, 0, 0);
+                SwitchTPS = true;
             }
 
             if(Input.GetButtonUp(mynameForInputmanager + "Aim")){
-                camera.transform.localPosition = SwitchTPS;
+                SwitchTPS = false; //バグ排除
+                rate_switch = 0.0f;
+                camera.transform.localPosition = TPS_pos;
             }
         }
         else
@@ -135,7 +143,22 @@ public class PlayerController_boy : MonoBehaviour {
     //sec per Frameが固定
     private void FixedUpdate()
     {
-        characon.Move(playerMoveDirection * Time.deltaTime);
+        if(SwitchTPS){
+            if(rate_switch <= 1){
+                camera.transform.localPosition = Vector3.Lerp(TPS_pos, FPS_pos, rate_switch);
+                rate_switch += switch_speed;
+            }
+            else{
+                camera.transform.localPosition = FPS_pos;
+                rate_switch = 0f;
+                SwitchTPS = false;
+            }
+
+        }
+        else{
+            characon.Move(playerMoveDirection * Time.deltaTime);
+        }
+
     }
     /*
     IEnumerator WaitBulletShotInterval()

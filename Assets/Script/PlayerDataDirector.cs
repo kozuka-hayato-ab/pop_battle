@@ -82,7 +82,7 @@ public class PlayerDataDirector : Singleton<PlayerDataDirector> {
         /*
         for (int i = 0; i < PlayerTypes.Length; i++)
         {
-            Debug.Log("player" + (i + 1) + PlayerTypes[i]);
+            Debug.Log("player" + (i + 1) + PlayerKills[i]);
         }
         */
     }

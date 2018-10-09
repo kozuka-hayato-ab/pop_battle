@@ -96,4 +96,9 @@ public class GameDirector : Singleton<GameDirector>
                 break;
         }
     }
+
+    public void UpdateKillPlayerUI(int playerIndex)
+    {
+        Player[playerIndex].PlayerUI.UpdateKillNumber();
+    }
 }

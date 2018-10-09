@@ -5,10 +5,9 @@ using UnityEngine.EventSystems;
 
 public class BulletOption : MonoBehaviour {
     [SerializeField] private const int damageValue = 1;
-    [Range(1,4)] private int shotPlayerNumber;
-    public void ChangeShotPlayerNumber(int playerNumber)
+    public int shotPlayerNumber
     {
-        shotPlayerNumber = playerNumber;
+        get;set;
     }
 
 	// Use this for initialization

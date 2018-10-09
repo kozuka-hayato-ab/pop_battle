@@ -12,12 +12,12 @@ public class BulletGenerater : MonoBehaviour
     [SerializeField] float bombSpeed;
     [SerializeField] float bombVerticalCompensation;
     [SerializeField] Camera playerCamera;
-    [Range(1, 4)] [SerializeField] int userPlayerNumber;//プレイヤーが何Pなのか
+    private int userPlayerNumber;//プレイヤーが何Pなのか
 
     // Use this for initialization
     void Start()
     {
-
+        userPlayerNumber = transform.root.GetComponent<PlayerController>().PlayerID;
     }
 
     // Update is called once per frame
@@ -34,7 +34,7 @@ public class BulletGenerater : MonoBehaviour
             ) as GameObject;
         bulletInstance.GetComponent<Rigidbody>().AddForce(
             playerCamera.transform.forward * bulletSpeed, ForceMode.VelocityChange);
-        bulletInstance.GetComponent<BulletOption>().ChangeShotPlayerNumber(userPlayerNumber);
+        bulletInstance.GetComponent<BulletOption>().shotPlayerNumber = userPlayerNumber;
         Destroy(bulletInstance, bulletDestroyTime);
     }
 

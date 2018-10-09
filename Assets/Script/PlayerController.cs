@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public interface PlayerControllerRecieveInterface: IEventSystemHandler
+public interface PlayerControllerRecieveInterface : IEventSystemHandler
 {
-    void Damage(int damageValue,int playerNumber);
+    void Damage(int damageValue, int playerNumber);
 }
 
 public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
@@ -16,6 +16,14 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     private float cameraVerticalAngel;
 
     [SerializeField, Range(1, 4)] private int playerID;
+    public int PlayerID
+    {
+        get
+        {
+            return playerID;
+        }
+    }
+
     private string mynameForInputmanager;
     private CharacterController characon;
     private Animator animcon;
@@ -23,18 +31,23 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     const float halfNumber = 0.5f;
     private Vector3 playerMoveDirection = Vector3.zero;
 
-    private const int maxHealth = 10;
-    [SerializeField] int playerHealth = maxHealth;
+    public int maxHealth
+    {
+        get
+        {
+            return 5;
+        }
+    }
+    public int playerHealth { get; set; }
     [SerializeField] float playerSpeedValue = 5.0f;
     [SerializeField] float playerLookSpeed = 400f;
     [SerializeField] float cameraAngleSpeed = 400f;
     [SerializeField] float gravityStrength = 20f;
-    [SerializeField] float abilityOfItemGetValue = 1.5f;
     [SerializeField] float playerJumpValue;
 
-    [SerializeField] int cureItemNumber = 1;
-    [SerializeField] int bulletNumber = 15;
-    [SerializeField] int bombNumber = 3;
+    public int cureItemNumber { get; set; }
+    public int bulletNumber { get; set; }
+    public int bombNumber { get; set; }
     [SerializeField] float healthCureInterval;
     private bool healthCurePossible = true;
     private int healthCureValue = 2;//回復量
@@ -45,11 +58,21 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     [SerializeField] float bombShotInterval;
     private bool bombShotPossible = true;
 
+    public PlayerUI PlayerUI { get; set; }
+
+    private void PlayerInfoInit()
+    {
+        playerHealth = maxHealth;
+        cureItemNumber = 1;
+        bulletNumber = 30;
+        bombNumber = 1;
+    }
     private void Awake()
     {
         characon = GetComponent<CharacterController>();
         animcon = GetComponent<Animator>();
         MynameUpdate();
+        PlayerInfoInit();
     }
 
     // Use this for initialization
@@ -96,6 +119,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         {
             myGun.SendMessage("BulletShot");
             bulletNumber--;
+            PlayerUI.UpdateBulletNumber();
             bulletShotPossible = false;
             StartCoroutine(WaitBulletShotInterval());
         }
@@ -104,6 +128,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         {
             myGun.SendMessage("BombShot");
             bombNumber--;
+            PlayerUI.UpdateBombNumber();
             bombShotPossible = false;
             StartCoroutine(WaitBombShotInterval());
         }
@@ -111,6 +136,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         if ((Input.GetButtonDown(mynameForInputmanager + "Function2") || Input.GetKeyDown(KeyCode.H)) && healthCurePossible == true && cureItemNumber > 0)
         {
             cureItemNumber--;
+            PlayerUI.UpdateCureItemNumber();
             HealthCure(healthCureValue);
             healthCurePossible = false;
             StartCoroutine(WaitCureHealthInterval());
@@ -165,32 +191,36 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     public void PickUpBullet(int bulletValue)
     {
         bulletNumber += bulletValue;
+        PlayerUI.UpdateBulletNumber();
     }
 
     public void PickUpBomb(int bombValue)
     {
         bombNumber += bombValue;
+        PlayerUI.UpdateBombNumber();
     }
 
     public void PickUpCureItem(int cureItemValue)
     {
         cureItemNumber += cureItemValue;
+        PlayerUI.UpdateCureItemNumber();
     }
 
-    public void Damage(int damageValue,int shotPlayerNumber)
+    public void Damage(int damageValue, int shotPlayerNumber)
     {
-        Debug.Log(shotPlayerNumber);
         playerHealth -= damageValue;
-        if(playerHealth <= 0)
+        if (playerHealth <= 0)
         {
             Death(shotPlayerNumber);
-        } 
+        }
     }
 
     private void Death(int killerNumber)
     {
+        //playerIndexであることに注意
         PlayerDataDirector.Instance.PlayerKills[killerNumber - 1] += 1;
-        GameDirector.Instance.GeneratePlayer(playerID);
+        GameDirector.Instance.UpdateKillPlayerUI(killerNumber - 1);
+        GameDirector.Instance.GeneratePlayer(playerID - 1);
         Destroy(gameObject);
     }
 
@@ -204,5 +234,4 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     {
         mynameForInputmanager = "Gamepad" + playerID + "_";
     }
-
 }

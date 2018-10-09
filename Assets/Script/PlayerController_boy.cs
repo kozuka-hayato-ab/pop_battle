@@ -12,6 +12,7 @@ public class PlayerController_boy : MonoBehaviour {
     private bool SwitchTPS;
     private Vector3 TPS_pos;//TPS視点の切り替え
     private Vector3 FPS_pos;
+    private bool nowFPS;
     private float rate_switch = 0f;
     [SerializeField] float switch_speed;//[0, 1]の小数
 
@@ -21,10 +22,10 @@ public class PlayerController_boy : MonoBehaviour {
     //private Animator animcon;
     private Vector3 playerMoveDirection = Vector3.zero;
 
-    /*
+
     private const int maxHealth = 10;
     [SerializeField] int playerHealth = maxHealth;
-    */
+
 
     [SerializeField] float playerSpeedValue = 5.0f;
     [SerializeField] float playerLookSpeed = 400f;
@@ -33,33 +34,35 @@ public class PlayerController_boy : MonoBehaviour {
     [SerializeField] float abilityOfItemGetValue = 1.5f;
     [SerializeField] float playerJumpValue;
 
-    /*
+
     [SerializeField] int cureItemNumber = 1;
     [SerializeField] int bulletNumber = 15;
     [SerializeField] int bombNumber = 3;
     [SerializeField] float healthCureInterval;
     private bool healthCurePossible = true;
     private int healthCureValue = 2;//回復量
-    */
 
-    /*
+
+
     [SerializeField] GameObject myGun;
     [SerializeField] float bulletShotInterval;
     private bool bulletShotPossible = true;
     [SerializeField] float bombShotInterval;
     private bool bombShotPossible = true;
-    */
+
+    private GameObject WarpA;
+    private GameObject WarpB;
 
     private void Awake()
     {
+        WarpB = GameObject.Find("Stage/warpB");
+        nowFPS = false;
         characon = GetComponent<CharacterController>();
         //animcon = GetComponent<Animator>();
         mynameForInputmanager = "Gamepad" + playerID + "_";
         TPS_pos = camera.transform.localPosition;//元のカメラの相対座標
         FPS_pos = new Vector3(0, 0.2f, -0.25f);//Player変えたら調節
         SwitchTPS = false;
-        Debug.Log(FPS_pos);
-        Debug.Log(TPS_pos);
     }
 
 
@@ -112,7 +115,7 @@ public class PlayerController_boy : MonoBehaviour {
             playerMoveDirection.y -= gravityStrength * Time.deltaTime;
         }
 
-        /*
+
         if ((Input.GetButton(mynameForInputmanager + "Shot2") || Input.GetKey(KeyCode.KeypadEnter)) && bulletShotPossible == true && bulletNumber > 0)
         {
             myGun.SendMessage("BulletShot");
@@ -136,7 +139,6 @@ public class PlayerController_boy : MonoBehaviour {
             healthCurePossible = false;
             StartCoroutine(WaitCureHealthInterval());
         }
-        */
 
     }
 
@@ -160,7 +162,7 @@ public class PlayerController_boy : MonoBehaviour {
         }
 
     }
-    /*
+
     IEnumerator WaitBulletShotInterval()
     {
         yield return new WaitForSeconds(bulletShotInterval);
@@ -207,10 +209,18 @@ public class PlayerController_boy : MonoBehaviour {
     {
         playerHealth -= damageValue;
     }
-    */
     public void ChangeGameController(int id)
     {
         if (1 <= id && id <= 4) playerID = id;
     }
 
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.tag == "Warp")
+        {
+            Vector3 pos = WarpB.transform.position;
+            pos.y += 0.5f;
+            transform.position = pos;
+        }
+    }
 }

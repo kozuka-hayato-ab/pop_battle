@@ -554,23 +554,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 533212246}
   m_Mesh: {fileID: 4300010, guid: 7a741cf3d8ef07946a696aad38704d9c, type: 3}
---- !u!1 &562489778 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100020, guid: 100b6c5fc8894b64c9c1d46a75d10a85,
-    type: 3}
-  m_PrefabInternal: {fileID: 1430499900}
---- !u!65 &562489782
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 562489778}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.03151324, y: 0.031513236, z: 0}
-  m_Center: {x: 0, y: 1.1400112e-18, z: 0}
 --- !u!1 &615862088
 GameObject:
   m_ObjectHideFlags: 0
@@ -810,7 +793,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400068, guid: 4d58fb8a4f6f67e4c9b9e8013ec37481, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.14
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400068, guid: 4d58fb8a4f6f67e4c9b9e8013ec37481, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1643,6 +1626,70 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 100b6c5fc8894b64c9c1d46a75d10a85, type: 3}
+      propertyPath: m_TagString
+      value: Stage
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 100b6c5fc8894b64c9c1d46a75d10a85, type: 3}
+      propertyPath: m_Name
+      value: Stage
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 100b6c5fc8894b64c9c1d46a75d10a85, type: 3}
+      propertyPath: m_Name
+      value: ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 100b6c5fc8894b64c9c1d46a75d10a85, type: 3}
+      propertyPath: m_Name
+      value: paint
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 100b6c5fc8894b64c9c1d46a75d10a85, type: 3}
+      propertyPath: m_Name
+      value: Object1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: 100b6c5fc8894b64c9c1d46a75d10a85, type: 3}
+      propertyPath: m_Name
+      value: Object2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: 100b6c5fc8894b64c9c1d46a75d10a85, type: 3}
+      propertyPath: m_Name
+      value: Center
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: 100b6c5fc8894b64c9c1d46a75d10a85, type: 3}
+      propertyPath: m_Name
+      value: Object3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: 100b6c5fc8894b64c9c1d46a75d10a85, type: 3}
+      propertyPath: m_Name
+      value: paint2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100016, guid: 100b6c5fc8894b64c9c1d46a75d10a85, type: 3}
+      propertyPath: m_Name
+      value: paint3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100018, guid: 100b6c5fc8894b64c9c1d46a75d10a85, type: 3}
+      propertyPath: m_Name
+      value: warpA
+      objectReference: {fileID: 0}
+    - target: {fileID: 100020, guid: 100b6c5fc8894b64c9c1d46a75d10a85, type: 3}
+      propertyPath: m_Name
+      value: warpB
+      objectReference: {fileID: 0}
+    - target: {fileID: 100022, guid: 100b6c5fc8894b64c9c1d46a75d10a85, type: 3}
+      propertyPath: m_Name
+      value: Object4
+      objectReference: {fileID: 0}
+    - target: {fileID: 100024, guid: 100b6c5fc8894b64c9c1d46a75d10a85, type: 3}
+      propertyPath: m_Name
+      value: Object5
+      objectReference: {fileID: 0}
+    - target: {fileID: 100018, guid: 100b6c5fc8894b64c9c1d46a75d10a85, type: 3}
+      propertyPath: m_TagString
+      value: Warp
+      objectReference: {fileID: 0}
+    - target: {fileID: 100020, guid: 100b6c5fc8894b64c9c1d46a75d10a85, type: 3}
+      propertyPath: m_TagString
+      value: Warp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 100b6c5fc8894b64c9c1d46a75d10a85, type: 3}
   m_IsPrefabAsset: 0
@@ -2178,8 +2225,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.03151324, y: 0.034147505, z: 0}
-  m_Center: {x: 0, y: 0.0025486688, z: 0}
+  m_Size: {x: 0.03, y: 0.03, z: 0}
+  m_Center: {x: 0, y: 0, z: 0.01}
 --- !u!1 &2133458672
 GameObject:
   m_ObjectHideFlags: 0

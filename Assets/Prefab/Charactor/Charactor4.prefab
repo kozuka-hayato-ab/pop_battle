@@ -1564,7 +1564,8 @@ MonoBehaviour:
   CameraPivot: {fileID: 1512127017104646}
   cameraVerticalUnderLimit: -60
   cameraVerticalUpperLimit: 30
-  playerID: 4
+  playerID: 1
+  m_RunCycleLegOffset: 0.2
   playerHealth: 10
   playerSpeedValue: 5
   playerLookSpeed: 400
@@ -1572,6 +1573,13 @@ MonoBehaviour:
   gravityStrength: 10
   abilityOfItemGetValue: 1.5
   playerJumpValue: 4
+  cureItemNumber: 1
+  bulletNumber: 15
+  bombNumber: 3
+  healthCureInterval: 0
+  myGun: {fileID: 0}
+  bulletShotInterval: 0
+  bombShotInterval: 0
 --- !u!124 &124199210209372334
 Behaviour:
   m_ObjectHideFlags: 1

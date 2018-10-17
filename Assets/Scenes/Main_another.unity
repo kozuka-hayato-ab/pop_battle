@@ -613,8 +613,8 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 0.5
-    height: 1
+    width: 1
+    height: 0.5
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 50
@@ -685,11 +685,16 @@ Prefab:
     - target: {fileID: 20959001669504536, guid: 7fe03f06e8f9b2c45a1fc8131887610b,
         type: 2}
       propertyPath: m_NormalizedViewPortRect.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 20959001669504536, guid: 7fe03f06e8f9b2c45a1fc8131887610b,
         type: 2}
       propertyPath: m_NormalizedViewPortRect.width
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 20959001669504536, guid: 7fe03f06e8f9b2c45a1fc8131887610b,
+        type: 2}
+      propertyPath: m_NormalizedViewPortRect.y
       value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents:

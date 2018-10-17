@@ -1,6 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+
+public interface PlayerControllerRecieveInterface_boy : IEventSystemHandler
+{
+    void Damage(int damageValue, int playerNumber);
+}
 
 public class PlayerController_boy : MonoBehaviour {
     
@@ -17,16 +23,30 @@ public class PlayerController_boy : MonoBehaviour {
     [SerializeField] float switch_speed;//[0, 1]の小数
 
     [SerializeField, Range(1, 4)] private int playerID;
+    public int PlayerID
+    {
+        get
+        {
+            return playerID;
+        }
+    }
+
     private string mynameForInputmanager;
     private CharacterController characon;
-    //private Animator animcon;
+    private Animator animcon;
+    [SerializeField] float m_RunCycleLegOffset = 0.2f; //specific to the character in sample assets, will need to be modified to work with others
+    const float halfNumber = 0.5f;
     private Vector3 playerMoveDirection = Vector3.zero;
 
 
-    private const int maxHealth = 10;
-    [SerializeField] int playerHealth = maxHealth;
-
-
+    public int maxHealth
+    {
+        get
+        {
+            return 5;
+        }
+    }
+    public int playerHealth { get; set; }
     [SerializeField] float playerSpeedValue = 5.0f;
     [SerializeField] float playerLookSpeed = 400f;
     [SerializeField] float cameraAngleSpeed = 400f;
@@ -34,10 +54,9 @@ public class PlayerController_boy : MonoBehaviour {
     [SerializeField] float abilityOfItemGetValue = 1.5f;
     [SerializeField] float playerJumpValue;
 
-
-    [SerializeField] int cureItemNumber = 1;
-    [SerializeField] int bulletNumber = 15;
-    [SerializeField] int bombNumber = 3;
+    public int cureItemNumber { get; set; }
+    public int bulletNumber { get; set; }
+    public int bombNumber { get; set; }
     [SerializeField] float healthCureInterval;
     private bool healthCurePossible = true;
     private int healthCureValue = 2;//回復量
@@ -50,16 +69,28 @@ public class PlayerController_boy : MonoBehaviour {
     [SerializeField] float bombShotInterval;
     private bool bombShotPossible = true;
 
+    public PlayerUI PlayerUI { get; set; }
+
     private GameObject WarpA;
     private GameObject WarpB;
+
+    private void PlayerInfoInit()
+    {
+        playerHealth = maxHealth;
+        cureItemNumber = 1;
+        bulletNumber = 30;
+        bombNumber = 1;
+    }
 
     private void Awake()
     {
         WarpB = GameObject.Find("Stage/warpB");
         nowFPS = false;
         characon = GetComponent<CharacterController>();
-        //animcon = GetComponent<Animator>();
-        mynameForInputmanager = "Gamepad" + playerID + "_";
+        animcon = GetComponent<Animator>();
+        MynameUpdate();
+        PlayerInfoInit();
+
         TPS_pos = camera.transform.localPosition;//元のカメラの相対座標
         FPS_pos = new Vector3(0, 0.2f, -0.25f);//Player変えたら調節
         SwitchTPS = false;
@@ -120,6 +151,7 @@ public class PlayerController_boy : MonoBehaviour {
         {
             myGun.SendMessage("BulletShot");
             bulletNumber--;
+            PlayerUI.UpdateBulletNumber();
             bulletShotPossible = false;
             StartCoroutine(WaitBulletShotInterval());
         }
@@ -128,6 +160,7 @@ public class PlayerController_boy : MonoBehaviour {
         {
             myGun.SendMessage("BombShot");
             bombNumber--;
+            PlayerUI.UpdateBombNumber();
             bombShotPossible = false;
             StartCoroutine(WaitBombShotInterval());
         }
@@ -135,11 +168,27 @@ public class PlayerController_boy : MonoBehaviour {
         if ((Input.GetButtonDown(mynameForInputmanager + "Function2") || Input.GetKeyDown(KeyCode.H)) && healthCurePossible == true && cureItemNumber > 0)
         {
             cureItemNumber--;
+            PlayerUI.UpdateCureItemNumber();
             HealthCure(healthCureValue);
             healthCurePossible = false;
             StartCoroutine(WaitCureHealthInterval());
         }
 
+        if (!characon.isGrounded)
+        {
+            animcon.SetBool("OnGround", false);
+            animcon.SetFloat("Jump", playerMoveDirection.y);
+        }
+        else
+        {
+            animcon.SetBool("OnGround", true);
+            float runCycle = Mathf.Repeat(
+                animcon.GetCurrentAnimatorStateInfo(0).normalizedTime + m_RunCycleLegOffset, 1);
+            float jumpLeg = (runCycle < halfNumber ? 1 : -1) * forward;
+            animcon.SetFloat("JumpLeg", jumpLeg);
+        }
+        animcon.SetFloat("Forward", forward);
+        animcon.SetFloat("Right", right);
     }
 
     //sec per Frameが固定
@@ -193,29 +242,50 @@ public class PlayerController_boy : MonoBehaviour {
     public void PickUpBullet(int bulletValue)
     {
         bulletNumber += bulletValue;
+        PlayerUI.UpdateBulletNumber();
     }
 
     public void PickUpBomb(int bombValue)
     {
         bombNumber += bombValue;
+        PlayerUI.UpdateBombNumber();
     }
 
     public void PickUpCureItem(int cureItemValue)
     {
         cureItemNumber += cureItemValue;
+        PlayerUI.UpdateCureItemNumber();
     }
 
     public void Damage(int damageValue)
     {
         playerHealth -= damageValue;
     }
+
+    private void Death(int killerNumber)
+    {
+        //playerIndexであることに注意
+        PlayerDataDirector.Instance.PlayerKills[killerNumber - 1] += 1;
+        GameDirector.Instance.UpdateKillPlayerUI(killerNumber - 1);
+        GameDirector.Instance.GeneratePlayer(playerID - 1);
+        Destroy(gameObject);
+    }
+
     public void ChangeGameController(int id)
     {
         if (1 <= id && id <= 4) playerID = id;
+        MynameUpdate();
     }
 
+    public void MynameUpdate()
+    {
+        mynameForInputmanager = "Gamepad" + playerID + "_";
+    }
+
+    //当たり判定
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
+        //ワープゾーンとの当たり判定
         if (hit.gameObject.tag == "Warp")
         {
             Vector3 pos = WarpB.transform.position;

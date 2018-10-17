@@ -12,6 +12,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] Text BombNumber;
     [SerializeField] Text CureItemNumber;
     [SerializeField] Text KillNumber;
+    [SerializeField] Text DeathNumber;
 
     // Use this for initialization
     void Start()
@@ -33,6 +34,8 @@ public class PlayerUI : MonoBehaviour
         UpdateBulletNumber();
         UpdateBombNumber();
         UpdateCureItemNumber();
+        UpdateKillNumber();
+        UpdateDeathNumber();
     }
 
     public void UpdateLife()
@@ -70,5 +73,10 @@ public class PlayerUI : MonoBehaviour
     public void UpdateKillNumber()
     {
         KillNumber.text = PlayerDataDirector.Instance.PlayerKills[MyPlayer.PlayerID - 1] + " Kill";
+    }
+
+    public void UpdateDeathNumber()
+    {
+        DeathNumber.text = PlayerDataDirector.Instance.PlayerDeaths[MyPlayer.PlayerID - 1] + " Death";
     }
 }   

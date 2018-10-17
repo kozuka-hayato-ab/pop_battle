@@ -209,6 +209,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     public void Damage(int damageValue, int shotPlayerNumber)
     {
         playerHealth -= damageValue;
+        PlayerUI.UpdateLife();
         if (playerHealth <= 0)
         {
             Death(shotPlayerNumber);
@@ -220,6 +221,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         //playerIndexであることに注意
         PlayerDataDirector.Instance.PlayerKills[killerNumber - 1] += 1;
         GameDirector.Instance.UpdateKillPlayerUI(killerNumber - 1);
+        PlayerDataDirector.Instance.PlayerDeaths[PlayerID - 1] += 1;
         GameDirector.Instance.GeneratePlayer(playerID - 1);
         Destroy(gameObject);
     }

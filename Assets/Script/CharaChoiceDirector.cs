@@ -74,7 +74,7 @@ public class CharaChoiceDirector : MonoBehaviour
 
     public void BackToTitle()
     {
-        PlayerDataDirector.Instance.PlayerTypeInit();
+        PlayerDataDirector.Instance.DestroySingleton();
         SceneManager.LoadScene("Title");
     }
 

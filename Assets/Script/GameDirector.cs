@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameDirector : Singleton<GameDirector>
 {
@@ -15,6 +16,8 @@ public class GameDirector : Singleton<GameDirector>
         }
     }
 
+
+
     // Use this for initialization
     void Start()
     {
@@ -26,6 +29,11 @@ public class GameDirector : Singleton<GameDirector>
     void Update()
     {
 
+    }
+
+    private void GameFinish()
+    {
+        SceneManager.LoadScene("Result");
     }
 
     private void GenerateAllPlayer()

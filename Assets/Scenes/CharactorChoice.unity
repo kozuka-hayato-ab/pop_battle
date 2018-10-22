@@ -170,7 +170,7 @@ Prefab:
     - target: {fileID: 114073598805603178, guid: 3dfff0eccac941f46ae17ede6f04c72f,
         type: 2}
       propertyPath: killAndDeath.Array.data[3]
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114073598805603178, guid: 3dfff0eccac941f46ae17ede6f04c72f,
         type: 2}
@@ -185,12 +185,12 @@ Prefab:
     - target: {fileID: 114073598805603178, guid: 3dfff0eccac941f46ae17ede6f04c72f,
         type: 2}
       propertyPath: killAndDeath.Array.data[6]
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114073598805603178, guid: 3dfff0eccac941f46ae17ede6f04c72f,
         type: 2}
       propertyPath: killAndDeath.Array.data[7]
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3dfff0eccac941f46ae17ede6f04c72f, type: 2}

@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombItem : MonoBehaviour {
+public class BombItem : Item{
     [SerializeField] private int bombNumber = 1;
 	// Use this for initialization
 	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
 		
 	}
 
@@ -21,5 +16,15 @@ public class BombItem : MonoBehaviour {
             other.transform.root.gameObject.SendMessage("PickUpBomb", bombNumber);
             Destroy(gameObject);
         }
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
     }
 }

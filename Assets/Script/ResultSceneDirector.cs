@@ -17,7 +17,7 @@ public class ResultSceneDirector : MonoBehaviour {
                 playerRankText[i].text = playerRank + "位";
                 if(playerRank == 1)
                 {
-                    topPlayer.text = (i + 1) + " Player";
+                    topPlayer.text += ((i + 1) + "Player ");
                 }
             }
             else

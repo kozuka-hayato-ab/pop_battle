@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameDirector : Singleton<GameDirector>
@@ -16,24 +17,87 @@ public class GameDirector : Singleton<GameDirector>
         }
     }
 
+    private float totalTime;
+    [SerializeField] private int limitTimeMinutes = 3;
+    [SerializeField] private float limitTimeSeconds = 0;
+    private float preSeconds;
+    [SerializeField] private float startTime = 3;
+    private bool isGameStart;
 
+    [SerializeField] Image GamePanel;
+    [SerializeField] Text GameTimer;
+    [SerializeField] Text CenterTimer;
 
     // Use this for initialization
     void Start()
     {
         player = new PlayerController[PlayerDataDirector.Instance.MaxPlayerNumber];
         GenerateAllPlayer();
+
+        preSeconds = 0f;
+        GamePanel.gameObject.SetActive(true);
+        CenterTimer.gameObject.SetActive(true);
+        isGameStart = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isGameStart == true)
+        {
+            if (totalTime <= 0f) return;
+            totalTime = limitTimeMinutes * 60 + limitTimeSeconds;
+            totalTime -= Time.deltaTime;
 
+            limitTimeMinutes = (int)totalTime / 60;
+            limitTimeSeconds = totalTime - limitTimeMinutes * 60;
+
+            if ((int)limitTimeSeconds != (int)preSeconds)
+            {
+                GameTimer.text = limitTimeMinutes.ToString("00") + " : " +
+                    ((int)limitTimeSeconds).ToString("00");
+            }
+
+            preSeconds = limitTimeSeconds;
+
+            if (totalTime <= 0f)
+            {
+                GameFinish();
+            }
+        }
+        else
+        {
+            if (startTime <= 0f) return;
+
+            startTime -= Time.deltaTime;
+
+            if ((int)startTime != (int)preSeconds)
+            {
+                CenterTimer.text = ((int)startTime).ToString();
+            }
+
+            preSeconds = startTime;
+
+            if (startTime <= 0f)
+            {
+                GameStart();
+            }
+        }
+    }
+
+    private void GameStart()
+    {
+        totalTime = limitTimeMinutes * 60 + limitTimeSeconds;
+        preSeconds = 0f;
+        GamePanel.gameObject.SetActive(false);
+        CenterTimer.gameObject.SetActive(false);
+        isGameStart = true;
     }
 
     private void GameFinish()
     {
         SceneManager.LoadScene("Result");
+        DestroySingleton();
     }
 
     private void GenerateAllPlayer()

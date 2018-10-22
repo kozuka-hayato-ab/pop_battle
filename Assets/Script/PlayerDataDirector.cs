@@ -81,7 +81,14 @@ public class PlayerDataDirector : Singleton<PlayerDataDirector> {
         int[] rank = new int[MaxPlayerNumber];
         for(int i = 0;i < MaxPlayerNumber; i++)
         {
-            playerScore[i] = PlayerKills[i] - PlayerDeaths[i];
+            if(PlayerTypes[i] != PlayerType.None)
+            {
+                playerScore[i] = PlayerKills[i] - PlayerDeaths[i];
+            }
+            else
+            {
+                playerScore[i] = -1000;
+            }
             rank[i] = i;
         }
         for(int i = rank.Length - 1;i > 0; i--)
@@ -96,24 +103,40 @@ public class PlayerDataDirector : Singleton<PlayerDataDirector> {
                 }
             }
         }
-        int tmpRank = 1;
-        for(int i = 0;i < rank.Length; i++)
-        {
-            if(PlayerTypes[rank[i]] != PlayerType.None)
+        //for debug
+        /*
+        for (int i = 0; i < rank.Length; i++)
             {
-                PlayerRank[rank[i]] = tmpRank;
-                tmpRank++;
+                Debug.Log("rank[i] = " + rank[i]);
+            }
+            */
+        for (int i = 0;i < rank.Length; i++)
+        {
+            if (PlayerTypes[rank[i]] != PlayerType.None)
+            {
+                PlayerRank[rank[i]] = i + 1;
+                if (i != 0)
+                {
+                    if (playerScore[rank[i]] == playerScore[rank[i - 1]])
+                    {
+                        PlayerRank[rank[i]] = PlayerRank[rank[i - 1]];
+                    }
+                }
+            }
+            else
+            {
+                PlayerRank[rank[i]] = -1;
             }
         }
     }
-    
+
     //PlayerRankDecidedのデバッグ用
     /*
     [SerializeField] int[] killAndDeath = new int[8];
 
     public void inputKillDeath()
     {
-        for(int i = 0;i < MaxPlayerNumber; i++)
+        for (int i = 0; i < MaxPlayerNumber; i++)
         {
             PlayerKills[i] = killAndDeath[i * 2];
             PlayerDeaths[i] = killAndDeath[i * 2 + 1];
@@ -122,13 +145,21 @@ public class PlayerDataDirector : Singleton<PlayerDataDirector> {
 
     public void OutputPlayerRank()
     {
-        for(int i = 0;i < PlayerRank.Length; i++)
+        for (int i = 0; i < PlayerRank.Length; i++)
         {
             Debug.Log((i + 1) + "PlayerRank is " + PlayerRank[i] +
                 "\nPlayerkill" + PlayerKills[i] +
                 "\nPlayerDeath" + PlayerDeaths[i]
+                + "\n PlayerType is" + PlayerTypes[i]
                 );
         }
+    }
+
+    public void all()
+    {
+        inputKillDeath();
+        PlayerRankDecided();
+        OutputPlayerRank();
     }
     */
     //until this
@@ -148,13 +179,5 @@ public class PlayerDataDirector : Singleton<PlayerDataDirector> {
 	
 	// Update is called once per frame
 	void Update () {
-        /*
-        for (int i = 0; i < PlayerTypes.Length; i++)
-        {
-            Debug.Log("player" + (i + 1) + PlayerKills[i]);
-        }
-        */
     }
-
-
 }

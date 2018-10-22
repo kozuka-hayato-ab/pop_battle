@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     {
         get
         {
-            return 5;
+            return 7;
         }
     }
     public int playerHealth { get; set; }
@@ -45,12 +45,8 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     [SerializeField] float gravityStrength = 20f;
     [SerializeField] float playerJumpValue;
 
-    public int cureItemNumber { get; set; }
     public int bulletNumber { get; set; }
     public int bombNumber { get; set; }
-    [SerializeField] float healthCureInterval;
-    private bool healthCurePossible = true;
-    private int healthCureValue = 2;//回復量
 
     [SerializeField] GameObject myGun;
     [SerializeField] float bulletShotInterval;
@@ -62,8 +58,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
 
     private void PlayerInfoInit()
     {
-        playerHealth = maxHealth;
-        cureItemNumber = 1;
+        playerHealth = 5;
         bulletNumber = 30;
         bombNumber = 1;
     }
@@ -133,15 +128,6 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
             StartCoroutine(WaitBombShotInterval());
         }
 
-        if ((Input.GetButtonDown(mynameForInputmanager + "Function2") || Input.GetKeyDown(KeyCode.H)) && healthCurePossible == true && cureItemNumber > 0)
-        {
-            cureItemNumber--;
-            PlayerUI.UpdateCureItemNumber();
-            HealthCure(healthCureValue);
-            healthCurePossible = false;
-            StartCoroutine(WaitCureHealthInterval());
-        }
-
         characon.Move(playerMoveDirection * Time.deltaTime);
 
         if (!characon.isGrounded)
@@ -173,19 +159,13 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         bombShotPossible = true;
     }
 
-    IEnumerator WaitCureHealthInterval()
+    public void HealthCure()
     {
-        yield return new WaitForSeconds(healthCureInterval);
-        healthCurePossible = true;
-    }
-
-    public void HealthCure(int healthCureValue)
-    {
-        if (playerHealth > 0 || playerHealth < 10)
+        if (playerHealth > 0 || playerHealth < maxHealth)
         {
-            playerHealth += healthCureValue;
-            if (playerHealth > 10) playerHealth = 10;
+            playerHealth = maxHealth;
         }
+        PlayerUI.UpdateLife();
     }
 
     public void PickUpBullet(int bulletValue)
@@ -198,12 +178,6 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     {
         bombNumber += bombValue;
         PlayerUI.UpdateBombNumber();
-    }
-
-    public void PickUpCureItem(int cureItemValue)
-    {
-        cureItemNumber += cureItemValue;
-        PlayerUI.UpdateCureItemNumber();
     }
 
     public void Damage(int damageValue, int shotPlayerNumber)

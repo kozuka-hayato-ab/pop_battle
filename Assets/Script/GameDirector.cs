@@ -130,7 +130,7 @@ public class GameDirector : Singleton<GameDirector>
         switch (playerIndex + 1)
         {
             case 1:
-                if (participantsNumber == 2 || participantsNumber == 3)
+                if (participantsNumber == 2)
                 {
                     camera.rect = new Rect(0f, 0.5f, 1f, 0.5f);
                 }
@@ -144,24 +144,13 @@ public class GameDirector : Singleton<GameDirector>
                 {
                     camera.rect = new Rect(0f, 0f, 1f, 0.5f);
                 }
-                else if (participantsNumber == 3)
-                {
-                    camera.rect = new Rect(0f, 0f, 0.5f, 0.5f);
-                }
                 else
                 {
                     camera.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
                 }
                 break;
             case 3:
-                if (participantsNumber == 3)
-                {
-                    camera.rect = new Rect(0.5f, 0f, 0.5f, 0.5f);
-                }
-                else
-                {
-                    camera.rect = new Rect(0f, 0f, 0.5f, 0.5f);
-                }
+                camera.rect = new Rect(0f, 0f, 0.5f, 0.5f);
                 break;
             case 4:
                 camera.rect = new Rect(0.5f, 0f, 0.5f, 0.5f);

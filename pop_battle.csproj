@@ -370,6 +370,7 @@
     <Compile Include="Assets\Script\PlayerUI.cs" />
     <Compile Include="Assets\Script\ResultSceneDirector.cs" />
     <Compile Include="Assets\Script\Singleton.cs" />
+    <Compile Include="Assets\Script\TitleSceneDirector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ImportAsset\Character Animation Pack\Elements\ImageEffects\Shaders\BlendModesOverlay.shader" />

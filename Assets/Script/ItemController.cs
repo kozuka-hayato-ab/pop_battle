@@ -5,16 +5,22 @@ using UnityEngine;
 public class ItemController : MonoBehaviour
 {
     private const int Max = 100;
+
     [SerializeField] private Vector3 stageCenterPoint;
+    [SerializeField] private Vector3[] itemPopSpecificPlaces;
+
     [SerializeField] private float[] upperPartRadius;// [0] -> start [1] -> end
     [SerializeField] private float[] underPartRadius;// this is same system ↑
-    [SerializeField] private int upperPopPercent = 70; // percent of Pop Item Under or Upper 
+    [SerializeField] private int upperPopPercent; // percent of Pop Item Under or Upper 
+
     private Dictionary<GameObject, int> ItemDict;
     [SerializeField] private GameObject[] Items;
     [SerializeField] private int[] ItemProbability;
+
     [SerializeField] int startItemPopValue;
     [SerializeField] private int repopIntervalSeconds;
     [SerializeField] private int repopItemValue;
+
     private float timer;
 
     private void Awake()
@@ -36,7 +42,7 @@ public class ItemController : MonoBehaviour
     void Update()
     {
         Mathf.Clamp(timer -= Time.deltaTime, 0, repopIntervalSeconds);
-        if(timer == 0)
+        if(timer <= 0)
         {
             RepopItem();
             timer = repopIntervalSeconds;
@@ -78,7 +84,12 @@ public class ItemController : MonoBehaviour
         float y = Mathf.Sin(radian);
         Vector3 direction = new Vector3(x, 0f, y);
         Vector3 generatePos = stageCenterPoint + direction * radius;
-        Instantiate(item, generatePos, Quaternion.identity);
+        Instantiate(item, generatePos, Quaternion.Euler(new Vector3(-90,0,0)));
+    }
+
+    private void GenerateItem(Vector3 generatePos,GameObject item)
+    {
+        Instantiate(item, generatePos, Quaternion.Euler(new Vector3(-90, 0, 0)));
     }
 
     private bool boolFromPercent(int percent)
@@ -100,6 +111,15 @@ public class ItemController : MonoBehaviour
         GenerateItem(radius, randomRadian(), DecideItem());
     }
 
+    private void PopItemOnSpecificPlace()
+    {
+        int length = itemPopSpecificPlaces.Length;
+        for(int i = 0; i < length; i++)
+        {
+            GenerateItem(itemPopSpecificPlaces[i], Items[2]);
+        }
+    }
+
     private void GameStartItemPop()
     {
         for(int i = 0;i < startItemPopValue; i++)
@@ -114,5 +134,6 @@ public class ItemController : MonoBehaviour
         {
             PopItem();
         }
+        PopItemOnSpecificPlace();
     }
 }

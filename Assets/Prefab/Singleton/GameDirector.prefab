@@ -66,9 +66,9 @@ MonoBehaviour:
   - {x: -3, y: 6.5, z: 3}
   charactors:
   - {fileID: 1544751568024302, guid: 7fe03f06e8f9b2c45a1fc8131887610b, type: 2}
-  - {fileID: 1329205072715044, guid: 07568c5d435c7ee4d96ed43542c6853f, type: 2}
-  - {fileID: 1912520587025972, guid: bc7a621804b3b9e48aff620d0da7c79a, type: 2}
-  - {fileID: 1767190090863872, guid: 282520ac503f4d7479bb1a54cc77a0fa, type: 2}
+  - {fileID: 1544751568024302, guid: 7fe03f06e8f9b2c45a1fc8131887610b, type: 2}
+  - {fileID: 1544751568024302, guid: 7fe03f06e8f9b2c45a1fc8131887610b, type: 2}
+  - {fileID: 1544751568024302, guid: 7fe03f06e8f9b2c45a1fc8131887610b, type: 2}
   limitTimeMinutes: 3
   limitTimeSeconds: 0
   startTime: 3

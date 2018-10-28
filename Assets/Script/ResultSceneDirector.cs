@@ -3,35 +3,132 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ResultSceneDirector : MonoBehaviour {
+public class ResultSceneDirector : MonoBehaviour
+{
     [SerializeField] Text[] playerRankText;
+    [SerializeField] Image[] playerImages;
+    [SerializeField] Sprite[] charactors;
     [SerializeField] Text topPlayer;
-    private void RankTextInit()
+
+    [SerializeField] float[] waitTimeAtRankAnnounce;
+    [SerializeField] GameObject[] RankHideParticles;
+    private int[,] RankToPlayerIndexArray;
+
+    private void RankInit()
     {
 
-        for(int i = 0;i < playerRankText.Length; i++)
+        for (int i = 0; i < playerRankText.Length; i++)
         {
             if (PlayerDataDirector.Instance.PlayerTypes[i] != PlayerType.None)
             {
                 int playerRank = PlayerDataDirector.Instance.PlayerRank[i];
                 playerRankText[i].text = playerRank + "位";
-                if(playerRank == 1)
+                if (playerRank == 1)
                 {
                     topPlayer.text += ((i + 1) + "Player ");
                 }
             }
             else
+            {
                 playerRankText[i].text = "None";
+                RankHideParticles[i].SetActive(false);
+            }
         }
     }
-	// Use this for initialization
-	void Start () {
+    private void PlayerImageInit()
+    {
+        for (int i = 0; i < playerImages.Length; i++)
+        {
+            playerImages[i].sprite = charactors[(int)PlayerDataDirector.Instance.PlayerTypes[i]];
+        }
+    }
+
+    private int[,] playerRankToPlayerIndex()
+    {
+        int participants = PlayerDataDirector.Instance.participantsNumber();
+        int[,] array = new int[participants, participants];
+        for (int i = 0; i < participants; i++)
+        {
+            for (int k = 0; k < participants; k++)
+            {
+                array[i, k] = -1;
+            }
+        }
+        int maxPlayer = PlayerDataDirector.Instance.MaxPlayerNumber;
+        for (int i = 0; i < maxPlayer; i++)
+        {
+            if (PlayerDataDirector.Instance.PlayerTypes[i] != PlayerType.None)
+            {
+                for (int k = 0; k < participants; k++)
+                {
+                    if (array[PlayerDataDirector.Instance.PlayerRank[i] - 1, k] == -1)
+                    {
+                        array[PlayerDataDirector.Instance.PlayerRank[i] - 1, k] = i;
+                        break;
+                    }
+                }
+            }
+        }
+        return array;
+    }
+
+    // Use this for initialization
+    void Start()
+    {
         PlayerDataDirector.Instance.PlayerRankDecided();
-        RankTextInit();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        RankToPlayerIndexArray = playerRankToPlayerIndex();
+        PlayerImageInit();
+        StartCoroutine(RankAnnounce());
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    IEnumerator RankAnnounce()
+    {
+        yield return new WaitForSecondsRealtime(3f);
+        RankInit();
+        for (int i = RankToPlayerIndexArray.GetLength(0) - 1; i >= 0; i--)
+        {
+            yield return new WaitForSecondsRealtime(waitTimeAtRankAnnounce[i]);
+            for(int k = 0; k < RankToPlayerIndexArray.GetLength(1); k++)
+            {
+                if (RankToPlayerIndexArray[i, k] != -1)
+                    RankHideParticles[RankToPlayerIndexArray[i, k]].SetActive(false);
+            }
+        }
+        yield return new WaitForSecondsRealtime(1f);
+        topPlayer.gameObject.SetActive(true);
+    }
+
+    /* for debug
+    private void tmp()
+    {
+        PlayerDataDirector.Instance.PlayerTypes[0] = PlayerType.None;
+        PlayerDataDirector.Instance.PlayerTypes[1] = PlayerType.Charactor2;
+        PlayerDataDirector.Instance.PlayerTypes[2] = PlayerType.None;
+        PlayerDataDirector.Instance.PlayerTypes[3] = PlayerType.Charactor4;
+
+        PlayerDataDirector.Instance.PlayerRank[0] = -1;
+        PlayerDataDirector.Instance.PlayerRank[1] = 1;
+        PlayerDataDirector.Instance.PlayerRank[2] = -1;
+        PlayerDataDirector.Instance.PlayerRank[3] = 1;
+    }*/
+    /* for debug
+    void debuglogArray()
+    {
+        string debug = "";
+        for (int i = 0; i < RankToPlayerIndexArray.GetLength(0); i++)
+        {
+            for (int k = 0; k < RankToPlayerIndexArray.GetLength(1); k++)
+            {
+                debug += RankToPlayerIndexArray[i, k] + " ";
+            }
+            debug += "\n";
+        }
+        Debug.Log(debug);
+    }*/
 }

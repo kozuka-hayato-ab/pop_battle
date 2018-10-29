@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletItem : MonoBehaviour {
+public class BulletItem : Item {
     [SerializeField] private int bulletNumber;
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+    // Use this for initialization
+    void Start () {
+		
+	}
+    // Update is called once per frame
+    protected override void Update()
+    {
+        base.Update();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")

@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1513568906716352}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.93, y: 6.99, z: 4.73}
+  m_LocalPosition: {x: -0.98, y: 7.83, z: 5.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -98,8 +98,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAnimated: 1
   isRotating: 1
-  isFloating: 1
-  isScaling: 1
+  isFloating: 0
+  isScaling: 0
   rotationAngle: {x: 0, y: 0, z: 10}
   rotationSpeed: 10
   floatSpeed: 0.04
@@ -119,6 +119,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd0c1778e7c5b048aecf96ad8a7807a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  gravityStrength: 4.9
+  rayLength: 1
   bombNumber: 1
 --- !u!136 &136879810368747748
 CapsuleCollider:

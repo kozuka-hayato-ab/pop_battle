@@ -168,7 +168,7 @@ public class PlayerController_boy : MonoBehaviour {
         if ((Input.GetButtonDown(mynameForInputmanager + "Function2") || Input.GetKeyDown(KeyCode.H)) && healthCurePossible == true && cureItemNumber > 0)
         {
             cureItemNumber--;
-            PlayerUI.UpdateCureItemNumber();
+           // PlayerUI.UpdateCureItemNumber();
             HealthCure(healthCureValue);
             healthCurePossible = false;
             StartCoroutine(WaitCureHealthInterval());
@@ -250,12 +250,12 @@ public class PlayerController_boy : MonoBehaviour {
         bombNumber += bombValue;
         PlayerUI.UpdateBombNumber();
     }
-
+    /*
     public void PickUpCureItem(int cureItemValue)
     {
         cureItemNumber += cureItemValue;
         PlayerUI.UpdateCureItemNumber();
-    }
+    }*/
 
     public void Damage(int damageValue)
     {

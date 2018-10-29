@@ -9,6 +9,10 @@ public class CharaChoiceDirector : MonoBehaviour
     [SerializeField] Text playerName;
     private int charaChoiceStep;
     private int nowStep = 1;
+
+    [SerializeField] Image CharactorImage;
+    [SerializeField] Sprite[] charactors;
+
     private void Awake()
     {
 
@@ -18,6 +22,7 @@ public class CharaChoiceDirector : MonoBehaviour
     {
         charaChoiceStep = PlayerDataDirector.Instance.MaxPlayerNumber;
         PlayerNameChange(nowStep);
+        CharactorImage.sprite = charactors[0];
     }
 
     // Update is called once per frame
@@ -45,6 +50,7 @@ public class CharaChoiceDirector : MonoBehaviour
                 PlayerDataDirector.Instance.PlayerTypes[nowStep - 1] = PlayerType.Charactor4;
                 break;
         }
+        CharactorImage.sprite = charactors[charactorNumber];
     }
 
     public void PlayerNameChange(int playerNumber)
@@ -55,11 +61,16 @@ public class CharaChoiceDirector : MonoBehaviour
     public void NextStep()
     {
         nowStep++;
-        if(nowStep == (charaChoiceStep + 1)){
-            if (PlayerDataDirector.Instance.participantsNumber() >= 2) GameStart();
-            else nowStep--;
+        if (nowStep == (charaChoiceStep + 1)) {
+            nowStep--;
+            if (PlayerDataDirector.Instance.participantsNumber() >= 2)
+            {
+                GameStart();
+            }
         }
         PlayerNameChange(nowStep);
+        CharactorImage.sprite =
+            charactors[(int)PlayerDataDirector.Instance.PlayerTypes[nowStep -1]];
     }
 
     public void BackStep()
@@ -70,11 +81,13 @@ public class CharaChoiceDirector : MonoBehaviour
             BackToTitle();
         }
         PlayerNameChange(nowStep);
+        CharactorImage.sprite =
+           charactors[(int)PlayerDataDirector.Instance.PlayerTypes[nowStep - 1]];
     }
 
     public void BackToTitle()
     {
-        PlayerDataDirector.Instance.PlayerTypeInit();
+        PlayerDataDirector.Instance.DestroySingleton();
         SceneManager.LoadScene("Title");
     }
 

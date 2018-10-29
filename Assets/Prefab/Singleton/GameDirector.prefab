@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4872028889462010}
   - component: {fileID: 81292537304360682}
+  - component: {fileID: 114134261973613410}
   m_Layer: 0
   m_Name: GameDirector
   m_TagString: Untagged
@@ -47,3 +48,30 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1920198226412770}
   m_Enabled: 1
+--- !u!114 &114134261973613410
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1920198226412770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b63877cc26b059d4cb4028a0a93b50f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStartPosition:
+  - {x: 3, y: 6.5, z: 3}
+  - {x: -3, y: 6.5, z: -3}
+  - {x: 3, y: 6.5, z: -3}
+  - {x: -3, y: 6.5, z: 3}
+  charactors:
+  - {fileID: 1544751568024302, guid: 7fe03f06e8f9b2c45a1fc8131887610b, type: 2}
+  - {fileID: 1544751568024302, guid: 7fe03f06e8f9b2c45a1fc8131887610b, type: 2}
+  - {fileID: 1544751568024302, guid: 7fe03f06e8f9b2c45a1fc8131887610b, type: 2}
+  - {fileID: 1544751568024302, guid: 7fe03f06e8f9b2c45a1fc8131887610b, type: 2}
+  limitTimeMinutes: 3
+  limitTimeSeconds: 0
+  startTime: 3
+  GamePanel: {fileID: 0}
+  GameTimer: {fileID: 0}
+  CenterTimer: {fileID: 0}

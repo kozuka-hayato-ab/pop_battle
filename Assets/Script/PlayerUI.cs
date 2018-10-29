@@ -10,8 +10,9 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] GameObject[] PlayerLifes;
     [SerializeField] Text BulletNumber;
     [SerializeField] Text BombNumber;
-    [SerializeField] Text CureItemNumber;
     [SerializeField] Text KillNumber;
+    [SerializeField] Text DeathNumber;
+
 
     // Use this for initialization
     void Start()
@@ -32,7 +33,8 @@ public class PlayerUI : MonoBehaviour
         UpdateLife();
         UpdateBulletNumber();
         UpdateBombNumber();
-        UpdateCureItemNumber();
+        UpdateKillNumber();
+        UpdateDeathNumber();
     }
 
     public void UpdateLife()
@@ -62,13 +64,13 @@ public class PlayerUI : MonoBehaviour
         BombNumber.text = MyPlayer.bombNumber.ToString();
     }
 
-    public void UpdateCureItemNumber()
-    {
-        CureItemNumber.text = MyPlayer.cureItemNumber.ToString();
-    }
-
     public void UpdateKillNumber()
     {
         KillNumber.text = PlayerDataDirector.Instance.PlayerKills[MyPlayer.PlayerID - 1] + " Kill";
+    }
+
+    public void UpdateDeathNumber()
+    {
+        DeathNumber.text = PlayerDataDirector.Instance.PlayerDeaths[MyPlayer.PlayerID - 1] + " Death";
     }
 }   

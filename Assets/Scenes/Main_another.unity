@@ -781,7 +781,6 @@ MonoBehaviour:
   playerLookSpeed: 400
   cameraAngleSpeed: 400
   gravityStrength: 20
-  abilityOfItemGetValue: 1.5
   playerJumpValue: 5
   healthCureInterval: 0
   myGun: {fileID: 2133458672}
@@ -1426,6 +1425,31 @@ Prefab:
         type: 2}
       propertyPath: m_NormalizedViewPortRect.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224551393102713682, guid: 7fe03f06e8f9b2c45a1fc8131887610b,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 83.6001
+      objectReference: {fileID: 0}
+    - target: {fileID: 224551393102713682, guid: 7fe03f06e8f9b2c45a1fc8131887610b,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 12.400024
+      objectReference: {fileID: 0}
+    - target: {fileID: 224868238750174656, guid: 7fe03f06e8f9b2c45a1fc8131887610b,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 56.30005
+      objectReference: {fileID: 0}
+    - target: {fileID: 224868238750174656, guid: 7fe03f06e8f9b2c45a1fc8131887610b,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -16.599976
+      objectReference: {fileID: 0}
+    - target: {fileID: 224992784933193434, guid: 7fe03f06e8f9b2c45a1fc8131887610b,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -76.79999
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114768853318564896, guid: 7fe03f06e8f9b2c45a1fc8131887610b, type: 2}
@@ -3381,7 +3405,6 @@ MonoBehaviour:
   cameraAngleSpeed: 400
   gravityStrength: 20
   playerJumpValue: 0
-  healthCureInterval: 0
   myGun: {fileID: 1996506369}
   bulletShotInterval: 0
   bombShotInterval: 0
@@ -3851,6 +3874,12 @@ MonoBehaviour:
   - {fileID: 1329205072715044, guid: 07568c5d435c7ee4d96ed43542c6853f, type: 2}
   - {fileID: 1912520587025972, guid: bc7a621804b3b9e48aff620d0da7c79a, type: 2}
   - {fileID: 1767190090863872, guid: 282520ac503f4d7479bb1a54cc77a0fa, type: 2}
+  limitTimeMinutes: 3
+  limitTimeSeconds: 0
+  startTime: 3
+  GamePanel: {fileID: 0}
+  GameTimer: {fileID: 0}
+  CenterTimer: {fileID: 0}
 --- !u!1 &1800025634
 GameObject:
   m_ObjectHideFlags: 0
@@ -4312,7 +4341,7 @@ MeshCollider:
   m_GameObject: {fileID: 2006192177}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 14
@@ -4543,7 +4572,7 @@ MeshCollider:
   m_GameObject: {fileID: 2102334811}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 14

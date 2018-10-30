@@ -355,6 +355,7 @@
     <Compile Include="Assets\ImportAsset\Ethan Anim\Utility\WaypointCircuit.cs" />
     <Compile Include="Assets\ImportAsset\Ethan Anim\Utility\WaypointProgressTracker.cs" />
     <Compile Include="Assets\ImportAsset\Item asset\Scripts\AnimationScript.cs" />
+    <Compile Include="Assets\Script\AudioManager.cs" />
     <Compile Include="Assets\Script\BombItem.cs" />
     <Compile Include="Assets\Script\BulletGenerater.cs" />
     <Compile Include="Assets\Script\BulletItem.cs" />
@@ -370,6 +371,8 @@
     <Compile Include="Assets\Script\PlayerUI.cs" />
     <Compile Include="Assets\Script\ResultSceneDirector.cs" />
     <Compile Include="Assets\Script\Singleton.cs" />
+    <Compile Include="Assets\Script\StageDirector.cs" />
+    <Compile Include="Assets\Script\StageOutCollider.cs" />
     <Compile Include="Assets\Script\TitleSceneDirector.cs" />
   </ItemGroup>
   <ItemGroup>

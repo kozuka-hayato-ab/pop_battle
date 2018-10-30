@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Stage
   - Bullet
+  - OutsideStage
+  - InsideStage
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Bullet
   - Item
   - Stage
-  - 
+  - UnderStage
   - 
   - 
   - 

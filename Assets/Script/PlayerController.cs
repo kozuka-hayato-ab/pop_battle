@@ -130,6 +130,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
 
         characon.Move(playerMoveDirection * Time.deltaTime);
 
+
         if (!characon.isGrounded)
         {
             animcon.SetBool("OnGround", false);
@@ -180,6 +181,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         PlayerUI.UpdateBombNumber();
     }
 
+    // shotPlayerNumber == 0 -> self damage
     public void Damage(int damageValue, int shotPlayerNumber)
     {
         playerHealth -= damageValue;
@@ -193,8 +195,12 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     private void Death(int killerNumber)
     {
         //playerIndexであることに注意
-        PlayerDataDirector.Instance.PlayerKills[killerNumber - 1] += 1;
-        GameDirector.Instance.UpdateKillPlayerUI(killerNumber - 1);
+        if (killerNumber != 0) // 0 -> self death(stageout) not 0 -> other player kill
+        {
+            PlayerDataDirector.Instance.PlayerKills[killerNumber - 1] += 1;
+            GameDirector.Instance.UpdateKillPlayerUI(killerNumber - 1);
+
+        }
         PlayerDataDirector.Instance.PlayerDeaths[PlayerID - 1] += 1;
         GameDirector.Instance.GeneratePlayer(playerID - 1);
         Destroy(gameObject);

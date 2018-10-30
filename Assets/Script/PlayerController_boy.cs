@@ -123,7 +123,7 @@ public class PlayerController_boy : MonoBehaviour {
             playerMoveDirection = direction * playerSpeedValue;
 
             //3ボタンでJump
-            if (Input.GetButtonDown(mynameForInputmanager + "Jump"))
+            if (Input.GetButtonDown(mynameForInputmanager + "Jump") && !isFlying)
             {
                 playerMoveDirection.y = playerJumpValue;
             }
@@ -167,7 +167,7 @@ public class PlayerController_boy : MonoBehaviour {
             StartCoroutine(WaitBombShotInterval());
         }
 
-        if (Input.GetButtonDown(mynameForInputmanager + "Function2"))
+        if (Input.GetButtonDown(mynameForInputmanager + "Function2") || Input.GetKeyDown(KeyCode.H))
         {
             if(enableFly){
                 enableFly = false;
@@ -182,6 +182,9 @@ public class PlayerController_boy : MonoBehaviour {
         {
             Debug.Log("飛びます飛びます");
             playerMoveDirection.y += gravityStrength * 0.0001f;
+            float now_y = playerMoveDirection.y;
+            playerMoveDirection = direction * playerSpeedValue;
+            playerMoveDirection.y = now_y;
         }
 
         if (!characon.isGrounded)

@@ -59,7 +59,7 @@ public class PlayerController_boy : MonoBehaviour {
     private bool healthCurePossible = true;
     private int healthCureValue = 2;//回復量
 
-
+    [SerializeField] GameObject balloon;
 
     [SerializeField] GameObject myGun;
     [SerializeField] float bulletShotInterval;
@@ -90,6 +90,8 @@ public class PlayerController_boy : MonoBehaviour {
         animcon = GetComponent<Animator>();
         MynameUpdate();
         PlayerInfoInit();
+
+        balloon.SetActive(false);
 
         TPS_pos = camera.transform.localPosition;//元のカメラの相対座標
         FPS_pos = new Vector3(0, 0.2f, -0.25f);//Player変えたら調節
@@ -172,9 +174,11 @@ public class PlayerController_boy : MonoBehaviour {
             if(enableFly){
                 enableFly = false;
                 isFlying = true;
+                balloon.SetActive(true);
             }
             else if(isFlying){
                 isFlying = false;
+                balloon.SetActive(false);
             }
         }
 

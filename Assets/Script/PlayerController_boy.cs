@@ -43,7 +43,7 @@ public class PlayerController_boy : MonoBehaviour {
     {
         get
         {
-            return 5;
+            return 7;
         }
     }
     public int playerHealth { get; set; }
@@ -51,17 +51,15 @@ public class PlayerController_boy : MonoBehaviour {
     [SerializeField] float playerLookSpeed = 400f;
     [SerializeField] float cameraAngleSpeed = 400f;
     [SerializeField] float gravityStrength = 20f;
-    [SerializeField] float abilityOfItemGetValue = 1.5f;
     [SerializeField] float playerJumpValue;
 
-    public int cureItemNumber { get; set; }
     public int bulletNumber { get; set; }
     public int bombNumber { get; set; }
     [SerializeField] float healthCureInterval;
     private bool healthCurePossible = true;
     private int healthCureValue = 2;//回復量
 
-
+    [SerializeField] GameObject balloon;
 
     [SerializeField] GameObject myGun;
     [SerializeField] float bulletShotInterval;
@@ -74,10 +72,12 @@ public class PlayerController_boy : MonoBehaviour {
     private GameObject WarpA;
     private GameObject WarpB;
 
+    private bool isFlying;
+    private bool enableFly;
+
     private void PlayerInfoInit()
     {
         playerHealth = maxHealth;
-        cureItemNumber = 1;
         bulletNumber = 30;
         bombNumber = 1;
     }
@@ -91,9 +91,13 @@ public class PlayerController_boy : MonoBehaviour {
         MynameUpdate();
         PlayerInfoInit();
 
+        balloon.SetActive(false);
+
         TPS_pos = camera.transform.localPosition;//元のカメラの相対座標
         FPS_pos = new Vector3(0, 0.2f, -0.25f);//Player変えたら調節
         SwitchTPS = false;
+        isFlying = false;
+        enableFly = true; //飛行可能
     }
 
 
@@ -121,11 +125,11 @@ public class PlayerController_boy : MonoBehaviour {
             playerMoveDirection = direction * playerSpeedValue;
 
             //3ボタンでJump
-            if (Input.GetButtonDown(mynameForInputmanager + "Jump"))
+            if (Input.GetButtonDown(mynameForInputmanager + "Jump") && !isFlying)
             {
                 playerMoveDirection.y = playerJumpValue;
             }
-            else
+            else if(!isFlying)
             {
                 playerMoveDirection.y -= gravityStrength * Time.deltaTime;
             }
@@ -141,7 +145,7 @@ public class PlayerController_boy : MonoBehaviour {
                 camera.transform.localPosition = TPS_pos;
             }
         }
-        else
+        else if(!isFlying)
         {
             playerMoveDirection.y -= gravityStrength * Time.deltaTime;
         }
@@ -165,13 +169,26 @@ public class PlayerController_boy : MonoBehaviour {
             StartCoroutine(WaitBombShotInterval());
         }
 
-        if ((Input.GetButtonDown(mynameForInputmanager + "Function2") || Input.GetKeyDown(KeyCode.H)) && healthCurePossible == true && cureItemNumber > 0)
+        if (Input.GetButtonDown(mynameForInputmanager + "Function2") || Input.GetKeyDown(KeyCode.H))
         {
-            cureItemNumber--;
-           // PlayerUI.UpdateCureItemNumber();
-            HealthCure(healthCureValue);
-            healthCurePossible = false;
-            StartCoroutine(WaitCureHealthInterval());
+            if(enableFly){
+                enableFly = false;
+                isFlying = true;
+                balloon.SetActive(true);
+            }
+            else if(isFlying){
+                isFlying = false;
+                balloon.SetActive(false);
+            }
+        }
+
+        if(isFlying)
+        {
+            Debug.Log("飛びます飛びます");
+            playerMoveDirection.y += gravityStrength * 0.0001f;
+            float now_y = playerMoveDirection.y;
+            playerMoveDirection = direction * playerSpeedValue;
+            playerMoveDirection.y = now_y;
         }
 
         if (!characon.isGrounded)
@@ -230,13 +247,13 @@ public class PlayerController_boy : MonoBehaviour {
         healthCurePossible = true;
     }
 
-    public void HealthCure(int healthCureValue)
+    public void HealthCure()
     {
-        if (playerHealth > 0 || playerHealth < 10)
+        if (playerHealth > 0 || playerHealth < maxHealth)
         {
-            playerHealth += healthCureValue;
-            if (playerHealth > 10) playerHealth = 10;
+            playerHealth = maxHealth;
         }
+        PlayerUI.UpdateLife();
     }
 
     public void PickUpBullet(int bulletValue)
@@ -250,12 +267,6 @@ public class PlayerController_boy : MonoBehaviour {
         bombNumber += bombValue;
         PlayerUI.UpdateBombNumber();
     }
-    /*
-    public void PickUpCureItem(int cureItemValue)
-    {
-        cureItemNumber += cureItemValue;
-        PlayerUI.UpdateCureItemNumber();
-    }*/
 
     public void Damage(int damageValue)
     {

@@ -22,7 +22,7 @@ public class StageOutCollider : MonoBehaviour {
             int playerID = other.GetComponent<PlayerController>().PlayerID;
             GameDirector.Instance.PlayerRespawn(playerID);
             ExecuteEvents.Execute<PlayerControllerRecieveInterface>(
-                target: other.gameObject,
+                target: other.transform.root.gameObject,
                 eventData: null,
                 functor: (reciever, y) => reciever.Damage(stageOutDamage, 0)
                 );

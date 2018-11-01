@@ -355,8 +355,11 @@
     <Compile Include="Assets\ImportAsset\Ethan Anim\Utility\WaypointCircuit.cs" />
     <Compile Include="Assets\ImportAsset\Ethan Anim\Utility\WaypointProgressTracker.cs" />
     <Compile Include="Assets\ImportAsset\Item asset\Scripts\AnimationScript.cs" />
+    <Compile Include="Assets\Prefab\Particle\randomParticleRotation.cs" />
     <Compile Include="Assets\Script\AudioManager.cs" />
+    <Compile Include="Assets\Script\Bomb.cs" />
     <Compile Include="Assets\Script\BombItem.cs" />
+    <Compile Include="Assets\Script\BombOption.cs" />
     <Compile Include="Assets\Script\BulletGenerater.cs" />
     <Compile Include="Assets\Script\BulletItem.cs" />
     <Compile Include="Assets\Script\BulletOption.cs" />
@@ -444,6 +447,7 @@
     <None Include="Assets\ImportAsset\Ethan Anim\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
     <None Include="Assets\ImportAsset\Ethan Anim\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\ImportAsset\Yurowm\Shaders\SkinShader.shader" />
+    <None Include="Assets\Prefab\Particle\multypower_particle.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

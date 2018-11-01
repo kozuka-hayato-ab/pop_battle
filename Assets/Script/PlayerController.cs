@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public interface PlayerControllerRecieveInterface : IEventSystemHandler
 {
     void Damage(int damageValue, int playerNumber);
+    void BombDamage(int damageValue, int throwPlayerID);
 }
 
 public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
@@ -53,6 +54,9 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     private bool bulletShotPossible = true;
     [SerializeField] float bombShotInterval;
     private bool bombShotPossible = true;
+
+    private bool bombDamageLimit = false;
+    [SerializeField] float bombDamageLimitTime;
 
     public PlayerUI PlayerUI { get; set; }
 
@@ -190,6 +194,22 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         {
             Death(shotPlayerNumber);
         }
+    }
+
+    public void BombDamage(int damageValue,int throwPlayerID)
+    {
+        if (!bombDamageLimit)
+        {
+            Damage(damageValue, throwPlayerID);
+            bombDamageLimit = true;
+            StartCoroutine(WaitBombDamageLimitTime());
+        }
+    }
+
+    IEnumerator WaitBombDamageLimitTime()
+    {
+        yield return new WaitForSeconds(bombDamageLimitTime);
+        bombDamageLimit = false;
     }
 
     private void Death(int killerNumber)

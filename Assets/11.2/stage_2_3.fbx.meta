@@ -1,9 +1,7 @@
 fileFormatVersion: 2
-guid: 5098d4f8b7949c341ac4ac5f7d110484
-timeCreated: 1541057661
-licenseType: Free
+guid: dde8825811e064625b993be132463057
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: Sphere
     100002: //RootNode
@@ -27,10 +25,67 @@ ModelImporter:
     4300002: "\u7ACB\u65B9\u4F53.013"
     4300004: "\u7ACB\u65B9\u4F53.011"
     4300006: "\u7ACB\u65B9\u4F53.009"
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: barun_kari_1
+    second: {fileID: 2100000, guid: 417f3eb59e618be48a353df8cf141eea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: barun_kari_2
+    second: {fileID: 2100000, guid: 3c69a7d8c439a964583a5ba1572f6d56, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cake_kari_1
+    second: {fileID: 2100000, guid: ff614ebceead6074dae9e204d5243013, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cake_kari_2
+    second: {fileID: 2100000, guid: 999584e26928535489dba5d0aa0806b7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cake_kari_3
+    second: {fileID: 2100000, guid: c1bc06268188b004f839d4131ba61479, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cake_kari_4
+    second: {fileID: 2100000, guid: d782ebe511f35d848b0c617b3373cbba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: candy_kari_1
+    second: {fileID: 2100000, guid: 182fb9cee459ab14c917ebbd6882bb59, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: candy_kari_2
+    second: {fileID: 2100000, guid: 64eb8a5f1e65f6744ac36e785841f947, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: icecream_1
+    second: {fileID: 2100000, guid: 40b755442ad90e84999b0a516de15085, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: icecream_1.001
+    second: {fileID: 2100000, guid: f45ee2110ed0c414fa2b4da7af783a6d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: icecream_1.002
+    second: {fileID: 2100000, guid: a37c230a1f19a8c448b130a72c724b84, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -43,12 +98,15 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -56,22 +114,30 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -86,7 +152,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

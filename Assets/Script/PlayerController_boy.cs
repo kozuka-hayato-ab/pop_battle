@@ -8,8 +8,9 @@ public interface PlayerControllerRecieveInterface_boy : IEventSystemHandler
     void Damage(int damageValue, int playerNumber);
 }
 
-public class PlayerController_boy : MonoBehaviour {
-    
+public class PlayerController_boy : MonoBehaviour
+{
+
     [SerializeField] GameObject CameraPivot;
     [SerializeField] float cameraVerticalUnderLimit = -60f;
     [SerializeField] float cameraVerticalUpperLimit = 30f;
@@ -52,6 +53,7 @@ public class PlayerController_boy : MonoBehaviour {
     [SerializeField] float cameraAngleSpeed = 400f;
     [SerializeField] float gravityStrength = 20f;
     [SerializeField] float playerJumpValue;
+    [SerializeField] float flyingSpeed = 0.2f;
 
     public int bulletNumber { get; set; }
     public int bombNumber { get; set; }
@@ -73,7 +75,8 @@ public class PlayerController_boy : MonoBehaviour {
     private GameObject WarpB;
 
     private bool isFlying;
-    private bool enableFly;
+    //private bool enableFly;
+    [SerializeField] bool enableFly;
 
     private void PlayerInfoInit()
     {
@@ -123,33 +126,41 @@ public class PlayerController_boy : MonoBehaviour {
         {
             playerMoveDirection.y = 0f;
             playerMoveDirection = direction * playerSpeedValue;
+            Debug.Log(direction);
+            Debug.Log(playerMoveDirection);
 
             //3ボタンでJump
             if (Input.GetButtonDown(mynameForInputmanager + "Jump") && !isFlying)
             {
                 playerMoveDirection.y = playerJumpValue;
             }
-            else if(!isFlying)
+            else if (!isFlying)
             {
                 playerMoveDirection.y -= gravityStrength * Time.deltaTime;
             }
-
-            if(Input.GetButtonDown(mynameForInputmanager + "Aim"))
-            {
-                SwitchTPS = true;
-            }
-
-            if(Input.GetButtonUp(mynameForInputmanager + "Aim")){
-                SwitchTPS = false; //バグ排除
-                rate_switch = 0.0f;
-                camera.transform.localPosition = TPS_pos;
-            }
         }
-        else if(!isFlying)
+        else if (!isFlying)
         {
             playerMoveDirection.y -= gravityStrength * Time.deltaTime;
         }
+        else
+        {
+            playerMoveDirection = direction * playerSpeedValue;
+            playerMoveDirection.y += gravityStrength * flyingSpeed;
 
+        }
+
+        if (Input.GetButtonDown(mynameForInputmanager + "Aim"))
+        {
+            SwitchTPS = true;
+        }
+
+        if (Input.GetButtonUp(mynameForInputmanager + "Aim"))
+        {
+            SwitchTPS = false; //バグ排除
+            rate_switch = 0.0f;
+            camera.transform.localPosition = TPS_pos;
+        }
 
         if ((Input.GetButton(mynameForInputmanager + "Shot2") || Input.GetKey(KeyCode.KeypadEnter)) && bulletShotPossible == true && bulletNumber > 0)
         {
@@ -171,24 +182,17 @@ public class PlayerController_boy : MonoBehaviour {
 
         if (Input.GetButtonDown(mynameForInputmanager + "Function2") || Input.GetKeyDown(KeyCode.H))
         {
-            if(enableFly){
+            if (enableFly)
+            {
                 enableFly = false;
                 isFlying = true;
                 balloon.SetActive(true);
             }
-            else if(isFlying){
+            else if (isFlying)
+            {
                 isFlying = false;
                 balloon.SetActive(false);
             }
-        }
-
-        if(isFlying)
-        {
-            Debug.Log("飛びます飛びます");
-            playerMoveDirection.y += gravityStrength * 0.0001f;
-            float now_y = playerMoveDirection.y;
-            playerMoveDirection = direction * playerSpeedValue;
-            playerMoveDirection.y = now_y;
         }
 
         if (!characon.isGrounded)
@@ -211,22 +215,23 @@ public class PlayerController_boy : MonoBehaviour {
     //sec per Frameが固定
     private void FixedUpdate()
     {
-        if(SwitchTPS){
-            if(rate_switch <= 1){
+        if (SwitchTPS)
+        {
+            Debug.Log("switchtps");
+            if (rate_switch <= 1)
+            {
                 camera.transform.localPosition = Vector3.Lerp(TPS_pos, FPS_pos, rate_switch);
                 rate_switch += switch_speed;
             }
-            else{
+            else
+            {
                 camera.transform.localPosition = FPS_pos;
                 rate_switch = 0f;
                 SwitchTPS = false;
             }
 
         }
-        else{
-            characon.Move(playerMoveDirection * Time.deltaTime);
-        }
-
+        characon.Move(playerMoveDirection * Time.deltaTime);
     }
 
     IEnumerator WaitBulletShotInterval()

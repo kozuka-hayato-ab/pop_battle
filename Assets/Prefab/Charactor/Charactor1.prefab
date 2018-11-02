@@ -691,6 +691,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1505169940424820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4690364753429276}
+  - component: {fileID: 33872714963899736}
+  - component: {fileID: 23306688741883190}
+  m_Layer: 0
+  m_Name: balloon_kari_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1525929726988344
 GameObject:
   m_ObjectHideFlags: 1
@@ -1425,6 +1442,7 @@ Transform:
   - {fileID: 4336140591744096}
   - {fileID: 4571118203758788}
   - {fileID: 224782821698483980}
+  - {fileID: 4690364753429276}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -122.607, z: 0}
@@ -1881,6 +1899,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4336140591744096}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4690364753429276
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1505169940424820}
+  m_LocalRotation: {x: -0.029386368, y: 0.46807534, z: 0.0076536806, w: 0.88316673}
+  m_LocalPosition: {x: 0.14879267, y: 0.9549999, z: -0.06431721}
+  m_LocalScale: {x: -2.699018, y: -2.244598, z: -0.28576833}
+  m_Children: []
+  m_Father: {fileID: 4142054830916174}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4711631315309878
 Transform:
@@ -2345,6 +2376,41 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!23 &23306688741883190
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1505169940424820}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 45625df6bbcbd4710bb1fd89b25a811e, type: 3}
+  - {fileID: 2100002, guid: 45625df6bbcbd4710bb1fd89b25a811e, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!23 &23689405863173690
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -2591,6 +2657,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1050275101785436}
   m_Mesh: {fileID: 4300008, guid: 7a741cf3d8ef07946a696aad38704d9c, type: 3}
+--- !u!33 &33872714963899736
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1505169940424820}
+  m_Mesh: {fileID: 4300000, guid: 45625df6bbcbd4710bb1fd89b25a811e, type: 3}
 --- !u!33 &33907494475673984
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -3004,6 +3077,8 @@ MonoBehaviour:
   CameraPivot: {fileID: 1657295222085338}
   cameraVerticalUnderLimit: -60
   cameraVerticalUpperLimit: 30
+  camera: {fileID: 20959001669504536}
+  switch_speed: 0.2
   playerID: 1
   m_RunCycleLegOffset: 0.2
   playerSpeedValue: 3
@@ -3011,6 +3086,8 @@ MonoBehaviour:
   cameraAngleSpeed: 200
   gravityStrength: 10
   playerJumpValue: 4
+  flyingSpeed: 0.2
+  Balloon: {fileID: 1505169940424820}
   myGun: {fileID: 1231454462005810}
   bulletShotInterval: 0.5
   bombShotInterval: 0.5

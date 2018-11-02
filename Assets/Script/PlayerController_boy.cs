@@ -134,16 +134,7 @@ public class PlayerController_boy : MonoBehaviour {
                 playerMoveDirection.y -= gravityStrength * Time.deltaTime;
             }
 
-            if(Input.GetButtonDown(mynameForInputmanager + "Aim"))
-            {
-                SwitchTPS = true;
-            }
-
-            if(Input.GetButtonUp(mynameForInputmanager + "Aim")){
-                SwitchTPS = false; //バグ排除
-                rate_switch = 0.0f;
-                camera.transform.localPosition = TPS_pos;
-            }
+            Aim();
         }
         else if(!isFlying)
         {
@@ -189,6 +180,17 @@ public class PlayerController_boy : MonoBehaviour {
             float now_y = playerMoveDirection.y;
             playerMoveDirection = direction * playerSpeedValue;
             playerMoveDirection.y = now_y;
+            if (Input.GetButtonDown(mynameForInputmanager + "Aim"))
+            {
+                SwitchTPS = true;
+            }
+
+            if (Input.GetButtonUp(mynameForInputmanager + "Aim"))
+            {
+                SwitchTPS = false; //バグ排除
+                rate_switch = 0.0f;
+                camera.transform.localPosition = TPS_pos;
+            }
         }
 
         if (!characon.isGrounded)
@@ -293,6 +295,20 @@ public class PlayerController_boy : MonoBehaviour {
         mynameForInputmanager = "Gamepad" + playerID + "_";
     }
 
+    private void Aim()
+    {
+        if (Input.GetButtonDown(mynameForInputmanager + "Aim"))
+        {
+            SwitchTPS = true;
+        }
+
+        if (Input.GetButtonUp(mynameForInputmanager + "Aim"))
+        {
+            SwitchTPS = false; //バグ排除
+            rate_switch = 0.0f;
+            camera.transform.localPosition = TPS_pos;
+        }
+    }
     //当たり判定
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {

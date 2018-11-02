@@ -89,7 +89,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000002, guid: f1d80580fc594bc42a57bfb5fd521771,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -150,7 +151,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4197155353994998, guid: 3dfff0eccac941f46ae17ede6f04c72f, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114073598805603178, guid: 3dfff0eccac941f46ae17ede6f04c72f,
         type: 2}
@@ -1715,7 +1716,6 @@ GameObject:
   - component: {fileID: 1171905327}
   - component: {fileID: 1171905326}
   - component: {fileID: 1171905325}
-  - component: {fileID: 1171905324}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1723,13 +1723,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1171905324
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1171905323}
-  m_Enabled: 1
 --- !u!124 &1171905325
 Behaviour:
   m_ObjectHideFlags: 0

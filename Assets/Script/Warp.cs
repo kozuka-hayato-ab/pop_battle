@@ -5,8 +5,7 @@ using UnityEngine;
 public class Warp : MonoBehaviour
 {
     [SerializeField] GameObject WarpExit;
-    [SerializeField] float tmp;
-    [SerializeField] bool isLerp;
+    [SerializeField] float heightValue;
     // Use this for initialization
     void Start()
     {
@@ -24,7 +23,7 @@ public class Warp : MonoBehaviour
         if (other.tag == "Player")
         {
             Vector3 pos = WarpExit.transform.position;
-            pos.y += tmp;
+            pos.y += heightValue;
             other.transform.position = pos;
         }
     }

@@ -1,0 +1,144 @@
+fileFormatVersion: 2
+guid: cbe9aaf956e65124d956e828e3e5a9f3
+timeCreated: 1541057667
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: GD_mesh.002
+    100002: GD_mesh.003
+    100004: GD_mesh.006
+    100006: "ICO\u7403.012"
+    100008: //RootNode
+    100010: "\u5186\u67F1.008"
+    100012: "\u5186\u67F1.013"
+    100014: "\u5186\u67F1.014"
+    100016: "\u5186\u67F1.029"
+    100018: "\u5186\u67F1.038"
+    100020: "\u5186\u67F1.039"
+    100022: "\u5186\u67F1.040"
+    100024: "\u5186\u67F1.045"
+    100026: "\u5186\u67F1.047"
+    400000: GD_mesh.002
+    400002: GD_mesh.003
+    400004: GD_mesh.006
+    400006: "ICO\u7403.012"
+    400008: //RootNode
+    400010: "\u5186\u67F1.008"
+    400012: "\u5186\u67F1.013"
+    400014: "\u5186\u67F1.014"
+    400016: "\u5186\u67F1.029"
+    400018: "\u5186\u67F1.038"
+    400020: "\u5186\u67F1.039"
+    400022: "\u5186\u67F1.040"
+    400024: "\u5186\u67F1.045"
+    400026: "\u5186\u67F1.047"
+    2300000: GD_mesh.002
+    2300002: GD_mesh.003
+    2300004: GD_mesh.006
+    2300006: "ICO\u7403.012"
+    2300008: "\u5186\u67F1.008"
+    2300010: "\u5186\u67F1.013"
+    2300012: "\u5186\u67F1.014"
+    2300014: "\u5186\u67F1.029"
+    2300016: "\u5186\u67F1.038"
+    2300018: "\u5186\u67F1.039"
+    2300020: "\u5186\u67F1.040"
+    2300022: "\u5186\u67F1.045"
+    2300024: "\u5186\u67F1.047"
+    3300000: GD_mesh.002
+    3300002: GD_mesh.003
+    3300004: GD_mesh.006
+    3300006: "ICO\u7403.012"
+    3300008: "\u5186\u67F1.008"
+    3300010: "\u5186\u67F1.013"
+    3300012: "\u5186\u67F1.014"
+    3300014: "\u5186\u67F1.029"
+    3300016: "\u5186\u67F1.038"
+    3300018: "\u5186\u67F1.039"
+    3300020: "\u5186\u67F1.040"
+    3300022: "\u5186\u67F1.045"
+    3300024: "\u5186\u67F1.047"
+    4300000: "\u5186\u67F1.014"
+    4300002: "ICO\u7403.012"
+    4300004: GD_mesh.006
+    4300006: GD_mesh.003
+    4300008: "\u5186\u67F1.047"
+    4300010: "\u5186\u67F1.045"
+    4300012: GD_mesh.002
+    4300014: "\u5186\u67F1.040"
+    4300016: "\u5186\u67F1.039"
+    4300018: "\u5186\u67F1.038"
+    4300020: "\u5186\u67F1.029"
+    4300022: "\u5186\u67F1.013"
+    4300024: "\u5186\u67F1.008"
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

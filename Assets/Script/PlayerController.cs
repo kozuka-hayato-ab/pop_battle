@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     private GameObject WarpB;
 
     private bool isFlying;
-    private bool enableFly;
+    [SerializeField] private bool enableFly;
 
     private void PlayerInfoInit()
     {
@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         MynameUpdate();
         PlayerInfoInit();
         TPS_pos = camera.transform.localPosition;//元のカメラの相対座標
-        FPS_pos = new Vector3(0, 0.2f, -0.25f);//Player変えたら調節
+        FPS_pos = new Vector3(0, 0.25f, 0.2f);//Player変えたら調節
         SwitchTPS = false;
         Balloon.SetActive(false);
         isFlying = false;
@@ -210,7 +210,6 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     {
         if (SwitchTPS)
         {
-            Debug.Log("switchtps");
             if (rate_switch <= 1)
             {
                 camera.transform.localPosition = Vector3.Lerp(TPS_pos, FPS_pos, rate_switch);

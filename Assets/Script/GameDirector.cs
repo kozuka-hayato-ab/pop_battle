@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class GameDirector : Singleton<GameDirector>
 {
-    [SerializeField] private Vector3[] playerStartPosition;
+    public Vector3[] PlayerStartPosition;
+    public Vector3[] PlayerLatterStartPosition;
+    public bool GameIsLatter { get; set; }
+
     [SerializeField] private GameObject[] charactors;
     private PlayerController[] player;
     public PlayerController[] Player
@@ -22,6 +25,8 @@ public class GameDirector : Singleton<GameDirector>
     [SerializeField] private float limitTimeSeconds = 0;
     private float preSeconds;
     [SerializeField] private float startTime = 3;
+    [SerializeField] private int latterTimeMinutes;
+    [SerializeField] private int latterTimeSeconds;
     private bool isGameStart;
 
     [SerializeField] Image GamePanel;
@@ -38,6 +43,7 @@ public class GameDirector : Singleton<GameDirector>
         GamePanel.gameObject.SetActive(true);
         CenterTimer.gameObject.SetActive(true);
         isGameStart = false;
+        GameIsLatter = false;
     }
 
     // Update is called once per frame
@@ -59,6 +65,9 @@ public class GameDirector : Singleton<GameDirector>
             }
 
             preSeconds = limitTimeSeconds;
+
+            if (totalTime <= latterTimeMinutes * 60 + latterTimeSeconds)
+                GameIsLatter = true;
 
             if (totalTime <= 0f)
             {
@@ -117,7 +126,7 @@ public class GameDirector : Singleton<GameDirector>
     {
         player[playerIndex] = Instantiate(
             charactors[(int)PlayerDataDirector.Instance.PlayerTypes[playerIndex] - 1],//enum型の先頭はNoneのため
-            playerStartPosition[playerIndex],
+            PlayerStartPosition[playerIndex],
             Quaternion.identity).GetComponent<PlayerController>();
 
         player[playerIndex].SendMessage("ChangeGameController", playerIndex + 1);
@@ -161,5 +170,17 @@ public class GameDirector : Singleton<GameDirector>
     public void UpdateKillPlayerUI(int playerIndex)
     {
         Player[playerIndex].PlayerUI.UpdateKillNumber();
+    }
+
+    public void PlayerRespawn(int playerID)
+    {
+        if (GameIsLatter)
+        {
+            Player[playerID - 1].transform.position = PlayerLatterStartPosition[playerID - 1];
+        }
+        else
+        {
+            Player[playerID - 1].transform.position = PlayerStartPosition[playerID - 1];
+        }
     }
 }

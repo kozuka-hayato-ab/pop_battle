@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public interface PlayerControllerRecieveInterface : IEventSystemHandler
 {
     void Damage(int damageValue, int playerNumber);
+    void BombDamage(int damageValue, int throwPlayerID);
 }
 
 public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
@@ -14,6 +15,14 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     [SerializeField] float cameraVerticalUnderLimit = -60f;
     [SerializeField] float cameraVerticalUpperLimit = 30f;
     private float cameraVerticalAngel;
+
+    [SerializeField] Camera camera;
+    private bool SwitchTPS;
+    private Vector3 TPS_pos;//TPS視点の切り替え
+    private Vector3 FPS_pos;
+    private bool nowFPS;
+    private float rate_switch = 0f;
+    [SerializeField] float switch_speed;//[0, 1]の小数
 
     [SerializeField, Range(1, 4)] private int playerID;
     public int PlayerID
@@ -44,9 +53,12 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     [SerializeField] float cameraAngleSpeed = 400f;
     [SerializeField] float gravityStrength = 20f;
     [SerializeField] float playerJumpValue;
+    [SerializeField] float flyingSpeed = 0.2f;
 
     public int bulletNumber { get; set; }
     public int bombNumber { get; set; }
+
+    [SerializeField] GameObject Balloon;
 
     [SerializeField] GameObject myGun;
     [SerializeField] float bulletShotInterval;
@@ -54,13 +66,22 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     [SerializeField] float bombShotInterval;
     private bool bombShotPossible = true;
 
+    private bool bombDamageLimit = false;
+    [SerializeField] float bombDamageLimitTime;
+
     public PlayerUI PlayerUI { get; set; }
+
+    private GameObject WarpA;
+    private GameObject WarpB;
+
+    private bool isFlying;
+    private bool enableFly;
 
     private void PlayerInfoInit()
     {
-        playerHealth = 5;
+        playerHealth = maxHealth;
         bulletNumber = 30;
-        bombNumber = 1;
+        bombNumber = 3;
     }
     private void Awake()
     {
@@ -68,6 +89,12 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         animcon = GetComponent<Animator>();
         MynameUpdate();
         PlayerInfoInit();
+        TPS_pos = camera.transform.localPosition;//元のカメラの相対座標
+        FPS_pos = new Vector3(0, 0.2f, -0.25f);//Player変えたら調節
+        SwitchTPS = false;
+        Balloon.SetActive(false);
+        isFlying = false;
+        enableFly = true; //飛行可能
     }
 
     // Use this for initialization
@@ -96,18 +123,35 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
             playerMoveDirection.y = 0f;
             playerMoveDirection = direction * playerSpeedValue;
 
-            if (Input.GetButtonDown(mynameForInputmanager + "Jump"))
+            if (Input.GetButtonDown(mynameForInputmanager + "Jump") && !isFlying)
             {
                 playerMoveDirection.y = playerJumpValue;
             }
-            else
+            else if (!isFlying)
             {
                 playerMoveDirection.y -= gravityStrength * Time.deltaTime;
             }
         }
-        else
+        else if (!isFlying)
         {
             playerMoveDirection.y -= gravityStrength * Time.deltaTime;
+        }
+        else
+        {
+            playerMoveDirection = direction * playerSpeedValue;
+            playerMoveDirection.y += gravityStrength * flyingSpeed;
+        }
+
+        if (Input.GetButtonDown(mynameForInputmanager + "Aim"))
+        {
+            SwitchTPS = true;
+        }
+
+        if (Input.GetButtonUp(mynameForInputmanager + "Aim"))
+        {
+            SwitchTPS = false; //バグ排除
+            rate_switch = 0.0f;
+            camera.transform.localPosition = TPS_pos;
         }
 
         if ((Input.GetButton(mynameForInputmanager + "Shot2") || Input.GetKey(KeyCode.KeypadEnter)) && bulletShotPossible == true && bulletNumber > 0)
@@ -128,6 +172,21 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
             StartCoroutine(WaitBombShotInterval());
         }
 
+        if (Input.GetButtonDown(mynameForInputmanager + "Function2") || Input.GetKeyDown(KeyCode.H))
+        {
+            if (enableFly)
+            {
+                enableFly = false;
+                isFlying = true;
+                Balloon.SetActive(true);
+            }
+            else if (isFlying)
+            {
+                isFlying = false;
+                Balloon.SetActive(false);
+            }
+        }
+
         characon.Move(playerMoveDirection * Time.deltaTime);
 
         if (!characon.isGrounded)
@@ -145,6 +204,26 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         }
         animcon.SetFloat("Forward", forward);
         animcon.SetFloat("Right", right);
+    }
+
+    private void FixedUpdate()
+    {
+        if (SwitchTPS)
+        {
+            Debug.Log("switchtps");
+            if (rate_switch <= 1)
+            {
+                camera.transform.localPosition = Vector3.Lerp(TPS_pos, FPS_pos, rate_switch);
+                rate_switch += switch_speed;
+            }
+            else
+            {
+                camera.transform.localPosition = FPS_pos;
+                rate_switch = 0f;
+                SwitchTPS = false;
+            }
+
+        }
     }
 
     IEnumerator WaitBulletShotInterval()
@@ -180,6 +259,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         PlayerUI.UpdateBombNumber();
     }
 
+    // shotPlayerNumber == 0 -> self damage
     public void Damage(int damageValue, int shotPlayerNumber)
     {
         playerHealth -= damageValue;
@@ -190,11 +270,20 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         }
     }
 
+    public void BombDamage(int damageValue, int throwPlayerID)
+    {
+        Damage(damageValue, throwPlayerID);
+    }
+
     private void Death(int killerNumber)
     {
         //playerIndexであることに注意
-        PlayerDataDirector.Instance.PlayerKills[killerNumber - 1] += 1;
-        GameDirector.Instance.UpdateKillPlayerUI(killerNumber - 1);
+        if (killerNumber != 0) // 0 -> self death(stageout) not 0 -> other player kill
+        {
+            PlayerDataDirector.Instance.PlayerKills[killerNumber - 1] += 1;
+            GameDirector.Instance.UpdateKillPlayerUI(killerNumber - 1);
+
+        }
         PlayerDataDirector.Instance.PlayerDeaths[PlayerID - 1] += 1;
         GameDirector.Instance.GeneratePlayer(playerID - 1);
         Destroy(gameObject);

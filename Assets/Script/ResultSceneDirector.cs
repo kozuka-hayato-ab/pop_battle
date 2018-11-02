@@ -76,6 +76,7 @@ public class ResultSceneDirector : MonoBehaviour
     void Start()
     {
         PlayerDataDirector.Instance.PlayerRankDecided();
+        //tmp();
         RankToPlayerIndexArray = playerRankToPlayerIndex();
         PlayerImageInit();
         StartCoroutine(RankAnnounce());
@@ -104,17 +105,18 @@ public class ResultSceneDirector : MonoBehaviour
         topPlayer.gameObject.SetActive(true);
     }
 
-    /* for debug
+    // for debug
+    /*
     private void tmp()
     {
-        PlayerDataDirector.Instance.PlayerTypes[0] = PlayerType.None;
+        PlayerDataDirector.Instance.PlayerTypes[0] = PlayerType.Charactor3;
         PlayerDataDirector.Instance.PlayerTypes[1] = PlayerType.Charactor2;
-        PlayerDataDirector.Instance.PlayerTypes[2] = PlayerType.None;
+        PlayerDataDirector.Instance.PlayerTypes[2] = PlayerType.Charactor1;
         PlayerDataDirector.Instance.PlayerTypes[3] = PlayerType.Charactor4;
 
-        PlayerDataDirector.Instance.PlayerRank[0] = -1;
-        PlayerDataDirector.Instance.PlayerRank[1] = 1;
-        PlayerDataDirector.Instance.PlayerRank[2] = -1;
+        PlayerDataDirector.Instance.PlayerRank[0] = 4;
+        PlayerDataDirector.Instance.PlayerRank[1] = 2;
+        PlayerDataDirector.Instance.PlayerRank[2] = 3;
         PlayerDataDirector.Instance.PlayerRank[3] = 1;
     }*/
     /* for debug

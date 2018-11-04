@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 33345889527798128}
   - component: {fileID: 23799520506358632}
   - component: {fileID: 136338811221785710}
+  - component: {fileID: 114733475896362478}
+  - component: {fileID: 114109466403393650}
   m_Layer: 0
   m_Name: BalloonItem
   m_TagString: Untagged
@@ -35,8 +37,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1479701241470438}
-  m_LocalRotation: {x: -0.020824105, y: -0.5499352, z: -0.022101903, w: 0.8346551}
-  m_LocalPosition: {x: -18.350395, y: 2.394, z: 6.3868065}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.6142707, y: 6.6, z: -2.7165112}
   m_LocalScale: {x: -4.9102, y: -4.0834928, z: -0.519885}
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,6 +86,45 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1479701241470438}
   m_Mesh: {fileID: 4300002, guid: 5098d4f8b7949c341ac4ac5f7d110484, type: 3}
+--- !u!114 &114109466403393650
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1479701241470438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ff967b7ed48f2441bcf509edf6b889a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAnimated: 1
+  isRotating: 1
+  isFloating: 0
+  isScaling: 0
+  rotationAngle: {x: 0, y: 10, z: 0}
+  rotationSpeed: 5
+  floatSpeed: 0.001
+  floatRate: 0.1
+  startScale: {x: 1, y: 1, z: 1}
+  endScale: {x: 1.5, y: 1.5, z: 1.5}
+  scaleSpeed: 1
+  scaleRate: 0.5
+--- !u!114 &114733475896362478
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1479701241470438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd90fcbe3b8608743b8e1c330b02fdc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  gravityStrength: 3.5
+  rayLength: 1
 --- !u!136 &136338811221785710
 CapsuleCollider:
   m_ObjectHideFlags: 1

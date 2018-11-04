@@ -51,20 +51,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a93da3eda206fb4ebc5432ea137b4ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageCenterPoint: {x: 0, y: 20, z: 0}
+  stageCenterPoint: {x: -5.84, y: 20, z: 3.32}
   itemPopSpecificPlaces: []
   upperPartRadius:
-  - 15
-  - 20
+  - 5
+  - 6.5
   underPartRadius:
   - 0
-  - 100
+  - 19
   upperPopPercent: 30
   Items:
-  - {fileID: 1371012232199402, guid: 60638de53972f0348bae40ff9b118609, type: 2}
-  - {fileID: 1513568906716352, guid: 0f7d17122015a244199af62a480abe0a, type: 2}
-  - {fileID: 1365669288229822, guid: 77c65975da170f443a5dc06d99a9e199, type: 2}
-  ItemProbability: 500000001100000003000000
+  - {fileID: 1149111090132838, guid: c498ad823be4f4745ab61a01c2e44372, type: 2}
+  - {fileID: 1021728351988424, guid: cfad09b41f3bdef458d88ce9c086afd5, type: 2}
+  - {fileID: 1479701241470438, guid: 8b602d7a79b75574a889e74731ad6d1e, type: 2}
+  ItemProbability: 460000001900000005000000
   startItemPopValue: 20
-  repopIntervalSeconds: 10
+  repopIntervalSeconds: 20
   repopItemValue: 10

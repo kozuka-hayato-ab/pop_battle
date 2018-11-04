@@ -12,8 +12,12 @@ public class CureItem : Item{
     {
         if(other.tag == "Player")
         {
-            other.transform.root.gameObject.SendMessage("HealthCure");
-            Destroy(gameObject);
+            PlayerController playerController = other.transform.root.GetComponent<PlayerController>();
+            if(playerController.playerHealth < playerController.maxHealth)
+            {
+                playerController.SendMessage("HealthCure");
+                Destroy(gameObject);
+            }
         }
     }
 

@@ -61,11 +61,12 @@ MonoBehaviour:
   - {x: 0.4, y: 2.1, z: -4.85}
   - {x: -15.4, y: 2.1, z: 5.7}
   - {x: -10.75, y: 2.1, z: -3.45}
+  OutsideStage: {fileID: 0}
   charactors:
   - {fileID: 1839801777599076, guid: c366b674c417dc0418ae6fc197a87212, type: 2}
-  - {fileID: 1839801777599076, guid: c366b674c417dc0418ae6fc197a87212, type: 2}
-  - {fileID: 1839801777599076, guid: c366b674c417dc0418ae6fc197a87212, type: 2}
-  - {fileID: 1839801777599076, guid: c366b674c417dc0418ae6fc197a87212, type: 2}
+  - {fileID: 1137401415246664, guid: c03629aa03ba6d545b8cbc9226ae7ef3, type: 2}
+  - {fileID: 1299417267835740, guid: 5ed0f70139868764eb08afb7eacdbe1e, type: 2}
+  - {fileID: 1991709925098652, guid: 7af885b79d0303944bf1ebf67d22d402, type: 2}
   limitTimeMinutes: 3
   limitTimeSeconds: 0
   startTime: 3

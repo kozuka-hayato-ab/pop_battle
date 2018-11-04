@@ -8,7 +8,9 @@ public class GameDirector : Singleton<GameDirector>
 {
     public Vector3[] PlayerStartPosition;
     public Vector3[] PlayerLatterStartPosition;
+
     public bool GameIsLatter { get; set; }
+    [SerializeField] StageDirector OutsideStage;
 
     [SerializeField] private GameObject[] charactors;
     private PlayerController[] player;
@@ -55,6 +57,13 @@ public class GameDirector : Singleton<GameDirector>
             totalTime = limitTimeMinutes * 60 + limitTimeSeconds;
             totalTime -= Time.deltaTime;
 
+            if (!GameIsLatter)
+                if (totalTime <= latterTimeMinutes * 60 + latterTimeSeconds)
+                {
+                    GameIsLatter = true;
+                    OutsideStage.StageFallStart();
+                }
+
             limitTimeMinutes = (int)totalTime / 60;
             limitTimeSeconds = totalTime - limitTimeMinutes * 60;
 
@@ -65,9 +74,6 @@ public class GameDirector : Singleton<GameDirector>
             }
 
             preSeconds = limitTimeSeconds;
-
-            if (totalTime <= latterTimeMinutes * 60 + latterTimeSeconds)
-                GameIsLatter = true;
 
             if (totalTime <= 0f)
             {

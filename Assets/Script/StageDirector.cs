@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StageDirector : MonoBehaviour {
-    [SerializeField] GameObject OutsideStage;
     [SerializeField] float fallSpeed;
     [SerializeField] float fallPrepareSpeed;
     [SerializeField] float verticalMoveValue;
+    [SerializeField] float stageFallPrepareTime;
     public bool isFallTime = false;
     public bool isFallPrepareTime = false;
 	// Use this for initialization
@@ -34,5 +34,17 @@ public class StageDirector : MonoBehaviour {
     private void FallPrepareMove()
     {
         transform.position += Mathf.Sin(Time.time * fallPrepareSpeed) * verticalMoveValue * Vector3.up * Time.deltaTime;
+    }
+
+    public void StageFallStart()
+    {
+        isFallPrepareTime = true;
+        StartCoroutine(WaitStageFall());
+    }
+
+    IEnumerator WaitStageFall()
+    {
+        yield return new WaitForSeconds(stageFallPrepareTime);
+        isFallTime = true;
     }
 }

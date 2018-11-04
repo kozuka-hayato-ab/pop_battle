@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
 
     public int bulletNumber { get; set; }
     public int bombNumber { get; set; }
+    public int balloonNumber { get; set; }
 
     [SerializeField] GameObject Balloon;
 
@@ -71,17 +72,30 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
 
     public PlayerUI PlayerUI { get; set; }
 
-    private GameObject WarpA;
-    private GameObject WarpB;
-
     private bool isFlying;
-    [SerializeField] private bool enableFly;
+    public bool EnableFly
+    {
+        get
+        {
+            bool enableFly;
+            if(balloonNumber > 0)
+            {
+                enableFly = true;
+            }
+            else
+            {
+                enableFly = false;
+            }
+            return enableFly;
+        }
+    }
 
     private void PlayerInfoInit()
     {
         playerHealth = maxHealth;
         bulletNumber = 30;
         bombNumber = 3;
+        balloonNumber = 1;
     }
     private void Awake()
     {
@@ -94,7 +108,6 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         SwitchTPS = false;
         Balloon.SetActive(false);
         isFlying = false;
-        enableFly = true; //飛行可能
     }
 
     // Use this for initialization
@@ -174,13 +187,14 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
 
         if (Input.GetButtonDown(mynameForInputmanager + "Function2") || Input.GetKeyDown(KeyCode.H))
         {
-            if (enableFly)
+            if (EnableFly && !isFlying)
             {
-                enableFly = false;
+                balloonNumber--;
+                PlayerUI.UpdateBalloonNumber();
                 isFlying = true;
                 Balloon.SetActive(true);
             }
-            else if (isFlying)
+            else
             {
                 isFlying = false;
                 Balloon.SetActive(false);
@@ -256,6 +270,12 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     {
         bombNumber += bombValue;
         PlayerUI.UpdateBombNumber();
+    }
+    
+    public void PickUpBalloon()
+    {
+        balloonNumber++;
+        PlayerUI.UpdateBalloonNumber();
     }
 
     // shotPlayerNumber == 0 -> self damage

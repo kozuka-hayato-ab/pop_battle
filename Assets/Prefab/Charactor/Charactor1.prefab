@@ -1768,7 +1768,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1839801777599076}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.998, y: 1.213, z: 0.461}
+  m_LocalPosition: {x: 9.38, y: 17.8, z: 8.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4361923012293584}
@@ -3082,7 +3082,6 @@ MonoBehaviour:
   bulletShotInterval: 0.5
   bombShotInterval: 0.5
   bombDamageLimitTime: 3
-  enableFly: 0
 --- !u!114 &114551387501575846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3293,6 +3292,7 @@ MonoBehaviour:
   - {fileID: 1602154210977842}
   BulletNumber: {fileID: 114731780925864516}
   BombNumber: {fileID: 114010827750081576}
+  BalloonNumber: {fileID: 114311246149322100}
   KillNumber: {fileID: 114339883082580624}
   DeathNumber: {fileID: 114353118170603636}
 --- !u!114 &114835359173815204

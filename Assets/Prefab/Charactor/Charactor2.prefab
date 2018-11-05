@@ -2081,7 +2081,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1137401415246664}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.396, y: 2.15, z: 16.335}
+  m_LocalPosition: {x: 3.2044234, y: 2.0753775, z: -1.697273}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4087859109718522}
@@ -3125,23 +3125,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CameraPivot: {fileID: 1691305433557622}
-  cameraVerticalUnderLimit: -40
-  cameraVerticalUpperLimit: 50
+  cameraVerticalUnderLimit: -60
+  cameraVerticalUpperLimit: 60
   camera: {fileID: 20789013037207216}
   switch_speed: 0.2
   playerID: 1
   m_RunCycleLegOffset: 0.2
   playerSpeedValue: 3
-  playerLookSpeed: 200
-  cameraAngleSpeed: 200
+  playerLookSpeed: 170
+  cameraAngleSpeed: 170
   gravityStrength: 10
   playerJumpValue: 4
   flyingSpeed: 0.2
+  fpsAngleSpeedValue: 0.6
   Balloon: {fileID: 1475944642258734}
   myGun: {fileID: 1765109180039548}
   bulletShotInterval: 0.5
   bombShotInterval: 0.5
   bombDamageLimitTime: 3
+  rayLength: 0.2
 --- !u!114 &114797084233719690
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3366,7 +3368,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.3
-  m_Height: 1
+  m_Height: 0.95
   m_Direction: 1
   m_Center: {x: 0, y: 0.45, z: 0}
 --- !u!137 &137807814431528338
@@ -3465,12 +3467,12 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1
-  m_Radius: 0.3
+  m_Radius: 0.4
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.45, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0.12}
 --- !u!222 &222006039929828674
 CanvasRenderer:
   m_ObjectHideFlags: 1

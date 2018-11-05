@@ -26,6 +26,11 @@ public abstract class Item : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+        if(Time.timeScale == 0)
+        {
+            return;
+        }
+
         if (!onGround)
         {
             FallMove();

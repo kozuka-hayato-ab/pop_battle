@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEditor.EventSystems;
+using UnityEngine.EventSystems;
 
 public class TitleSceneDirector : MonoBehaviour {
     [SerializeField] GameObject MainButtons;
     [SerializeField] GameObject HowToUse;
+
+    [SerializeField] EventSystem eventSystem;
+    [SerializeField] GameObject HowToUseButton;
+    [SerializeField] GameObject BackButton;
     
 	// Use this for initialization
 	void Start () {
@@ -19,25 +23,18 @@ public class TitleSceneDirector : MonoBehaviour {
 		
 	}
 
-    public void HowToUseOn1()
+    public void HowToUseOn()
     {
         HowToUse.SetActive(true);
-    }
-
-    public void HowToUseOn2()
-    {
+        eventSystem.SetSelectedGameObject(BackButton);
         MainButtons.SetActive(false);
     }
 
-    public void BackButton1()
+    public void BackButtonOn()
     {
         MainButtons.SetActive(true);
-    }
-
-    public void BackButton2()
-    {
+        eventSystem.SetSelectedGameObject(HowToUseButton);
         HowToUse.SetActive(false);
-
     }
 
     public void NextScene()

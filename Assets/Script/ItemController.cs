@@ -41,6 +41,10 @@ public class ItemController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Time.timeScale == 0)
+        {
+            return;
+        }
         Mathf.Clamp(timer -= Time.deltaTime, 0, repopIntervalSeconds);
         if (timer <= 0)
         {

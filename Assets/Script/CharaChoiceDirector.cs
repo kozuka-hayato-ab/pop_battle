@@ -88,6 +88,7 @@ public class CharaChoiceDirector : MonoBehaviour
     public void BackToTitle()
     {
         PlayerDataDirector.Instance.DestroySingleton();
+        AudioManager.Instance.DestroySingleton();
         SceneManager.LoadScene("Title");
     }
 

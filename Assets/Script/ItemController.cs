@@ -41,8 +41,12 @@ public class ItemController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Time.timeScale == 0)
+        {
+            return;
+        }
         Mathf.Clamp(timer -= Time.deltaTime, 0, repopIntervalSeconds);
-        if(timer <= 0)
+        if (timer <= 0)
         {
             RepopItem();
             timer = repopIntervalSeconds;
@@ -84,10 +88,10 @@ public class ItemController : MonoBehaviour
         float y = Mathf.Sin(radian);
         Vector3 direction = new Vector3(x, 0f, y);
         Vector3 generatePos = stageCenterPoint + direction * radius;
-        Instantiate(item, generatePos, Quaternion.Euler(new Vector3(-90,0,0)));
+        Instantiate(item, generatePos, Quaternion.Euler(new Vector3(-90, 0, 0)));
     }
 
-    private void GenerateItem(Vector3 generatePos,GameObject item)
+    private void GenerateItem(Vector3 generatePos, GameObject item)
     {
         Instantiate(item, generatePos, Quaternion.Euler(new Vector3(-90, 0, 0)));
     }
@@ -114,7 +118,7 @@ public class ItemController : MonoBehaviour
     private void PopItemOnSpecificPlace()
     {
         int length = itemPopSpecificPlaces.Length;
-        for(int i = 0; i < length; i++)
+        for (int i = 0; i < length; i++)
         {
             GenerateItem(itemPopSpecificPlaces[i], Items[2]);
         }
@@ -122,7 +126,7 @@ public class ItemController : MonoBehaviour
 
     private void GameStartItemPop()
     {
-        for(int i = 0;i < startItemPopValue; i++)
+        for (int i = 0; i < startItemPopValue; i++)
         {
             PopItem();
         }
@@ -130,7 +134,7 @@ public class ItemController : MonoBehaviour
 
     private void RepopItem()
     {
-        for(int i = 0;i < repopItemValue; i++)
+        for (int i = 0; i < repopItemValue; i++)
         {
             PopItem();
         }

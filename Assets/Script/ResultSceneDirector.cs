@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ResultSceneDirector : MonoBehaviour
 {
@@ -72,6 +73,8 @@ public class ResultSceneDirector : MonoBehaviour
         return array;
     }
 
+    private bool rankAnnounceFinished = false;
+
     // Use this for initialization
     void Start()
     {
@@ -85,7 +88,20 @@ public class ResultSceneDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (rankAnnounceFinished)
+        {
+            if (Input.anyKeyDown)
+            {
+                BackToTitle();
+            }
+        }
+    }
 
+    private void BackToTitle()
+    {
+        PlayerDataDirector.Instance.DestroySingleton();
+        AudioManager.Instance.DestroySingleton();
+        SceneManager.LoadScene("Title");
     }
 
     IEnumerator RankAnnounce()
@@ -103,6 +119,7 @@ public class ResultSceneDirector : MonoBehaviour
         }
         yield return new WaitForSecondsRealtime(1f);
         topPlayer.gameObject.SetActive(true);
+        rankAnnounceFinished = true;
     }
 
     // for debug

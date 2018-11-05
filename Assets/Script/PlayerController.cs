@@ -54,9 +54,12 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     [SerializeField] float gravityStrength = 20f;
     [SerializeField] float playerJumpValue;
     [SerializeField] float flyingSpeed = 0.2f;
+    private float fpsAngelSpeedRatio = 1f;
+    [SerializeField] float fpsAngleSpeedValue = 0.6f;
 
     public int bulletNumber { get; set; }
     public int bombNumber { get; set; }
+    public int balloonNumber { get; set; }
 
     [SerializeField] GameObject Balloon;
 
@@ -71,17 +74,33 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
 
     public PlayerUI PlayerUI { get; set; }
 
-    private GameObject WarpA;
-    private GameObject WarpB;
-
     private bool isFlying;
-    [SerializeField] private bool enableFly;
+    public bool EnableFly
+    {
+        get
+        {
+            bool enableFly;
+            if (balloonNumber > 0)
+            {
+                enableFly = true;
+            }
+            else
+            {
+                enableFly = false;
+            }
+            return enableFly;
+        }
+    }
+
+    [SerializeField] private float rayLength = 0.85f;
+    private bool isGround = false;
 
     private void PlayerInfoInit()
     {
         playerHealth = maxHealth;
         bulletNumber = 30;
         bombNumber = 3;
+        balloonNumber = 1;
     }
     private void Awake()
     {
@@ -90,11 +109,10 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         MynameUpdate();
         PlayerInfoInit();
         TPS_pos = camera.transform.localPosition;//元のカメラの相対座標
-        FPS_pos = new Vector3(0, 0.25f, 0.2f);//Player変えたら調節
+        FPS_pos = new Vector3(-0.17f, 0.4f, 0f);//Player変えたら調節
         SwitchTPS = false;
         Balloon.SetActive(false);
         isFlying = false;
-        enableFly = true; //飛行可能
     }
 
     // Use this for initialization
@@ -106,9 +124,14 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     // Update is called once per frame
     void Update()
     {
+        if(Time.timeScale == 0)
+        {
+            return;
+        }
+
         //視点操作　水平はプレイヤーの向きを変える　垂直はcamerapivotを回転
-        transform.Rotate(new Vector3(0, Input.GetAxis(mynameForInputmanager + "CameraX") * playerLookSpeed * Time.deltaTime, 0), Space.Self);
-        cameraVerticalAngel = Mathf.Clamp(cameraVerticalAngel + Input.GetAxis(mynameForInputmanager + "CameraY") * cameraAngleSpeed * Time.deltaTime,
+        transform.Rotate(new Vector3(0, Input.GetAxis(mynameForInputmanager + "CameraX") * playerLookSpeed * fpsAngelSpeedRatio * Time.deltaTime, 0), Space.Self);
+        cameraVerticalAngel = Mathf.Clamp(cameraVerticalAngel + Input.GetAxis(mynameForInputmanager + "CameraY") * cameraAngleSpeed * fpsAngelSpeedRatio * Time.deltaTime,
             cameraVerticalUnderLimit, cameraVerticalUpperLimit);
         CameraPivot.transform.eulerAngles = new Vector3(cameraVerticalAngel, CameraPivot.transform.eulerAngles.y, CameraPivot.transform.eulerAngles.z);
 
@@ -117,6 +140,19 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         float right = Input.GetAxis(mynameForInputmanager + "X");
         float forward = Input.GetAxis(mynameForInputmanager + "Y");
         Vector3 direction = playerForward * forward + transform.right.normalized * right;
+
+        if (!characon.isGrounded)
+        {
+            if (Physics.Linecast(transform.position, (transform.position - transform.up * rayLength)))
+            {
+                isGround = true;
+            }
+            else
+            {
+                isGround = false;
+            }
+            Debug.DrawLine(transform.position, (transform.position - transform.up * rayLength), Color.red);
+        }
 
         if (characon.isGrounded)
         {
@@ -142,16 +178,18 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
             playerMoveDirection.y += gravityStrength * flyingSpeed;
         }
 
-        if (Input.GetButtonDown(mynameForInputmanager + "Aim"))
+        if (Input.GetButtonDown(mynameForInputmanager + "Aim") || Input.GetKeyDown(KeyCode.Insert))
         {
             SwitchTPS = true;
+            fpsAngelSpeedRatio = fpsAngleSpeedValue;
         }
 
-        if (Input.GetButtonUp(mynameForInputmanager + "Aim"))
+        if (Input.GetButtonUp(mynameForInputmanager + "Aim") || Input.GetKeyUp(KeyCode.Insert))
         {
             SwitchTPS = false; //バグ排除
             rate_switch = 0.0f;
             camera.transform.localPosition = TPS_pos;
+            fpsAngelSpeedRatio = 1f;
         }
 
         if ((Input.GetButton(mynameForInputmanager + "Shot2") || Input.GetKey(KeyCode.KeypadEnter)) && bulletShotPossible == true && bulletNumber > 0)
@@ -174,13 +212,14 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
 
         if (Input.GetButtonDown(mynameForInputmanager + "Function2") || Input.GetKeyDown(KeyCode.H))
         {
-            if (enableFly)
+            if (EnableFly && !isFlying)
             {
-                enableFly = false;
+                balloonNumber--;
+                PlayerUI.UpdateBalloonNumber();
                 isFlying = true;
                 Balloon.SetActive(true);
             }
-            else if (isFlying)
+            else
             {
                 isFlying = false;
                 Balloon.SetActive(false);
@@ -189,7 +228,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
 
         characon.Move(playerMoveDirection * Time.deltaTime);
 
-        if (!characon.isGrounded)
+        if (!characon.isGrounded && !isGround)
         {
             animcon.SetBool("OnGround", false);
             animcon.SetFloat("Jump", playerMoveDirection.y);
@@ -256,6 +295,12 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     {
         bombNumber += bombValue;
         PlayerUI.UpdateBombNumber();
+    }
+
+    public void PickUpBalloon()
+    {
+        balloonNumber++;
+        PlayerUI.UpdateBalloonNumber();
     }
 
     // shotPlayerNumber == 0 -> self damage

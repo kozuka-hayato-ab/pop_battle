@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class TitleSceneDirector : MonoBehaviour {
     [SerializeField] GameObject MainButtons;
     [SerializeField] GameObject HowToUse;
+
+    [SerializeField] EventSystem eventSystem;
+    [SerializeField] GameObject HowToUseButton;
+    [SerializeField] GameObject BackButton;
+    
 	// Use this for initialization
 	void Start () {
-		
+        
 	}
 	
 	// Update is called once per frame
@@ -20,13 +26,15 @@ public class TitleSceneDirector : MonoBehaviour {
     public void HowToUseOn()
     {
         HowToUse.SetActive(true);
+        eventSystem.SetSelectedGameObject(BackButton);
         MainButtons.SetActive(false);
     }
 
-    public void BackButton()
+    public void BackButtonOn()
     {
-        HowToUse.SetActive(false);
         MainButtons.SetActive(true);
+        eventSystem.SetSelectedGameObject(HowToUseButton);
+        HowToUse.SetActive(false);
     }
 
     public void NextScene()

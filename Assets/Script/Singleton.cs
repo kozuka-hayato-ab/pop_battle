@@ -31,6 +31,11 @@ public abstract class Singleton<T> : MonoBehaviour where T:Singleton<T> {
         Destroy(gameObject);
     }
 
+    public void SingletonReset()
+    {
+        singleton = null;
+    }
+
     // Use this for initialization
     void Start () {
 		

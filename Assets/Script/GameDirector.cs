@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class GameDirector : Singleton<GameDirector>
 {
     public Vector3[] PlayerStartPosition;
     public Vector3[] PlayerLatterStartPosition;
+
     public bool GameIsLatter { get; set; }
+    [SerializeField] StageDirector OutsideStage;
 
     [SerializeField] private GameObject[] charactors;
     private PlayerController[] player;
@@ -32,6 +35,12 @@ public class GameDirector : Singleton<GameDirector>
     [SerializeField] Image GamePanel;
     [SerializeField] Text GameTimer;
     [SerializeField] Text CenterTimer;
+    private bool isPoseTime = false;
+    [SerializeField] GameObject PoseMenu;
+    [SerializeField] Text PoseText;
+    [SerializeField] float textFlashSpeed;
+    [SerializeField] GameObject firstSelectedButton;
+    [SerializeField] EventSystem eventSystem;
 
     // Use this for initialization
     void Start()
@@ -49,11 +58,42 @@ public class GameDirector : Singleton<GameDirector>
     // Update is called once per frame
     void Update()
     {
+        if (!isPoseTime)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                isPoseTime = true;
+                PoseMenu.SetActive(true);
+                GamePanel.gameObject.SetActive(true);
+                Debug.Log(firstSelectedButton.activeSelf);
+                eventSystem.SetSelectedGameObject(firstSelectedButton);
+                Time.timeScale = 0f;
+            }
+        }
+        else
+        {
+            var color = PoseText.color;
+            color.a = Mathf.Sin(Time.realtimeSinceStartup * textFlashSpeed);
+            PoseText.color = color;
+        }
+
+        if (Time.timeScale == 0)
+        {
+            return;
+        }
+
         if (isGameStart == true)
         {
             if (totalTime <= 0f) return;
             totalTime = limitTimeMinutes * 60 + limitTimeSeconds;
             totalTime -= Time.deltaTime;
+
+            if (!GameIsLatter)
+                if (totalTime <= latterTimeMinutes * 60 + latterTimeSeconds)
+                {
+                    GameIsLatter = true;
+                    OutsideStage.StageFallStart();
+                }
 
             limitTimeMinutes = (int)totalTime / 60;
             limitTimeSeconds = totalTime - limitTimeMinutes * 60;
@@ -65,9 +105,6 @@ public class GameDirector : Singleton<GameDirector>
             }
 
             preSeconds = limitTimeSeconds;
-
-            if (totalTime <= latterTimeMinutes * 60 + latterTimeSeconds)
-                GameIsLatter = true;
 
             if (totalTime <= 0f)
             {
@@ -107,6 +144,35 @@ public class GameDirector : Singleton<GameDirector>
     {
         SceneManager.LoadScene("Result");
         DestroySingleton();
+    }
+
+    public void GameFinishFromPose()
+    {
+        PlayerDataDirector.Instance.DestroySingleton();
+        AudioManager.Instance.DestroySingleton();
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Title");
+        DestroySingleton();
+    }
+
+    public void QuitGameFromPose()
+    {
+        PlayerDataDirector.Instance.DestroySingleton();
+        AudioManager.Instance.DestroySingleton();
+        Time.timeScale = 1f;
+        GameDirector.Instance.SingletonReset();
+        Application.Quit();
+    }
+
+    public void BackFromPose()
+    {
+        isPoseTime = false;
+        PoseMenu.SetActive(false);
+        if (isGameStart)
+        {
+            GamePanel.gameObject.SetActive(false);
+        }
+        Time.timeScale = 1f;
     }
 
     private void GenerateAllPlayer()

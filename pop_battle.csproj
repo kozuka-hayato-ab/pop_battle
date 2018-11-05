@@ -351,6 +351,7 @@
     <Compile Include="Assets\ImportAsset\Item asset\Scripts\AnimationScript.cs" />
     <Compile Include="Assets\Prefab\Particle\randomParticleRotation.cs" />
     <Compile Include="Assets\Script\AudioManager.cs" />
+    <Compile Include="Assets\Script\BalloonItem.cs" />
     <Compile Include="Assets\Script\Bomb.cs" />
     <Compile Include="Assets\Script\BombItem.cs" />
     <Compile Include="Assets\Script\BombOption.cs" />
@@ -358,6 +359,8 @@
     <Compile Include="Assets\Script\BulletItem.cs" />
     <Compile Include="Assets\Script\BulletOption.cs" />
     <Compile Include="Assets\Script\CharaChoiceDirector.cs" />
+    <Compile Include="Assets\Script\CloudDirector.cs" />
+    <Compile Include="Assets\Script\CloudOption.cs" />
     <Compile Include="Assets\Script\CureItem.cs" />
     <Compile Include="Assets\Script\GameDirector.cs" />
     <Compile Include="Assets\Script\Item.cs" />

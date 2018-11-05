@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         }
     }
 
-    private string mynameForInputmanager;
+    public string mynameForInputmanager;
     private CharacterController characon;
     private Animator animcon;
     [SerializeField] float m_RunCycleLegOffset = 0.2f; //specific to the character in sample assets, will need to be modified to work with others

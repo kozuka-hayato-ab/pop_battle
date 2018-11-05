@@ -30,13 +30,14 @@ public abstract class Item : MonoBehaviour
         {
             return;
         }
-
+        
         if (!onGround)
         {
             FallMove();
             RayForJudgeGround();
         }
         //Debug.DrawRay(ray.origin, ray.direction, Color.red, 1f, true);
+        
     }
 
     private void FallMove()

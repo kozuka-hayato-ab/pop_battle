@@ -60,7 +60,7 @@ public class GameDirector : Singleton<GameDirector>
     {
         if (!isPoseTime)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Option"))
             {
                 isPoseTime = true;
                 PoseMenu.SetActive(true);

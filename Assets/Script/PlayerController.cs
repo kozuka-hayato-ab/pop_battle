@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         playerHealth = maxHealth;
         bulletNumber = 30;
         bombNumber = 3;
-        balloonNumber = 1;
+        balloonNumber = 0;
     }
     private void Awake()
     {

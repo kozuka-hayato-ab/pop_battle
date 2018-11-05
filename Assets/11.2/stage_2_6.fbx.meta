@@ -1,9 +1,7 @@
 fileFormatVersion: 2
-guid: c58f313917d2add499c9b888e5085ea4
-timeCreated: 1541057666
-licenseType: Free
+guid: 5f10beaedd6fc4827a0959aefb48fd82
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     100002: "\u5186\u67F1.024"
@@ -32,10 +30,57 @@ ModelImporter:
     4300004: "\u5186\u67F1.031"
     4300006: "\u7ACB\u65B9\u4F53.008"
     4300008: "\u7ACB\u65B9\u4F53.006"
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hebi_1_1
+    second: {fileID: 2100000, guid: 2672357462048a14db25c462b8a83bc7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hebi_1_2
+    second: {fileID: 2100000, guid: be9473efc1268e04a967ba3708216938, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hebi_1_2.001
+    second: {fileID: 2100000, guid: 902f755d0609ba54aaf1f43ec30ee010, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hebi_1_3
+    second: {fileID: 2100000, guid: 46de30841438e074bbd81950d27204d9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: kumo_1
+    second: {fileID: 2100000, guid: a2ed6ceffad7b994aae86f4ea16148f6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: kumo_2_1.001
+    second: {fileID: 2100000, guid: a6cde70fc9684504e8aac305576522d2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: kumo_2_1.002
+    second: {fileID: 2100000, guid: db705d66011784742beee5b685e6f680, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: kumo_2_1.003
+    second: {fileID: 2100000, guid: b1c9b5d65dd0a574296cea233e644494, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: kumo_2_1.004
+    second: {fileID: 2100000, guid: 003e0200917a2c7498476ff816b0793b, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -48,12 +93,15 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -61,22 +109,30 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -91,7 +147,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

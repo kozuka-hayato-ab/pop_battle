@@ -1,9 +1,7 @@
 fileFormatVersion: 2
-guid: cbe9aaf956e65124d956e828e3e5a9f3
-timeCreated: 1541057667
-licenseType: Free
+guid: 5b8a043293fa343eb9f1f1b404eb7c5a
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: GD_mesh.002
     100002: GD_mesh.003
@@ -72,10 +70,142 @@ ModelImporter:
     4300020: "\u5186\u67F1.029"
     4300022: "\u5186\u67F1.013"
     4300024: "\u5186\u67F1.008"
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aporo_1
+    second: {fileID: 2100000, guid: 4cad2ce56e38dc14db79726768636838, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aporo_1.001
+    second: {fileID: 2100000, guid: 5abf43f8063fe1a42859f55465519278, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: baketu_1
+    second: {fileID: 2100000, guid: 46cff2cfba1f0dd4cbbe4ebd566cad5f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bakeu_2_4
+    second: {fileID: 2100000, guid: 61ad80b1ae629514cb6c47e28929f25e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bakeu_2_5
+    second: {fileID: 2100000, guid: d23cd87a39afc2140889cbdcbed7fd11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: beketu_3
+    second: {fileID: 2100000, guid: c11bf9192143dbd4798a129a9fbaaf2d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: buketu_4
+    second: {fileID: 2100000, guid: ec86a10d4d80dcc40ab57f7d921dce5a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mee_10_1
+    second: {fileID: 2100000, guid: 9232a2694324a2440818cc8ba64b6bf5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mee_10_2
+    second: {fileID: 2100000, guid: effb376a78fb3e34ba89d58f95e4128d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mee_10_3
+    second: {fileID: 2100000, guid: d9e41845be620f84d941fb24035da0d3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mee_10_4
+    second: {fileID: 2100000, guid: b7c44b79296678e419d5124bd21aac68, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mee_3_1
+    second: {fileID: 2100000, guid: 0a839fd650089e9408788580cc84be43, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mee_3_2
+    second: {fileID: 2100000, guid: 0b2ef970196ba3242a0df7e20dcccd1c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mee_3_3
+    second: {fileID: 2100000, guid: bccb482d517a42a4dbd2f8d55ef887ec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mee_3_4
+    second: {fileID: 2100000, guid: 036e40a4102ce794592854f47b904e31, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: stage_1
+    second: {fileID: 2100000, guid: d1dd79cfa7c40b447890aca42ae25651, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: stage_3
+    second: {fileID: 2100000, guid: ab76e26e878d4fb49a58342cf7aacbc9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: stage_3_2
+    second: {fileID: 2100000, guid: daed109df31dadf40b961b0c0841c03d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: stage_3_3
+    second: {fileID: 2100000, guid: ae4a4b40c60511244bb714add8f2f3d2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: stone_1
+    second: {fileID: 2100000, guid: 4ab774b3507ca494daf29b27188eb9a2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: unbrela_1
+    second: {fileID: 2100000, guid: beef0f16ceb1a464495cdcaf47081cfb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: unbrela_1.001
+    second: {fileID: 2100000, guid: 56ae74e60ca414d4c80e307ee45187e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wa-pe_1.001
+    second: {fileID: 2100000, guid: 1ef3c9078c31564469f947f38601deb3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wa-pe_1.002
+    second: {fileID: 2100000, guid: 71f33ed83a907464b863ef8756268bd2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wa-pe_1.003
+    second: {fileID: 2100000, guid: b65d777b9f19295419c2f95b96c53fae, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wa-pe_1.004
+    second: {fileID: 2100000, guid: d116d3adcaec0b84ea4612d83b25da28, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -88,12 +218,15 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -101,22 +234,30 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -131,7 +272,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

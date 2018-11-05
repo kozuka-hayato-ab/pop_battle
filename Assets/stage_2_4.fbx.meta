@@ -1,0 +1,179 @@
+fileFormatVersion: 2
+guid: a538fc07ed039cf4193de7335b759a43
+timeCreated: 1541057665
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: "ICO\u7403.007"
+    100002: "ICO\u7403.008"
+    100004: "ICO\u7403.009"
+    100006: //RootNode
+    100008: Teapot.002
+    100010: TwistedTorus.001
+    100012: "\u5186\u67F1.002"
+    100014: "\u5186\u67F1.006"
+    100016: "\u5186\u67F1.009"
+    100018: "\u5186\u67F1.010"
+    100020: "\u5186\u67F1.011"
+    100022: "\u5186\u67F1.015"
+    100024: "\u5186\u67F1.019"
+    100026: "\u5186\u67F1.020"
+    100028: "\u5186\u67F1.021"
+    100030: "\u5186\u67F1.037"
+    100032: "\u5186\u67F1.046"
+    100034: "\u7403.001"
+    100036: "\u7ACB\u65B9\u4F53.002"
+    100038: "\u7ACB\u65B9\u4F53.004"
+    100040: "\u7ACB\u65B9\u4F53.005"
+    400000: "ICO\u7403.007"
+    400002: "ICO\u7403.008"
+    400004: "ICO\u7403.009"
+    400006: //RootNode
+    400008: Teapot.002
+    400010: TwistedTorus.001
+    400012: "\u5186\u67F1.002"
+    400014: "\u5186\u67F1.006"
+    400016: "\u5186\u67F1.009"
+    400018: "\u5186\u67F1.010"
+    400020: "\u5186\u67F1.011"
+    400022: "\u5186\u67F1.015"
+    400024: "\u5186\u67F1.019"
+    400026: "\u5186\u67F1.020"
+    400028: "\u5186\u67F1.021"
+    400030: "\u5186\u67F1.037"
+    400032: "\u5186\u67F1.046"
+    400034: "\u7403.001"
+    400036: "\u7ACB\u65B9\u4F53.002"
+    400038: "\u7ACB\u65B9\u4F53.004"
+    400040: "\u7ACB\u65B9\u4F53.005"
+    2300000: "ICO\u7403.007"
+    2300002: "ICO\u7403.008"
+    2300004: "ICO\u7403.009"
+    2300006: Teapot.002
+    2300008: TwistedTorus.001
+    2300010: "\u5186\u67F1.002"
+    2300012: "\u5186\u67F1.006"
+    2300014: "\u5186\u67F1.009"
+    2300016: "\u5186\u67F1.010"
+    2300018: "\u5186\u67F1.011"
+    2300020: "\u5186\u67F1.015"
+    2300022: "\u5186\u67F1.019"
+    2300024: "\u5186\u67F1.020"
+    2300026: "\u5186\u67F1.021"
+    2300028: "\u5186\u67F1.037"
+    2300030: "\u5186\u67F1.046"
+    2300032: "\u7403.001"
+    2300034: "\u7ACB\u65B9\u4F53.002"
+    2300036: "\u7ACB\u65B9\u4F53.004"
+    2300038: "\u7ACB\u65B9\u4F53.005"
+    3300000: "ICO\u7403.007"
+    3300002: "ICO\u7403.008"
+    3300004: "ICO\u7403.009"
+    3300006: Teapot.002
+    3300008: TwistedTorus.001
+    3300010: "\u5186\u67F1.002"
+    3300012: "\u5186\u67F1.006"
+    3300014: "\u5186\u67F1.009"
+    3300016: "\u5186\u67F1.010"
+    3300018: "\u5186\u67F1.011"
+    3300020: "\u5186\u67F1.015"
+    3300022: "\u5186\u67F1.019"
+    3300024: "\u5186\u67F1.020"
+    3300026: "\u5186\u67F1.021"
+    3300028: "\u5186\u67F1.037"
+    3300030: "\u5186\u67F1.046"
+    3300032: "\u7403.001"
+    3300034: "\u7ACB\u65B9\u4F53.002"
+    3300036: "\u7ACB\u65B9\u4F53.004"
+    3300038: "\u7ACB\u65B9\u4F53.005"
+    4300000: "ICO\u7403.007"
+    4300002: "\u5186\u67F1.046"
+    4300004: "\u7403.001"
+    4300006: Teapot.002
+    4300008: TwistedTorus.001
+    4300010: "\u5186\u67F1.037"
+    4300012: "\u5186\u67F1.021"
+    4300014: "\u5186\u67F1.020"
+    4300016: "\u5186\u67F1.019"
+    4300018: "\u7ACB\u65B9\u4F53.005"
+    4300020: "ICO\u7403.009"
+    4300022: "\u7ACB\u65B9\u4F53.004"
+    4300024: "ICO\u7403.008"
+    4300026: "\u5186\u67F1.015"
+    4300028: "\u7ACB\u65B9\u4F53.002"
+    4300030: "\u5186\u67F1.011"
+    4300032: "\u5186\u67F1.010"
+    4300034: "\u5186\u67F1.009"
+    4300036: "\u5186\u67F1.006"
+    4300038: "\u5186\u67F1.002"
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

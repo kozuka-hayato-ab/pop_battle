@@ -6,6 +6,6 @@ public class StageRotate : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        transform.Rotate(0f, -Time.deltaTime*2, 0f);
+        transform.Rotate(0f, Time.deltaTime*10, 0f);
 	}
 }

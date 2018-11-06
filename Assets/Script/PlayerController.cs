@@ -172,7 +172,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         {
             playerMoveDirection.y -= gravityStrength * Time.deltaTime;
         }
-        else
+        else //isFlying is true
         {
             playerMoveDirection = direction * playerSpeedValue;
             playerMoveDirection.y += gravityStrength * flyingSpeed;

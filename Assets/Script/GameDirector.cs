@@ -42,12 +42,14 @@ public class GameDirector : Singleton<GameDirector>
     [SerializeField] GameObject firstSelectedButton;
     [SerializeField] EventSystem eventSystem;
 
+    private bool exist_primary; //全員が二人対戦できるようにする変数
+
     // Use this for initialization
     void Start()
     {
+        exist_primary = false;
         player = new PlayerController[PlayerDataDirector.Instance.MaxPlayerNumber];
         GenerateAllPlayer();
-
         preSeconds = 0f;
         GamePanel.gameObject.SetActive(true);
         CenterTimer.gameObject.SetActive(true);
@@ -204,31 +206,55 @@ public class GameDirector : Singleton<GameDirector>
         Camera camera = player[playerIndex].transform.Find("CameraPivot").Find("Camera").GetComponent<Camera>();
         switch (playerIndex + 1)
         {
-            case 1:
+            case 1://
                 if (participantsNumber == 2)
                 {
                     camera.rect = new Rect(0f, 0.5f, 1f, 0.5f);
+                    exist_primary = true;
                 }
                 else
                 {
                     camera.rect = new Rect(0f, 0.5f, 0.5f, 0.5f);
                 }
                 break;
-            case 2:
-                if (participantsNumber == 2)
+            case 2://
+                if (participantsNumber == 2 && exist_primary)
                 {
                     camera.rect = new Rect(0f, 0f, 1f, 0.5f);
+                }
+                else if(participantsNumber == 2){
+                    camera.rect = new Rect(0f, 0.5f, 1f, 0.5f);
+                    exist_primary = true;
                 }
                 else
                 {
                     camera.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
                 }
                 break;
-            case 3:
-                camera.rect = new Rect(0f, 0f, 0.5f, 0.5f);
+            case 3://
+                if (participantsNumber == 2 && exist_primary)
+                {
+                    camera.rect = new Rect(0f, 0f, 1f, 0.5f);
+                }
+                else if (participantsNumber == 2)
+                {
+                    camera.rect = new Rect(0f, 0.5f, 1f, 0.5f);
+                    exist_primary = true;
+                }
+                else
+                {
+                    camera.rect = new Rect(0f, 0f, 0.5f, 0.5f);
+                }
                 break;
-            case 4:
-                camera.rect = new Rect(0.5f, 0f, 0.5f, 0.5f);
+            case 4://
+                if (participantsNumber == 2)
+                {
+                    camera.rect = new Rect(0f, 0f, 1f, 0.5f);
+                }
+                else
+                {
+                    camera.rect = new Rect(0.5f, 0f, 0.5f, 0.5f);
+                }
                 break;
         }
     }

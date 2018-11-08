@@ -19,16 +19,14 @@ public class CharactorSelect : MonoBehaviour {
     [SerializeField] float inputInterval;
     private string controllerName;
     private bool enableInput;
-    private int charactorNow;
+    [SerializeField, Range(0, 4)] private int charactorNow;
 
 	// Use this for initialization
 	void Start () {
         //コントローラーの番号設定
         controllerName = "Gamepad" + playerId + "_";
         enableInput = true;
-        charactorNow = 0;
-        CharactorImage.sprite = charactors[0];
-
+        PlayerCharaChoice(charactorNow);
 	}
 	
 	// Update is called once per frame

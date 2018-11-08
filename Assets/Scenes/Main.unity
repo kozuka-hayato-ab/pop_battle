@@ -261,6 +261,15 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: -0.04990053
       objectReference: {fileID: 0}
+    - target: {fileID: 1839801777599076, guid: c366b674c417dc0418ae6fc197a87212, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20983167813987276, guid: c366b674c417dc0418ae6fc197a87212,
+        type: 2}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c366b674c417dc0418ae6fc197a87212, type: 2}
   m_IsPrefabAsset: 0

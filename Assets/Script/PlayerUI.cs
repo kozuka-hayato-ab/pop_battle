@@ -13,7 +13,13 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] Text BalloonNumber;
     [SerializeField] Text KillNumber;
     [SerializeField] Text DeathNumber;
-
+    [SerializeField] Image DamagePanel;
+    private float alphaLimitValue;
+    private const float maxAlphaValue = 0.4f;
+    private float damageTime = 1.5f;
+    private float colorChangeSpeed = 10f;
+    public bool isDamaged { get; set; }
+    private Coroutine damageCoroutine;
 
     // Use this for initialization
     void Start()
@@ -26,7 +32,37 @@ public class PlayerUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isDamaged)
+        {
+            var color = DamagePanel.color;
+            color.a = ((Mathf.Sin(Time.time * colorChangeSpeed) / 2f) + 0.5f) * alphaLimitValue;
+            DamagePanel.color = color;
+            Debug.Log(DamagePanel.color);
+        }
+    }
 
+    public void onDamage()
+    {
+        DamagePanel.gameObject.SetActive(true);
+        float playerHealthRatio = (float)(MyPlayer.maxHealth - MyPlayer.playerHealth) / MyPlayer.maxHealth;
+        alphaLimitValue = Mathf.Clamp(playerHealthRatio * maxAlphaValue, 0.1f, 0.4f);
+        isDamaged = true;
+        UpdateLife();
+        if (damageCoroutine != null)
+        {
+            StopCoroutine(damageCoroutine);
+        }
+        damageCoroutine = StartCoroutine(WaitDamageTime());
+    }
+
+    IEnumerator WaitDamageTime()
+    {
+        yield return new WaitForSeconds(damageTime);
+        isDamaged = false;
+        var color = DamagePanel.color;
+        color.a = 0f;
+        DamagePanel.color = color;
+        DamagePanel.gameObject.SetActive(false);
     }
 
     public void AllUpdatePlayerUI()
@@ -80,4 +116,4 @@ public class PlayerUI : MonoBehaviour
     {
         DeathNumber.text = PlayerDataDirector.Instance.PlayerDeaths[MyPlayer.PlayerID - 1] + " Death";
     }
-}   
+}

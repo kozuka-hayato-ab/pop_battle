@@ -41,6 +41,11 @@ public class AudioManager : Singleton<AudioManager>{
         AudioSourceSE.PlayOneShot(clip, soundScale);
     }
 
+    public void PlaySEClipFromIndex(int index,float soundScale)
+    {
+        AudioSourceSE.PlayOneShot(seClips[index], soundScale);
+    }
+
     public void StopAllsound()
     {
         AudioSourceBGM.Stop();

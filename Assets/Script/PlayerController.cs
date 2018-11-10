@@ -13,10 +13,10 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
 {
     [SerializeField] GameObject CameraPivot;
     [SerializeField] float cameraVerticalUnderLimit = -60f;
-    [SerializeField] float cameraVerticalUpperLimit = 30f;
+    [SerializeField] float cameraVerticalUpperLimit = 60f;
     private float cameraVerticalAngel;
 
-    [SerializeField] Camera camera;
+    [SerializeField] Camera playerCamera;
     private bool SwitchTPS;
     private Vector3 TPS_pos;//TPS視点の切り替え
     private Vector3 FPS_pos;
@@ -33,7 +33,14 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         }
     }
 
-    public string mynameForInputmanager;
+    private string mynameForInputmanager;
+    public string MynameForInputmanager
+    {
+        get
+        {
+            return mynameForInputmanager;
+        }
+    }
     private CharacterController characon;
     private Animator animcon;
     [SerializeField] float m_RunCycleLegOffset = 0.2f; //specific to the character in sample assets, will need to be modified to work with others
@@ -69,9 +76,6 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     [SerializeField] float bombShotInterval;
     private bool bombShotPossible = true;
 
-    private bool bombDamageLimit = false;
-    [SerializeField] float bombDamageLimitTime;
-
     public PlayerUI PlayerUI { get; set; }
 
     private bool isFlying;
@@ -91,28 +95,43 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
             return enableFly;
         }
     }
+    [SerializeField] private float flyingTime = 10f;
+    private Coroutine FlyCoroutine;
+    private const float flyingSETime = 1.5f;
+    private float timerForFlyingSE = 0f;
 
     [SerializeField] private float rayLength = 0.85f;
     private bool isGround = false;
+
+    private bool isNoDamageMode;
+    private const float isNoDamageTime = 3f;
+    private float noDamageTimer;
+    private Material[] playerMaterial;
+    private float noDamageFlashSpeed = 15f;
 
     private void PlayerInfoInit()
     {
         playerHealth = maxHealth;
         bulletNumber = 30;
-        bombNumber = 3;
+        bombNumber = 100;
+        Debug.Log("parameter changed");
         balloonNumber = 1;
     }
     private void Awake()
     {
         characon = GetComponent<CharacterController>();
         animcon = GetComponent<Animator>();
+        playerMaterial = GetComponentInChildren<SkinnedMeshRenderer>().materials;
+        Debug.Log(playerMaterial[0]);
         MynameUpdate();
         PlayerInfoInit();
-        TPS_pos = camera.transform.localPosition;//元のカメラの相対座標
+        TPS_pos = playerCamera.transform.localPosition;//元のカメラの相対座標
         FPS_pos = new Vector3(-0.17f, 0.4f, 0f);//Player変えたら調節
         SwitchTPS = false;
         Balloon.SetActive(false);
         isFlying = false;
+        noDamageTimer = 0f;
+        isNoDamageMode = true;
     }
 
     // Use this for initialization
@@ -124,9 +143,31 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     // Update is called once per frame
     void Update()
     {
-        if(Time.timeScale == 0)
+        if (Time.timeScale == 0)
         {
             return;
+        }
+
+        if (isNoDamageMode)
+        {
+            foreach(Material mat in playerMaterial)
+            {
+                var color = mat.color;
+                color.a = Mathf.Sin(Time.time * noDamageFlashSpeed) / 2 + 0.8f;
+                mat.color = color;
+            }
+            noDamageTimer += Time.deltaTime;
+            if(noDamageTimer > isNoDamageTime)
+            {
+                noDamageTimer = 0f;
+                isNoDamageMode = false;
+                foreach (Material mat in playerMaterial)
+                {
+                    var color = mat.color;
+                    color.a = 1f;
+                    mat.color = color;
+                }
+            }
         }
 
         //視点操作　水平はプレイヤーの向きを変える　垂直はcamerapivotを回転
@@ -151,7 +192,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
             {
                 isGround = false;
             }
-            Debug.DrawLine(transform.position, (transform.position - transform.up * rayLength), Color.red);
+            //Debug.DrawLine(transform.position, (transform.position - transform.up * rayLength), Color.red);
         }
 
         if (characon.isGrounded)
@@ -174,6 +215,12 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         }
         else
         {
+            timerForFlyingSE += Time.deltaTime;
+            if (timerForFlyingSE >= flyingSETime)
+            {
+                AudioManager.Instance.PlaySEClipFromIndex(6, 1f);
+                timerForFlyingSE = 0f;
+            }
             playerMoveDirection = direction * playerSpeedValue;
             playerMoveDirection.y += gravityStrength * flyingSpeed;
         }
@@ -188,13 +235,14 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         {
             SwitchTPS = false; //バグ排除
             rate_switch = 0.0f;
-            camera.transform.localPosition = TPS_pos;
+            playerCamera.transform.localPosition = TPS_pos;
             fpsAngelSpeedRatio = 1f;
         }
 
         if ((Input.GetButton(mynameForInputmanager + "Shot2") || Input.GetKey(KeyCode.KeypadEnter)) && bulletShotPossible == true && bulletNumber > 0)
         {
             myGun.SendMessage("BulletShot");
+            AudioManager.Instance.PlaySEClipFromIndex(4, 1f);
             bulletNumber--;
             PlayerUI.UpdateBulletNumber();
             bulletShotPossible = false;
@@ -204,6 +252,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         if ((Input.GetButton(mynameForInputmanager + "Shot1") || Input.GetKey(KeyCode.KeypadPlus)) && bombShotPossible == true && bombNumber > 0)
         {
             myGun.SendMessage("BombShot");
+            AudioManager.Instance.PlaySEClipFromIndex(5, 1f);
             bombNumber--;
             PlayerUI.UpdateBombNumber();
             bombShotPossible = false;
@@ -216,12 +265,23 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
             {
                 balloonNumber--;
                 PlayerUI.UpdateBalloonNumber();
-                isFlying = true;
                 Balloon.SetActive(true);
+                isFlying = true;
+                timerForFlyingSE = 0f;
+                AudioManager.Instance.PlaySEClipFromIndex(6, 1f);
+                FlyCoroutine = StartCoroutine(WaitFlyingTimeLimit());
             }
             else
             {
-                isFlying = false;
+                if(FlyCoroutine != null)
+                {
+                    StopCoroutine(FlyCoroutine);
+                }
+                if (isFlying)
+                {
+                    isFlying = false;
+                    AudioManager.Instance.PlaySEClipFromIndex(7, 1f);
+                }
                 Balloon.SetActive(false);
             }
         }
@@ -251,17 +311,25 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         {
             if (rate_switch <= 1)
             {
-                camera.transform.localPosition = Vector3.Lerp(TPS_pos, FPS_pos, rate_switch);
+                playerCamera.transform.localPosition = Vector3.Lerp(TPS_pos, FPS_pos, rate_switch);
                 rate_switch += switch_speed;
             }
             else
             {
-                camera.transform.localPosition = FPS_pos;
+                playerCamera.transform.localPosition = FPS_pos;
                 rate_switch = 0f;
                 SwitchTPS = false;
             }
 
         }
+    }
+
+    IEnumerator WaitFlyingTimeLimit()
+    {
+        yield return new WaitForSeconds(flyingTime);
+        isFlying = false;
+        AudioManager.Instance.PlaySEClipFromIndex(7, 1f);
+        Balloon.SetActive(false);
     }
 
     IEnumerator WaitBulletShotInterval()
@@ -283,31 +351,38 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
             playerHealth = maxHealth;
         }
         PlayerUI.UpdateLife();
+        AudioManager.Instance.PlaySEClipFromIndex(10, 1f);
     }
 
     public void PickUpBullet(int bulletValue)
     {
         bulletNumber += bulletValue;
         PlayerUI.UpdateBulletNumber();
+        AudioManager.Instance.PlaySEClipFromIndex(9, 1f);
     }
 
     public void PickUpBomb(int bombValue)
     {
         bombNumber += bombValue;
         PlayerUI.UpdateBombNumber();
+        AudioManager.Instance.PlaySEClipFromIndex(9, 1f);
     }
 
     public void PickUpBalloon()
     {
         balloonNumber++;
         PlayerUI.UpdateBalloonNumber();
+        AudioManager.Instance.PlaySEClipFromIndex(9, 1f);
     }
 
     // shotPlayerNumber == 0 -> self damage
     public void Damage(int damageValue, int shotPlayerNumber)
     {
-        playerHealth -= damageValue;
-        PlayerUI.UpdateLife();
+        if (!isNoDamageMode)
+        {
+            playerHealth -= damageValue;
+            PlayerUI.onDamage();
+        }
         if (playerHealth <= 0)
         {
             Death(shotPlayerNumber);
@@ -330,6 +405,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         }
         PlayerDataDirector.Instance.PlayerDeaths[PlayerID - 1] += 1;
         GameDirector.Instance.GeneratePlayer(playerID - 1);
+        GameDirector.Instance.DisplayKillLog(killerNumber, playerID);
         Destroy(gameObject);
     }
 

@@ -52,7 +52,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageCenterPoint: {x: -5.84, y: 20, z: 3.32}
-  itemPopSpecificPlaces: []
+  itemPopSpecificPlaces:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  popItemUpValue: 2
   upperPartRadius:
   - 5
   - 6.5
@@ -64,6 +68,8 @@ MonoBehaviour:
   - {fileID: 1149111090132838, guid: c498ad823be4f4745ab61a01c2e44372, type: 2}
   - {fileID: 1021728351988424, guid: cfad09b41f3bdef458d88ce9c086afd5, type: 2}
   - {fileID: 1479701241470438, guid: 8b602d7a79b75574a889e74731ad6d1e, type: 2}
+  SpecialItem: {fileID: 1813523259670152, guid: 98a75e55f2fd2a440a588a85afc4b8b3,
+    type: 2}
   ItemProbability: 460000001900000005000000
   startItemPopValue: 20
   repopIntervalSeconds: 20

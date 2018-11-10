@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 54224723285087086}
   - component: {fileID: 114122050153939616}
   - component: {fileID: 136343204394487992}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BombCake
   m_TagString: Untagged
   m_Icon: {fileID: 0}

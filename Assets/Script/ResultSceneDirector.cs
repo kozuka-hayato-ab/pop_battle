@@ -10,12 +10,13 @@ public class ResultSceneDirector : MonoBehaviour
     [SerializeField] Image[] playerImages;
     [SerializeField] Sprite[] charactors;
     [SerializeField] Text topPlayer;
+    [SerializeField] Text[] playerKD;
 
     [SerializeField] float[] waitTimeAtRankAnnounce;
     [SerializeField] GameObject[] RankHideParticles;
     private int[,] RankToPlayerIndexArray;
 
-    private void RankInit()
+    private void PlayerTextInit()
     {
 
         for (int i = 0; i < playerRankText.Length; i++)
@@ -28,10 +29,13 @@ public class ResultSceneDirector : MonoBehaviour
                 {
                     topPlayer.text += ((i + 1) + "Player ");
                 }
+                playerKD[i].text = PlayerDataDirector.Instance.PlayerKills[i].ToString() + "Kill\n" +
+                    PlayerDataDirector.Instance.PlayerDeaths[i].ToString() + "Death";
             }
             else
             {
                 playerRankText[i].text = "None";
+                playerKD[i].text = "";
                 RankHideParticles[i].SetActive(false);
             }
         }
@@ -43,6 +47,7 @@ public class ResultSceneDirector : MonoBehaviour
             playerImages[i].sprite = charactors[(int)PlayerDataDirector.Instance.PlayerTypes[i]];
         }
     }
+
 
     private int[,] playerRankToPlayerIndex()
     {
@@ -75,13 +80,16 @@ public class ResultSceneDirector : MonoBehaviour
 
     private bool rankAnnounceFinished = false;
 
+    private readonly float textFlashSpeed = 5f;
+
     // Use this for initialization
     void Start()
     {
         PlayerDataDirector.Instance.PlayerRankDecided();
-        //tmp();
+        tmp();
         RankToPlayerIndexArray = playerRankToPlayerIndex();
         PlayerImageInit();
+        AudioManager.Instance.ChangeBGM(0);
         StartCoroutine(RankAnnounce());
     }
 
@@ -90,6 +98,9 @@ public class ResultSceneDirector : MonoBehaviour
     {
         if (rankAnnounceFinished)
         {
+            var color = topPlayer.color;
+            color.a = Mathf.Sin(Time.time * textFlashSpeed) / 2 + 0.6f;
+            topPlayer.color = color;
             if (Input.anyKeyDown)
             {
                 BackToTitle();
@@ -107,11 +118,11 @@ public class ResultSceneDirector : MonoBehaviour
     IEnumerator RankAnnounce()
     {
         yield return new WaitForSecondsRealtime(3f);
-        RankInit();
+        PlayerTextInit();
         for (int i = RankToPlayerIndexArray.GetLength(0) - 1; i >= 0; i--)
         {
             yield return new WaitForSecondsRealtime(waitTimeAtRankAnnounce[i]);
-            for(int k = 0; k < RankToPlayerIndexArray.GetLength(1); k++)
+            for (int k = 0; k < RankToPlayerIndexArray.GetLength(1); k++)
             {
                 if (RankToPlayerIndexArray[i, k] != -1)
                     RankHideParticles[RankToPlayerIndexArray[i, k]].SetActive(false);
@@ -120,10 +131,11 @@ public class ResultSceneDirector : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
         topPlayer.gameObject.SetActive(true);
         rankAnnounceFinished = true;
+        AudioManager.Instance.StopBGM();
     }
 
     // for debug
-    /*
+    
     private void tmp()
     {
         PlayerDataDirector.Instance.PlayerTypes[0] = PlayerType.Charactor3;
@@ -135,7 +147,18 @@ public class ResultSceneDirector : MonoBehaviour
         PlayerDataDirector.Instance.PlayerRank[1] = 2;
         PlayerDataDirector.Instance.PlayerRank[2] = 3;
         PlayerDataDirector.Instance.PlayerRank[3] = 1;
-    }*/
+
+        PlayerDataDirector.Instance.PlayerKills[0] = 12;
+        PlayerDataDirector.Instance.PlayerKills[1] = 4;
+        PlayerDataDirector.Instance.PlayerKills[2] = 6;
+        PlayerDataDirector.Instance.PlayerKills[3] = 21;
+
+        PlayerDataDirector.Instance.PlayerDeaths[0] = 2;
+        PlayerDataDirector.Instance.PlayerDeaths[1] = 1;
+        PlayerDataDirector.Instance.PlayerDeaths[2] = 5;
+        PlayerDataDirector.Instance.PlayerDeaths[3] = 2;
+
+    }
     /* for debug
     void debuglogArray()
     {

@@ -115,12 +115,32 @@ ModelImporter:
     7400012: metarig.005|throw_mixamo
     9500000: //RootNode
     13700000: "ICO\u7403.018"
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: boy_1.001
+    second: {fileID: 2100000, guid: 94e8949b6224d584b92853ae5c6bc47e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: boy_2.001
+    second: {fileID: 2100000, guid: 78fcfa5eba2c34941aaf92a9c782a37c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gun_1.004
+    second: {fileID: 2100000, guid: 6d58ef342fcd4c343ac9210ec798e3c2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gun_1.005
+    second: {fileID: 2100000, guid: e54394e6d04e6dc47810f14e50be8952, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0

@@ -41,18 +41,23 @@ public class GameDirector : Singleton<GameDirector>
     [SerializeField] float textFlashSpeed;
     [SerializeField] GameObject firstSelectedButton;
     [SerializeField] EventSystem eventSystem;
+    [SerializeField] Text KillLogText;
+    private float killLogDisplayTime = 3f;
+    private Coroutine killLogCoroutine;
 
     // Use this for initialization
     void Start()
     {
+        GameIsLatter = false;
         player = new PlayerController[PlayerDataDirector.Instance.MaxPlayerNumber];
         GenerateAllPlayer();
 
         preSeconds = 0f;
         GamePanel.gameObject.SetActive(true);
         CenterTimer.gameObject.SetActive(true);
+        KillLogText.gameObject.SetActive(false);
         isGameStart = false;
-        GameIsLatter = false;
+        AudioManager.Instance.PlaySEClipFromIndex(2, 1f);
     }
 
     // Update is called once per frame
@@ -65,7 +70,6 @@ public class GameDirector : Singleton<GameDirector>
                 isPoseTime = true;
                 PoseMenu.SetActive(true);
                 GamePanel.gameObject.SetActive(true);
-                Debug.Log(firstSelectedButton.activeSelf);
                 eventSystem.SetSelectedGameObject(firstSelectedButton);
                 Time.timeScale = 0f;
             }
@@ -73,7 +77,7 @@ public class GameDirector : Singleton<GameDirector>
         else
         {
             var color = PoseText.color;
-            color.a = Mathf.Sin(Time.realtimeSinceStartup * textFlashSpeed);
+            color.a = Mathf.Sin(Time.realtimeSinceStartup * textFlashSpeed) / 2 + 0.6f;
             PoseText.color = color;
         }
 
@@ -108,6 +112,7 @@ public class GameDirector : Singleton<GameDirector>
 
             if (totalTime <= 0f)
             {
+                AudioManager.Instance.PlaySEClipFromIndex(3, 1f);
                 GameFinish();
             }
         }
@@ -166,13 +171,13 @@ public class GameDirector : Singleton<GameDirector>
 
     public void BackFromPose()
     {
-        isPoseTime = false;
         PoseMenu.SetActive(false);
         if (isGameStart)
         {
             GamePanel.gameObject.SetActive(false);
         }
         Time.timeScale = 1f;
+        isPoseTime = false;
     }
 
     private void GenerateAllPlayer()
@@ -190,9 +195,15 @@ public class GameDirector : Singleton<GameDirector>
     //PlayerIndexとはプレイヤーのデータの配列のインデックス
     public void GeneratePlayer(int playerIndex)
     {
+        Vector3 respawnPlace;
+        if (GameIsLatter)
+            respawnPlace = PlayerLatterStartPosition[playerIndex];
+        else
+            respawnPlace = PlayerStartPosition[playerIndex];
+
         player[playerIndex] = Instantiate(
             charactors[(int)PlayerDataDirector.Instance.PlayerTypes[playerIndex] - 1],//enum型の先頭はNoneのため
-            PlayerStartPosition[playerIndex],
+            respawnPlace,
             Quaternion.identity).GetComponent<PlayerController>();
 
         player[playerIndex].SendMessage("ChangeGameController", playerIndex + 1);
@@ -202,12 +213,13 @@ public class GameDirector : Singleton<GameDirector>
     private void CameraViewSetting(int playerIndex, int participantsNumber)
     {
         Camera camera = player[playerIndex].transform.Find("CameraPivot").Find("Camera").GetComponent<Camera>();
+        bool isOnlyTwoPlayer = (participantsNumber == 2);
         switch (playerIndex + 1)
         {
             case 1:
-                if (participantsNumber == 2)
+                if (isOnlyTwoPlayer)
                 {
-                    camera.rect = new Rect(0f, 0.5f, 1f, 0.5f);
+                    camera.rect = new Rect(0.15f, 0.5f, 0.7f, 0.5f);
                 }
                 else
                 {
@@ -215,9 +227,16 @@ public class GameDirector : Singleton<GameDirector>
                 }
                 break;
             case 2:
-                if (participantsNumber == 2)
+                if (isOnlyTwoPlayer)
                 {
-                    camera.rect = new Rect(0f, 0f, 1f, 0.5f);
+                    if (PlayerDataDirector.Instance.PlayerTypes[0] != PlayerType.None)
+                    {
+                        camera.rect = new Rect(0.15f, 0f, 0.7f, 0.5f);
+                    }
+                    else
+                    {
+                        camera.rect = new Rect(0.15f, 0.5f, 0.7f, 0.5f);
+                    }
                 }
                 else
                 {
@@ -225,10 +244,31 @@ public class GameDirector : Singleton<GameDirector>
                 }
                 break;
             case 3:
-                camera.rect = new Rect(0f, 0f, 0.5f, 0.5f);
+                if (isOnlyTwoPlayer)
+                {
+                    if (PlayerDataDirector.Instance.PlayerTypes[3] != PlayerType.None)
+                    {
+                        camera.rect = new Rect(0.15f, 0.5f, 0.7f, 0.5f);
+                    }
+                    else
+                    {
+                        camera.rect = new Rect(0.15f, 0f, 0.7f, 0.5f);
+                    }
+                }
+                else
+                {
+                    camera.rect = new Rect(0f, 0f, 0.5f, 0.5f);
+                }
                 break;
             case 4:
-                camera.rect = new Rect(0.5f, 0f, 0.5f, 0.5f);
+                if (isOnlyTwoPlayer)
+                {
+                    camera.rect = new Rect(0.15f, 0f, 0.7f, 0.5f);
+                }
+                else
+                {
+                    camera.rect = new Rect(0.5f, 0f, 0.5f, 0.5f);
+                }
                 break;
         }
     }
@@ -248,5 +288,30 @@ public class GameDirector : Singleton<GameDirector>
         {
             Player[playerID - 1].transform.position = PlayerStartPosition[playerID - 1];
         }
+    }
+
+    public void DisplayKillLog(int killerID, int deathID)
+    {
+        if(killLogCoroutine != null)
+        {
+            StopCoroutine(killLogCoroutine);
+        }
+        KillLogText.gameObject.SetActive(true);
+        if(killerID != 0)
+        {
+            KillLogText.text = killerID + "P KILL" + deathID + "P";
+        }
+        else
+        {
+            KillLogText.text = deathID + "P DEATH";
+        }
+        killLogCoroutine = StartCoroutine(WaitKillLogDisplayTime());
+    }
+
+    IEnumerator WaitKillLogDisplayTime()
+    {
+        yield return new WaitForSeconds(killLogDisplayTime);
+        KillLogText.text = "";
+        KillLogText.gameObject.SetActive(false);
     }
 }

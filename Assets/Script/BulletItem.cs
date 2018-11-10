@@ -9,15 +9,18 @@ public class BulletItem : Item {
     {
         base.Awake();
     }
+
     // Use this for initialization
     void Start () {
 		
 	}
+
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")

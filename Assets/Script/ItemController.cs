@@ -7,7 +7,9 @@ public class ItemController : MonoBehaviour
     private const int Max = 100;
 
     [SerializeField] private Vector3 stageCenterPoint;
-    [SerializeField] private Vector3[] itemPopSpecificPlaces;
+    [SerializeField] private GameObject[] itemPopSpecificPlaces;
+    private float popItemUpValue = 6;
+    [SerializeField] private int SpecialItemPopProbability = 30;
 
     [SerializeField] private float[] upperPartRadius;// [0] -> start [1] -> end
     [SerializeField] private float[] underPartRadius;// this is same system ↑
@@ -15,6 +17,7 @@ public class ItemController : MonoBehaviour
 
     private Dictionary<GameObject, int> ItemDict;
     [SerializeField] private GameObject[] Items;
+    [SerializeField] private GameObject SpecialItem;
     [SerializeField] private int[] ItemProbability;
 
     [SerializeField] int startItemPopValue;
@@ -41,7 +44,7 @@ public class ItemController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Time.timeScale == 0)
+        if (Time.timeScale == 0)
         {
             return;
         }
@@ -120,7 +123,7 @@ public class ItemController : MonoBehaviour
         int length = itemPopSpecificPlaces.Length;
         for (int i = 0; i < length; i++)
         {
-            GenerateItem(itemPopSpecificPlaces[i], Items[2]);
+            GenerateItem(itemPopSpecificPlaces[i].transform.position + Vector3.up * popItemUpValue, SpecialItem);
         }
     }
 
@@ -130,6 +133,7 @@ public class ItemController : MonoBehaviour
         {
             PopItem();
         }
+        PopItemOnSpecificPlace();
     }
 
     private void RepopItem()
@@ -138,6 +142,7 @@ public class ItemController : MonoBehaviour
         {
             PopItem();
         }
-        PopItemOnSpecificPlace();
+        if (boolFromPercent(SpecialItemPopProbability))
+            PopItemOnSpecificPlace();
     }
 }

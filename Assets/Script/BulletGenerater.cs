@@ -8,7 +8,7 @@ public class BulletGenerater : MonoBehaviour
     [SerializeField] GameObject bomb;
     [SerializeField] GameObject muzzle;
     [SerializeField] float bulletSpeed;
-    [SerializeField] float bulletDestroyTime;
+    private const float bulletDestroyTime = 1.5f;
     [SerializeField] float bombSpeed;
     [SerializeField] float bombVerticalCompensation;
     [SerializeField] Camera playerCamera;
@@ -46,5 +46,6 @@ public class BulletGenerater : MonoBehaviour
             ) as GameObject;
         bombInstance.GetComponent<Rigidbody>().AddForce(
             (playerCamera.transform.forward + Vector3.up * bombVerticalCompensation) * bombSpeed, ForceMode.Impulse);
+        bombInstance.GetComponent<Bomb>().playerID = userPlayerNumber;
     }
 }

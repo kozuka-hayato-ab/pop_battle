@@ -12,7 +12,7 @@ public class CharaChoiceDirector : MonoBehaviour
 
     [SerializeField] Image CharactorImage;
     [SerializeField] Sprite[] charactors;
-
+    
     private void Awake()
     {
 
@@ -28,11 +28,11 @@ public class CharaChoiceDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
 
     public void PlayerCharaChoice(int charactorNumber)
     {
+        AudioManager.Instance.PlaySEClipFromIndex(1, 1f);
         switch (charactorNumber) {
             case (int)PlayerType.None:
                 PlayerDataDirector.Instance.PlayerTypes[nowStep - 1] = PlayerType.None;
@@ -60,6 +60,7 @@ public class CharaChoiceDirector : MonoBehaviour
 
     public void NextStep()
     {
+        AudioManager.Instance.PlaySEClipFromIndex(1, 1f);
         nowStep++;
         if (nowStep == (charaChoiceStep + 1)) {
             nowStep--;
@@ -75,10 +76,13 @@ public class CharaChoiceDirector : MonoBehaviour
 
     public void BackStep()
     {
+        AudioManager.Instance.PlaySEClipFromIndex(1, 1f);
         nowStep--;
         if(nowStep == 0)
         {
+            nowStep++;
             BackToTitle();
+            return;
         }
         PlayerNameChange(nowStep);
         CharactorImage.sprite =
@@ -96,4 +100,5 @@ public class CharaChoiceDirector : MonoBehaviour
     {
         SceneManager.LoadScene("Main");
     }
+
 }

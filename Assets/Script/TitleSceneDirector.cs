@@ -12,7 +12,7 @@ public class TitleSceneDirector : MonoBehaviour {
     [SerializeField] EventSystem eventSystem;
     [SerializeField] GameObject HowToUseButton;
     [SerializeField] GameObject BackButton;
-    
+
 	// Use this for initialization
 	void Start () {
         
@@ -20,7 +20,6 @@ public class TitleSceneDirector : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
 	}
 
     public void HowToUseOn()
@@ -28,6 +27,7 @@ public class TitleSceneDirector : MonoBehaviour {
         HowToUse.SetActive(true);
         eventSystem.SetSelectedGameObject(BackButton);
         MainButtons.SetActive(false);
+        AudioManager.Instance.PlaySEClipFromIndex(1, 1f);
     }
 
     public void BackButtonOn()
@@ -35,15 +35,18 @@ public class TitleSceneDirector : MonoBehaviour {
         MainButtons.SetActive(true);
         eventSystem.SetSelectedGameObject(HowToUseButton);
         HowToUse.SetActive(false);
+        AudioManager.Instance.PlaySEClipFromIndex(1, 1f);
     }
 
     public void NextScene()
     {
+        AudioManager.Instance.PlaySEClipFromIndex(1, 1f);
         SceneManager.LoadScene("CharactorChoice");
     }
 
     public void QuitGame()
     {
+        AudioManager.Instance.PlaySEClipFromIndex(1, 1f);
         Application.Quit();
     }
 }

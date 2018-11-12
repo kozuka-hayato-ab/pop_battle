@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class BulletOption : MonoBehaviour {
-    [SerializeField] private const int damageValue = 1;
+    private const int damageValue = 1;
     public int shotPlayerNumber
     {
         get;set;

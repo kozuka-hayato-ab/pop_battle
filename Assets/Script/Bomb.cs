@@ -6,10 +6,11 @@ public class Bomb : MonoBehaviour {
     [SerializeField] GameObject BombParticle;
     [SerializeField] float destroyTime;
     public int playerID { get; set; }
+    private Coroutine coroutine;
 
 	// Use this for initialization
 	void Start () {
-		
+        coroutine = StartCoroutine(DestroyTimer());
 	}
 	
     IEnumerator DestroyTimer()
@@ -25,12 +26,16 @@ public class Bomb : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        StopCoroutine(DestroyTimer());
+        if(coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
         ExecuteBomb();
     }
 
     public void ExecuteBomb()
     {
+        AudioManager.Instance.PlaySEClipFromIndex(8, 1f);
         Instantiate(BombParticle,
             transform.position,
             transform.rotation).GetComponent<BombOption>().ThrowPlayerID = playerID;

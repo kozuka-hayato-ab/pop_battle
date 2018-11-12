@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 135862426348841306}
   - component: {fileID: 54339150800855998}
   - component: {fileID: 114784747921155460}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BulletCandy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

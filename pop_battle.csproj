@@ -358,6 +358,7 @@
     <Compile Include="Assets\Script\BulletGenerater.cs" />
     <Compile Include="Assets\Script\BulletItem.cs" />
     <Compile Include="Assets\Script\BulletOption.cs" />
+    <Compile Include="Assets\Script\ButtonSetting.cs" />
     <Compile Include="Assets\Script\CharaChoiceDirector.cs" />
     <Compile Include="Assets\Script\CloudDirector.cs" />
     <Compile Include="Assets\Script\CloudOption.cs" />
@@ -373,8 +374,10 @@
     <Compile Include="Assets\Script\Singleton.cs" />
     <Compile Include="Assets\Script\StageDirector.cs" />
     <Compile Include="Assets\Script\StageOutCollider.cs" />
+    <Compile Include="Assets\Script\StageRotate.cs" />
     <Compile Include="Assets\Script\TitleSceneDirector.cs" />
     <Compile Include="Assets\Script\Warp.cs" />
+    <Compile Include="Assets\Script\WarpExit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ImportAsset\Character Animation Pack\Elements\ImageEffects\Shaders\BlendModesOverlay.shader" />

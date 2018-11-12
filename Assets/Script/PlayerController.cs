@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     private bool bombShotPossible = true;
 
     public PlayerUI PlayerUI { get; set; }
+    [SerializeField] GameObject centerCircle; //FPS視点の時だけ出したい
 
     private bool isFlying;
     public bool EnableFly
@@ -131,6 +132,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         isFlying = false;
         noDamageTimer = 0f;
         isNoDamageMode = true;
+        centerCircle.SetActive(false);
     }
 
     // Use this for initialization
@@ -236,6 +238,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
             rate_switch = 0.0f;
             playerCamera.transform.localPosition = TPS_pos;
             fpsAngelSpeedRatio = 1f;
+            centerCircle.SetActive(false);
         }
 
         if ((Input.GetButton(mynameForInputmanager + "Shot2") || Input.GetKey(KeyCode.KeypadEnter)) && bulletShotPossible == true && bulletNumber > 0)
@@ -316,6 +319,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
             else
             {
                 playerCamera.transform.localPosition = FPS_pos;
+                centerCircle.SetActive(true);
                 rate_switch = 0f;
                 SwitchTPS = false;
             }

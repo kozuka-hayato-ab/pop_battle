@@ -1463,6 +1463,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114871348643808702, guid: 87a406839e103c1459df866ae446dc2c,
+        type: 2}
+      propertyPath: seClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87a406839e103c1459df866ae446dc2c, type: 2}
   m_IsPrefabAsset: 0

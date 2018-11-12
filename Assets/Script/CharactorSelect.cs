@@ -40,6 +40,7 @@ public class CharactorSelect : MonoBehaviour {
             charactorNow %= charactors.Length;
             PlayerCharaChoice(charactorNow);
             enableInput = false;
+            AudioManager.Instance.PlaySEClipFromIndex(1, 0.1f);
             StartCoroutine(WaitInput());
             Debug.Log(PlayerDataDirector.Instance.PlayerTypes[playerId - 1]);
         }
@@ -52,6 +53,7 @@ public class CharactorSelect : MonoBehaviour {
             charactorNow = (charactorNow + charactors.Length) % charactors.Length; //多分もっといい方法ある
             PlayerCharaChoice(charactorNow);
             enableInput = false;
+            AudioManager.Instance.PlaySEClipFromIndex(1, 0.1f);
             StartCoroutine(WaitInput());
             Debug.Log(PlayerDataDirector.Instance.PlayerTypes[playerId - 1]);
         }

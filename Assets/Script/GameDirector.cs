@@ -221,12 +221,8 @@ public class GameDirector : Singleton<GameDirector>
             case 1://
                 if (isOnlyTwoPlayer)
                 {
-                    camera.rect = new Rect(0f, 0.5f, 1f, 0.5f);
+                    camera.rect = new Rect(0.15f, 0.5f, 0.7f, 0.5f);
                     exist_primary = true;
-            // case 1:
-            //     if (isOnlyTwoPlayer)
-            //     {
-            //         camera.rect = new Rect(0.15f, 0.5f, 0.7f, 0.5f);
                 }
                 else
                 {
@@ -235,20 +231,11 @@ public class GameDirector : Singleton<GameDirector>
                 break;
             case 2://
                 if (isOnlyTwoPlayer && exist_primary)
-            // case 2:
-            //     if (isOnlyTwoPlayer)
                 {
-                    if (PlayerDataDirector.Instance.PlayerTypes[0] != PlayerType.None)
-                    {
-                        camera.rect = new Rect(0.15f, 0f, 0.7f, 0.5f);
-                    }
-                    else
-                    {
-                        camera.rect = new Rect(0.15f, 0.5f, 0.7f, 0.5f);
-                    }
+                    camera.rect = new Rect(0.15f, 0f, 0.7f, 0.5f);
                 }
                 else if(isOnlyTwoPlayer){
-                    camera.rect = new Rect(0f, 0.5f, 1f, 0.5f);
+                    camera.rect = new Rect(0.15f, 0.5f, 0.7f, 0.5f);
                     exist_primary = true;
                 }
                 else
@@ -259,25 +246,13 @@ public class GameDirector : Singleton<GameDirector>
             case 3://
                 if (isOnlyTwoPlayer && exist_primary)
                 {
-                    camera.rect = new Rect(0f, 0f, 1f, 0.5f);
+                    camera.rect = new Rect(0.15f, 0f, 0.7f, 0.5f);
                 }
                 else if (isOnlyTwoPlayer)
                 {
-                    camera.rect = new Rect(0f, 0.5f, 1f, 0.5f);
+                    camera.rect = new Rect(0.15f, 0.5f, 0.7f, 0.5f);
                     exist_primary = true;
                 }
-            // case 3:
-            //     if (isOnlyTwoPlayer)
-            //     {
-            //         if (PlayerDataDirector.Instance.PlayerTypes[3] != PlayerType.None)
-            //         {
-            //             camera.rect = new Rect(0.15f, 0.5f, 0.7f, 0.5f);
-            //         }
-            //         else
-            //         {
-            //             camera.rect = new Rect(0.15f, 0f, 0.7f, 0.5f);
-            //         }
-            //     }
                 else
                 {
                     camera.rect = new Rect(0f, 0f, 0.5f, 0.5f);
@@ -286,11 +261,7 @@ public class GameDirector : Singleton<GameDirector>
             case 4://
                 if (isOnlyTwoPlayer)
                 {
-                    camera.rect = new Rect(0f, 0f, 1f, 0.5f);
-            // case 4:
-            //     if (isOnlyTwoPlayer)
-            //     {
-            //         camera.rect = new Rect(0.15f, 0f, 0.7f, 0.5f);
+                    camera.rect = new Rect(0.15f, 0f, 0.7f, 0.5f);
                 }
                 else
                 {

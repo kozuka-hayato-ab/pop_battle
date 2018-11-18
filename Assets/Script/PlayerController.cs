@@ -108,14 +108,21 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     private float noDamageTimer;
     private Material[] playerMaterial;
     private float noDamageFlashSpeed = 15f;
-
+    /*
+    [SerializeField] private bool isBound = false;
+    [SerializeField] private float boundTime;
+    private float boundTimer;
+    [SerializeField] private float speedDownValue;
+    [SerializeField] private float initialSpeed;
+    private float boundSpeed;
+    */
     private void PlayerInfoInit()
     {
         playerHealth = maxHealth;
         bulletNumber = 30;
         bombNumber = 100;
         Debug.Log("parameter changed");
-        balloonNumber = 1;
+        balloonNumber = 10;
     }
     private void Awake()
     {
@@ -150,14 +157,14 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
 
         if (isNoDamageMode)
         {
-            foreach(Material mat in playerMaterial)
+            foreach (Material mat in playerMaterial)
             {
                 var color = mat.color;
                 color.a = Mathf.Sin(Time.time * noDamageFlashSpeed) / 2 + 0.8f;
                 mat.color = color;
             }
             noDamageTimer += Time.deltaTime;
-            if(noDamageTimer > isNoDamageTime)
+            if (noDamageTimer > isNoDamageTime)
             {
                 noDamageTimer = 0f;
                 isNoDamageMode = false;
@@ -195,6 +202,23 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
             //Debug.DrawLine(transform.position, (transform.position - transform.up * rayLength), Color.red);
         }
 
+        /*
+        if (isBound)
+        {
+            boundTimer += Time.deltaTime;
+            if (boundTimer >= boundTime)
+            {
+                isBound = false;
+            }
+            boundSpeed -= speedDownValue * Time.deltaTime;
+            playerMoveDirection = direction * playerSpeedValue;
+            playerMoveDirection.y += boundSpeed * Time.deltaTime;
+        }
+        else
+        {
+            playerMoveDirection.y -= gravityStrength * Time.deltaTime;
+        }*/
+        /*
         if (characon.isGrounded)
         {
             playerMoveDirection.y = 0f;
@@ -215,6 +239,41 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         }
         else
         {
+            Debug.Log("nowFlymode and isGrounded is " + characon.isGrounded);
+            timerForFlyingSE += Time.deltaTime;
+            if (timerForFlyingSE >= flyingSETime)
+            {
+                AudioManager.Instance.PlaySEClipFromIndex(6, 1f);
+                timerForFlyingSE = 0f;
+            }
+            playerMoveDirection = direction * playerSpeedValue;
+            boundSpeed -= speedDownValue * Time.deltaTime;
+            playerMoveDirection.y += gravityStrength * boundSpeed;
+        }
+        */
+        
+        Debug.Log("isGrounded and isflying" + characon.isGrounded + isFlying);
+        if (characon.isGrounded)
+        {
+            playerMoveDirection.y = 0f;
+            playerMoveDirection = direction * playerSpeedValue;
+
+            if (Input.GetButtonDown(mynameForInputmanager + "Jump") && !isFlying)
+            {
+                playerMoveDirection.y = playerJumpValue;
+            }
+            else if (!isFlying)
+            {
+                playerMoveDirection.y -= gravityStrength * Time.deltaTime;
+            }
+        }
+        else if (!isFlying)
+        {
+            playerMoveDirection.y -= gravityStrength * Time.deltaTime;
+        }
+        else
+        {
+            Debug.Log("nowFlymode and isGrounded is " + characon.isGrounded);
             timerForFlyingSE += Time.deltaTime;
             if (timerForFlyingSE >= flyingSETime)
             {
@@ -224,7 +283,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
             playerMoveDirection = direction * playerSpeedValue;
             playerMoveDirection.y += gravityStrength * flyingSpeed;
         }
-
+        
         if (Input.GetButtonDown(mynameForInputmanager + "Aim") || Input.GetKeyDown(KeyCode.Insert))
         {
             SwitchTPS = true;
@@ -270,10 +329,11 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
                 timerForFlyingSE = 0f;
                 AudioManager.Instance.PlaySEClipFromIndex(6, 1f);
                 FlyCoroutine = StartCoroutine(WaitFlyingTimeLimit());
+                Debug.Log("button on is Grounded ?" + characon.isGrounded);
             }
             else
             {
-                if(FlyCoroutine != null)
+                if (FlyCoroutine != null)
                 {
                     StopCoroutine(FlyCoroutine);
                 }
@@ -287,6 +347,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         }
 
         characon.Move(playerMoveDirection * Time.deltaTime);
+        Debug.Log("after move characon" + characon.isGrounded);
 
         if (!characon.isGrounded && !isGround)
         {
@@ -303,6 +364,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         }
         animcon.SetFloat("Forward", forward);
         animcon.SetFloat("Right", right);
+        Debug.Log("after animation characon" + characon.isGrounded);
     }
 
     private void FixedUpdate()

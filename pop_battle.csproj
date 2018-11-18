@@ -304,6 +304,12 @@
     <Compile Include="Assets\ImportAsset\Character Animation Pack\SuperCharacterController\SuperCharacterController\Core\SuperStateMachine.cs" />
     <Compile Include="Assets\ImportAsset\Character Animation Pack\SuperCharacterController\SuperCharacterController\DebugDraw.cs" />
     <Compile Include="Assets\ImportAsset\Character Animation Pack\SuperCharacterController\SuperCharacterController\Math3d.cs" />
+    <Compile Include="Assets\ImportAsset\Easy FPS\Scripts\BulletScript.cs" />
+    <Compile Include="Assets\ImportAsset\Easy FPS\Scripts\DestroyAfterTimeParticle.cs" />
+    <Compile Include="Assets\ImportAsset\Easy FPS\Scripts\GunInventory.cs" />
+    <Compile Include="Assets\ImportAsset\Easy FPS\Scripts\GunScript.cs" />
+    <Compile Include="Assets\ImportAsset\Easy FPS\Scripts\MouseLookScript.cs" />
+    <Compile Include="Assets\ImportAsset\Easy FPS\Scripts\PlayerMovementScript.cs" />
     <Compile Include="Assets\ImportAsset\Ethan Anim\Characters\FirstPersonCharacter\Scripts\FirstPersonController.cs" />
     <Compile Include="Assets\ImportAsset\Ethan Anim\Characters\FirstPersonCharacter\Scripts\HeadBob.cs" />
     <Compile Include="Assets\ImportAsset\Ethan Anim\Characters\FirstPersonCharacter\Scripts\MouseLook.cs" />

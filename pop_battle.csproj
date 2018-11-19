@@ -366,6 +366,8 @@
     <Compile Include="Assets\Script\BulletOption.cs" />
     <Compile Include="Assets\Script\ButtonSetting.cs" />
     <Compile Include="Assets\Script\CharaChoiceDirector.cs" />
+    <Compile Include="Assets\Script\CharaChoiceDirector1.cs" />
+    <Compile Include="Assets\Script\CharactorSelect.cs" />
     <Compile Include="Assets\Script\CloudDirector.cs" />
     <Compile Include="Assets\Script\CloudOption.cs" />
     <Compile Include="Assets\Script\CureItem.cs" />
@@ -381,6 +383,7 @@
     <Compile Include="Assets\Script\StageDirector.cs" />
     <Compile Include="Assets\Script\StageOutCollider.cs" />
     <Compile Include="Assets\Script\StageRotate.cs" />
+    <Compile Include="Assets\Script\TitleBackgroundController.cs" />
     <Compile Include="Assets\Script\TitleSceneDirector.cs" />
     <Compile Include="Assets\Script\Warp.cs" />
     <Compile Include="Assets\Script\WarpExit.cs" />

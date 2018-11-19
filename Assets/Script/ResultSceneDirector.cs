@@ -50,8 +50,8 @@ public class ResultSceneDirector : MonoBehaviour
             if (playerIndex != -1)
             {
                 playerRank[playerIndex].sprite = rankImages[rankIndex];
-                playerKD[playerIndex].text = PlayerDataDirector.Instance.PlayerKills[playerIndex].ToString() + "Kill\n" +
-                    PlayerDataDirector.Instance.PlayerDeaths[playerIndex].ToString() + "Death";
+                playerKD[playerIndex].text = PlayerDataDirector.Instance.PlayerKills[playerIndex].ToString() + "\n" +
+                    PlayerDataDirector.Instance.PlayerDeaths[playerIndex].ToString();
             }
         }
     }
@@ -101,7 +101,7 @@ public class ResultSceneDirector : MonoBehaviour
     void Start()
     {
         PlayerDataDirector.Instance.PlayerRankDecided();
-        //tmp();
+        tmp();
         RankToPlayerIndexArray = playerRankToPlayerIndex();
         PlayerImageInit();
         AudioManager.Instance.ChangeBGM(0);
@@ -146,7 +146,7 @@ public class ResultSceneDirector : MonoBehaviour
     }
 
     // for debug
-    /*
+    
     [SerializeField] int[] rankNumberForDebug;
     [SerializeField] PlayerType[] playerType;
     private void tmp()

@@ -42,6 +42,7 @@ public class GameDirector : Singleton<GameDirector>
     [SerializeField] GameObject firstSelectedButton;
     [SerializeField] EventSystem eventSystem;
     [SerializeField] Text KillLogText;
+    [SerializeField] GameObject KillLogPanel;
     private float killLogDisplayTime = 3f;
     private Coroutine killLogCoroutine;
 
@@ -323,14 +324,14 @@ public class GameDirector : Singleton<GameDirector>
         {
             StopCoroutine(killLogCoroutine);
         }
-        KillLogText.gameObject.SetActive(true);
+        KillLogPanel.SetActive(true);
         if(killerID != 0)
         {
-            KillLogText.text = killerID + "P KILL" + deathID + "P";
+            KillLogText.text = killerID + "P       " + deathID + "P";
         }
         else
         {
-            KillLogText.text = deathID + "P DEATH";
+            KillLogText.text = deathID + "P       " + deathID + "P";
         }
         killLogCoroutine = StartCoroutine(WaitKillLogDisplayTime());
     }

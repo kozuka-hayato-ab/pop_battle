@@ -13,6 +13,7 @@ public class TitleSceneDirector : MonoBehaviour {
     [SerializeField] GameObject HowToUseButton;
     [SerializeField] GameObject BackButton;
 
+    [SerializeField] GameObject Title;
 	// Use this for initialization
 	void Start () {
         
@@ -26,12 +27,14 @@ public class TitleSceneDirector : MonoBehaviour {
     {
         HowToUse.SetActive(true);
         eventSystem.SetSelectedGameObject(BackButton);
+        Title.SetActive(false);
         MainButtons.SetActive(false);
         AudioManager.Instance.PlaySEClipFromIndex(1, 1f);
     }
 
     public void BackButtonOn()
     {
+        Title.SetActive(true);
         MainButtons.SetActive(true);
         eventSystem.SetSelectedGameObject(HowToUseButton);
         HowToUse.SetActive(false);

@@ -6,16 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class ResultSceneDirector : MonoBehaviour
 {
-    [SerializeField] Text[] playerRankText;
     [SerializeField] Image[] playerImages;
+    [SerializeField] Image[] playerRank;
     [SerializeField] Sprite[] charactors;
-    [SerializeField] Text topPlayer;
+    [SerializeField] Sprite[] rankImages;
+    [SerializeField] Text finishText;
     [SerializeField] Text[] playerKD;
 
     [SerializeField] float[] waitTimeAtRankAnnounce;
-    [SerializeField] GameObject[] RankHideParticles;
     private int[,] RankToPlayerIndexArray;
-
+    // botu idea 
+    /*
     private void PlayerTextInit()
     {
 
@@ -27,7 +28,7 @@ public class ResultSceneDirector : MonoBehaviour
                 playerRankText[i].text = playerRank + "位";
                 if (playerRank == 1)
                 {
-                    topPlayer.text += ((i + 1) + "Player ");
+                    finishText.text += ((i + 1) + "Player ");
                 }
                 playerKD[i].text = PlayerDataDirector.Instance.PlayerKills[i].ToString() + "Kill\n" +
                     PlayerDataDirector.Instance.PlayerDeaths[i].ToString() + "Death";
@@ -39,7 +40,22 @@ public class ResultSceneDirector : MonoBehaviour
                 RankHideParticles[i].SetActive(false);
             }
         }
+    }*/
+
+    private void DisplayPlayerInfoFromRank(int rankIndex)
+    {
+        for (int i = 0; i < RankToPlayerIndexArray.GetLength(1); i++)
+        {
+            int playerIndex = RankToPlayerIndexArray[rankIndex, i];
+            if (playerIndex != -1)
+            {
+                playerRank[playerIndex].sprite = rankImages[rankIndex];
+                playerKD[playerIndex].text = PlayerDataDirector.Instance.PlayerKills[playerIndex].ToString() + "Kill\n" +
+                    PlayerDataDirector.Instance.PlayerDeaths[playerIndex].ToString() + "Death";
+            }
+        }
     }
+
     private void PlayerImageInit()
     {
         for (int i = 0; i < playerImages.Length; i++)
@@ -47,7 +63,6 @@ public class ResultSceneDirector : MonoBehaviour
             playerImages[i].sprite = charactors[(int)PlayerDataDirector.Instance.PlayerTypes[i]];
         }
     }
-
 
     private int[,] playerRankToPlayerIndex()
     {
@@ -86,7 +101,7 @@ public class ResultSceneDirector : MonoBehaviour
     void Start()
     {
         PlayerDataDirector.Instance.PlayerRankDecided();
-        tmp();
+        //tmp();
         RankToPlayerIndexArray = playerRankToPlayerIndex();
         PlayerImageInit();
         AudioManager.Instance.ChangeBGM(0);
@@ -98,9 +113,9 @@ public class ResultSceneDirector : MonoBehaviour
     {
         if (rankAnnounceFinished)
         {
-            var color = topPlayer.color;
+            var color = finishText.color;
             color.a = Mathf.Sin(Time.time * textFlashSpeed) / 2 + 0.6f;
-            topPlayer.color = color;
+            finishText.color = color;
             if (Input.anyKeyDown)
             {
                 BackToTitle();
@@ -118,35 +133,33 @@ public class ResultSceneDirector : MonoBehaviour
     IEnumerator RankAnnounce()
     {
         yield return new WaitForSecondsRealtime(3f);
-        PlayerTextInit();
         for (int i = RankToPlayerIndexArray.GetLength(0) - 1; i >= 0; i--)
         {
             yield return new WaitForSecondsRealtime(waitTimeAtRankAnnounce[i]);
-            for (int k = 0; k < RankToPlayerIndexArray.GetLength(1); k++)
-            {
-                if (RankToPlayerIndexArray[i, k] != -1)
-                    RankHideParticles[RankToPlayerIndexArray[i, k]].SetActive(false);
-            }
+            if (RankToPlayerIndexArray[i, 0] != -1)
+                DisplayPlayerInfoFromRank(i);
         }
         yield return new WaitForSecondsRealtime(1f);
-        topPlayer.gameObject.SetActive(true);
+        finishText.gameObject.SetActive(true);
         rankAnnounceFinished = true;
         AudioManager.Instance.StopBGM();
     }
 
     // for debug
-    
+    /*
+    [SerializeField] int[] rankNumberForDebug;
+    [SerializeField] PlayerType[] playerType;
     private void tmp()
     {
-        PlayerDataDirector.Instance.PlayerTypes[0] = PlayerType.Charactor3;
-        PlayerDataDirector.Instance.PlayerTypes[1] = PlayerType.Charactor2;
-        PlayerDataDirector.Instance.PlayerTypes[2] = PlayerType.Charactor1;
-        PlayerDataDirector.Instance.PlayerTypes[3] = PlayerType.Charactor4;
+        PlayerDataDirector.Instance.PlayerTypes[0] = playerType[0];
+        PlayerDataDirector.Instance.PlayerTypes[1] = playerType[1];
+        PlayerDataDirector.Instance.PlayerTypes[2] = playerType[2];
+        PlayerDataDirector.Instance.PlayerTypes[3] = playerType[3];
 
-        PlayerDataDirector.Instance.PlayerRank[0] = 4;
-        PlayerDataDirector.Instance.PlayerRank[1] = 2;
-        PlayerDataDirector.Instance.PlayerRank[2] = 3;
-        PlayerDataDirector.Instance.PlayerRank[3] = 1;
+        PlayerDataDirector.Instance.PlayerRank[0] = rankNumberForDebug[0];
+        PlayerDataDirector.Instance.PlayerRank[1] = rankNumberForDebug[1];
+        PlayerDataDirector.Instance.PlayerRank[2] = rankNumberForDebug[2];
+        PlayerDataDirector.Instance.PlayerRank[3] = rankNumberForDebug[3];
 
         PlayerDataDirector.Instance.PlayerKills[0] = 12;
         PlayerDataDirector.Instance.PlayerKills[1] = 4;

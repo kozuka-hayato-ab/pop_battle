@@ -217,7 +217,6 @@ public class PlayerController_boy : MonoBehaviour
     {
         if (SwitchTPS)
         {
-            Debug.Log("switchtps");
             if (rate_switch <= 1)
             {
                 camera.transform.localPosition = Vector3.Lerp(TPS_pos, FPS_pos, rate_switch);

@@ -37,7 +37,6 @@ public class PlayerUI : MonoBehaviour
             var color = DamagePanel.color;
             color.a = ((Mathf.Sin(Time.time * colorChangeSpeed) / 2f) + 0.5f) * alphaLimitValue;
             DamagePanel.color = color;
-            Debug.Log(DamagePanel.color);
         }
     }
 
@@ -109,11 +108,11 @@ public class PlayerUI : MonoBehaviour
 
     public void UpdateKillNumber()
     {
-        KillNumber.text = PlayerDataDirector.Instance.PlayerKills[MyPlayer.PlayerID - 1] + " Kill";
+        KillNumber.text = PlayerDataDirector.Instance.PlayerKills[MyPlayer.PlayerID - 1] + "";
     }
 
     public void UpdateDeathNumber()
     {
-        DeathNumber.text = PlayerDataDirector.Instance.PlayerDeaths[MyPlayer.PlayerID - 1] + " Death";
+        DeathNumber.text = PlayerDataDirector.Instance.PlayerDeaths[MyPlayer.PlayerID - 1] + "";
     }
 }

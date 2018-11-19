@@ -121,7 +121,11 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         playerHealth = maxHealth;
         bulletNumber = 30;
         bombNumber = 3;
+<<<<<<< HEAD
         balloonNumber = 1;
+=======
+        balloonNumber = 0;
+>>>>>>> origin/リッチ化
     }
     private void Awake()
     {
@@ -217,7 +221,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         {
             playerMoveDirection.y -= gravityStrength * Time.deltaTime;
         }
-        else
+        else //isFlying is true
         {
             timerForFlyingSE += Time.deltaTime;
             if (timerForFlyingSE >= flyingSETime)

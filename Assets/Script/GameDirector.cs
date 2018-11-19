@@ -45,13 +45,15 @@ public class GameDirector : Singleton<GameDirector>
     private float killLogDisplayTime = 3f;
     private Coroutine killLogCoroutine;
 
+    private bool exist_primary; //全員が二人対戦できるようにする変数
+
     // Use this for initialization
     void Start()
     {
+        exist_primary = false;
         GameIsLatter = false;
         player = new PlayerController[PlayerDataDirector.Instance.MaxPlayerNumber];
         GenerateAllPlayer();
-
         preSeconds = 0f;
         GamePanel.gameObject.SetActive(true);
         CenterTimer.gameObject.SetActive(true);
@@ -216,18 +218,25 @@ public class GameDirector : Singleton<GameDirector>
         bool isOnlyTwoPlayer = (participantsNumber == 2);
         switch (playerIndex + 1)
         {
-            case 1:
+            case 1://
                 if (isOnlyTwoPlayer)
                 {
-                    camera.rect = new Rect(0.15f, 0.5f, 0.7f, 0.5f);
+                    camera.rect = new Rect(0f, 0.5f, 1f, 0.5f);
+                    exist_primary = true;
+            // case 1:
+            //     if (isOnlyTwoPlayer)
+            //     {
+            //         camera.rect = new Rect(0.15f, 0.5f, 0.7f, 0.5f);
                 }
                 else
                 {
                     camera.rect = new Rect(0f, 0.5f, 0.5f, 0.5f);
                 }
                 break;
-            case 2:
-                if (isOnlyTwoPlayer)
+            case 2://
+                if (isOnlyTwoPlayer && exist_primary)
+            // case 2:
+            //     if (isOnlyTwoPlayer)
                 {
                     if (PlayerDataDirector.Instance.PlayerTypes[0] != PlayerType.None)
                     {
@@ -238,32 +247,50 @@ public class GameDirector : Singleton<GameDirector>
                         camera.rect = new Rect(0.15f, 0.5f, 0.7f, 0.5f);
                     }
                 }
+                else if(isOnlyTwoPlayer){
+                    camera.rect = new Rect(0f, 0.5f, 1f, 0.5f);
+                    exist_primary = true;
+                }
                 else
                 {
                     camera.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
                 }
                 break;
-            case 3:
-                if (isOnlyTwoPlayer)
+            case 3://
+                if (isOnlyTwoPlayer && exist_primary)
                 {
-                    if (PlayerDataDirector.Instance.PlayerTypes[3] != PlayerType.None)
-                    {
-                        camera.rect = new Rect(0.15f, 0.5f, 0.7f, 0.5f);
-                    }
-                    else
-                    {
-                        camera.rect = new Rect(0.15f, 0f, 0.7f, 0.5f);
-                    }
+                    camera.rect = new Rect(0f, 0f, 1f, 0.5f);
                 }
+                else if (isOnlyTwoPlayer)
+                {
+                    camera.rect = new Rect(0f, 0.5f, 1f, 0.5f);
+                    exist_primary = true;
+                }
+            // case 3:
+            //     if (isOnlyTwoPlayer)
+            //     {
+            //         if (PlayerDataDirector.Instance.PlayerTypes[3] != PlayerType.None)
+            //         {
+            //             camera.rect = new Rect(0.15f, 0.5f, 0.7f, 0.5f);
+            //         }
+            //         else
+            //         {
+            //             camera.rect = new Rect(0.15f, 0f, 0.7f, 0.5f);
+            //         }
+            //     }
                 else
                 {
                     camera.rect = new Rect(0f, 0f, 0.5f, 0.5f);
                 }
                 break;
-            case 4:
+            case 4://
                 if (isOnlyTwoPlayer)
                 {
-                    camera.rect = new Rect(0.15f, 0f, 0.7f, 0.5f);
+                    camera.rect = new Rect(0f, 0f, 1f, 0.5f);
+            // case 4:
+            //     if (isOnlyTwoPlayer)
+            //     {
+            //         camera.rect = new Rect(0.15f, 0f, 0.7f, 0.5f);
                 }
                 else
                 {

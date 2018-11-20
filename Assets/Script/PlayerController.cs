@@ -77,6 +77,8 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     private bool bombShotPossible = true;
 
     public PlayerUI PlayerUI { get; set; }
+    [SerializeField] GameObject centerCircle; //FPS視点の時だけ出したい
+
 
     private bool isFlying;
     public bool EnableFly
@@ -119,10 +121,10 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     private void PlayerInfoInit()
     {
         playerHealth = maxHealth;
-        bulletNumber = 30;
-        bombNumber = 100;
+        bulletNumber = 10;
+        bombNumber = 3;
         Debug.Log("parameter changed");
-        balloonNumber = 10;
+        balloonNumber = 0;
     }
     private void Awake()
     {
@@ -139,6 +141,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         isFlying = false;
         noDamageTimer = 0f;
         isNoDamageMode = true;
+        centerCircle.SetActive(false);
     }
 
     // Use this for initialization
@@ -288,6 +291,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         {
             SwitchTPS = true;
             fpsAngelSpeedRatio = fpsAngleSpeedValue;
+
         }
 
         if (Input.GetButtonUp(mynameForInputmanager + "Aim") || Input.GetKeyUp(KeyCode.Insert))
@@ -296,6 +300,8 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
             rate_switch = 0.0f;
             playerCamera.transform.localPosition = TPS_pos;
             fpsAngelSpeedRatio = 1f;
+            centerCircle.SetActive(false);
+
         }
 
         if ((Input.GetButton(mynameForInputmanager + "Shot2") || Input.GetKey(KeyCode.KeypadEnter)) && bulletShotPossible == true && bulletNumber > 0)
@@ -379,6 +385,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
             else
             {
                 playerCamera.transform.localPosition = FPS_pos;
+                centerCircle.SetActive(true);
                 rate_switch = 0f;
                 SwitchTPS = false;
             }

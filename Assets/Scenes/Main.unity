@@ -402,7 +402,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1839801777599076, guid: c366b674c417dc0418ae6fc197a87212, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114534517789800080, guid: c366b674c417dc0418ae6fc197a87212,
         type: 2}
@@ -473,48 +473,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1727106988031960, guid: a2f26193536552241919f1dbf975c8b8,
     type: 2}
   m_PrefabInternal: {fileID: 255806109}
---- !u!1001 &925670548
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4616824206596734, guid: b270c00a853858543b8cd73a9c2bf533, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4616824206596734, guid: b270c00a853858543b8cd73a9c2bf533, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 3.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 4616824206596734, guid: b270c00a853858543b8cd73a9c2bf533, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 9.55
-      objectReference: {fileID: 0}
-    - target: {fileID: 4616824206596734, guid: b270c00a853858543b8cd73a9c2bf533, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4616824206596734, guid: b270c00a853858543b8cd73a9c2bf533, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4616824206596734, guid: b270c00a853858543b8cd73a9c2bf533, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4616824206596734, guid: b270c00a853858543b8cd73a9c2bf533, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4616824206596734, guid: b270c00a853858543b8cd73a9c2bf533, type: 2}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b270c00a853858543b8cd73a9c2bf533, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &1511235271 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1893231636903140, guid: c366b674c417dc0418ae6fc197a87212,

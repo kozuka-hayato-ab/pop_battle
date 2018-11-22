@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4491295416781474}
   - component: {fileID: 198222592561182224}
   - component: {fileID: 199238166358254596}
+  - component: {fileID: 114808513708275668}
   m_Layer: 0
   m_Name: MuzzleFlashParticle_1
   m_TagString: Untagged
@@ -35,12 +36,23 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1088917819537440}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.19, y: 0.11, z: -0.24}
+  m_LocalPosition: {x: -6.2487035, y: 6.424032, z: -2.1097898}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114808513708275668
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1088917819537440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d81119006b0bcc48a4ac0519540f2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198222592561182224
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -53,7 +65,7 @@ ParticleSystem:
   stopAction: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -101,7 +113,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1749156509
+  randomSeed: 1660369091
   InitialModule:
     serializedVersion: 3
     enabled: 1

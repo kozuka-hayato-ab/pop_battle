@@ -7,6 +7,7 @@ public class BulletGenerater : MonoBehaviour
     [SerializeField] GameObject bullet;
     [SerializeField] GameObject bomb;
     [SerializeField] GameObject muzzle;
+    [SerializeField] GameObject muzzleFlashParticle;
     [SerializeField] float bulletSpeed;
     private const float bulletDestroyTime = 1.5f;
     [SerializeField] float bombSpeed;
@@ -28,6 +29,9 @@ public class BulletGenerater : MonoBehaviour
 
     public void BulletShot()
     {
+        Instantiate(muzzleFlashParticle,
+            muzzle.transform.position,
+            Quaternion.identity);
         var bulletInstance = Instantiate(bullet,
             muzzle.transform.position,
             muzzle.transform.rotation
@@ -40,6 +44,9 @@ public class BulletGenerater : MonoBehaviour
 
     public void BombShot()
     {
+        Instantiate(muzzleFlashParticle,
+            muzzle.transform.position,
+            Quaternion.identity);
         var bombInstance = Instantiate(bomb,
             muzzle.transform.position,
             muzzle.transform.rotation

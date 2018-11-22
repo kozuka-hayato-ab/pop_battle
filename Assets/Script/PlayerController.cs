@@ -119,9 +119,9 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     private void PlayerInfoInit()
     {
         playerHealth = maxHealth;
-        bulletNumber = 30;
-        bombNumber = 3;
-        balloonNumber = 1;
+        bulletNumber = 60;
+        bombNumber = 25;
+        balloonNumber = 15;
     }
     private void Awake()
     {
@@ -401,15 +401,15 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     private void Death(int killerNumber)
     {
         //playerIndexであることに注意
-        if (killerNumber != 0) // 0 -> self death(stageout) not 0 -> other player kill
+        if (killerNumber != 0 && killerNumber != PlayerID) // 0 -> self death(stageout) not 0 -> other player kill
         {
             PlayerDataDirector.Instance.PlayerKills[killerNumber - 1] += 1;
             GameDirector.Instance.UpdateKillPlayerUI(killerNumber - 1);
 
         }
         PlayerDataDirector.Instance.PlayerDeaths[PlayerID - 1] += 1;
-        GameDirector.Instance.GeneratePlayer(playerID - 1);
         GameDirector.Instance.DisplayKillLog(killerNumber, playerID);
+        GameDirector.Instance.GeneratePlayer(playerID - 1);
         Destroy(gameObject);
     }
 

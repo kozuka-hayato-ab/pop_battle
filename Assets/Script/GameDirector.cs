@@ -48,12 +48,21 @@ public class GameDirector : Singleton<GameDirector>
 
     private bool exist_primary; //全員が二人対戦できるようにする変数
 
+    void tmp()
+    {
+        PlayerDataDirector.Instance.PlayerTypes[0] = PlayerType.Charactor1;
+        PlayerDataDirector.Instance.PlayerTypes[1] = PlayerType.Charactor2;
+        PlayerDataDirector.Instance.PlayerTypes[2] = PlayerType.Charactor3;
+        PlayerDataDirector.Instance.PlayerTypes[3] = PlayerType.Charactor4;
+    }
     // Use this for initialization
     void Start()
     {
         exist_primary = false;
         GameIsLatter = false;
         player = new PlayerController[PlayerDataDirector.Instance.MaxPlayerNumber];
+        //tmp();
+        //Debug.Log("tmp for debug");
         GenerateAllPlayer();
         preSeconds = 0f;
         GamePanel.gameObject.SetActive(true);
@@ -235,7 +244,8 @@ public class GameDirector : Singleton<GameDirector>
                 {
                     camera.rect = new Rect(0.15f, 0f, 0.7f, 0.5f);
                 }
-                else if(isOnlyTwoPlayer){
+                else if (isOnlyTwoPlayer)
+                {
                     camera.rect = new Rect(0.15f, 0.5f, 0.7f, 0.5f);
                     exist_primary = true;
                 }
@@ -291,12 +301,13 @@ public class GameDirector : Singleton<GameDirector>
 
     public void DisplayKillLog(int killerID, int deathID)
     {
-        if(killLogCoroutine != null)
+        if (killLogCoroutine != null)
         {
             StopCoroutine(killLogCoroutine);
         }
         KillLogPanel.SetActive(true);
-        if(killerID != 0)
+        KillLogText.gameObject.SetActive(true);
+        if (killerID != 0)
         {
             KillLogText.text = killerID + "P       " + deathID + "P";
         }
@@ -311,6 +322,7 @@ public class GameDirector : Singleton<GameDirector>
     {
         yield return new WaitForSeconds(killLogDisplayTime);
         KillLogText.text = "";
+        KillLogPanel.SetActive(false);
         KillLogText.gameObject.SetActive(false);
     }
 }

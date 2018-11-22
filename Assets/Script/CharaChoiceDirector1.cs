@@ -17,7 +17,8 @@ public class CharaChoiceDirector1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(nullpoDestroy){
+        if (nullpoDestroy)
+        {
             nowParticipate = PlayerDataDirector.Instance.participantsNumber();//titleに遷移する前にDestroyしてるからぬるぽ
         }
     }
@@ -34,7 +35,8 @@ public class CharaChoiceDirector1 : MonoBehaviour
 
     public void GameStart()
     {
-        if(nowParticipate == 2 || nowParticipate == 4){
+        if (nowParticipate == 2 || nowParticipate == 4 || nowParticipate == 3)
+        {
             AudioManager.Instance.PlaySEClipFromIndex(0, 0.5f);
             SceneManager.LoadScene("Main");
         }

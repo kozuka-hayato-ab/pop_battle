@@ -42,7 +42,7 @@ public class CharactorSelect : MonoBehaviour {
             enableInput = false;
             AudioManager.Instance.PlaySEClipFromIndex(1, 0.1f);
             StartCoroutine(WaitInput());
-            Debug.Log(PlayerDataDirector.Instance.PlayerTypes[playerId - 1]);
+            //Debug.Log(PlayerDataDirector.Instance.PlayerTypes[playerId - 1]);
         }
         //下入力
         if (enableInput && axis <= -1.0f)
@@ -55,7 +55,7 @@ public class CharactorSelect : MonoBehaviour {
             enableInput = false;
             AudioManager.Instance.PlaySEClipFromIndex(1, 0.1f);
             StartCoroutine(WaitInput());
-            Debug.Log(PlayerDataDirector.Instance.PlayerTypes[playerId - 1]);
+            //Debug.Log(PlayerDataDirector.Instance.PlayerTypes[playerId - 1]);
         }
 	}
 

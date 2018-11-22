@@ -1819,7 +1819,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1839801777599076}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.699623, y: 6.423735, z: -1.3422709}
+  m_LocalPosition: {x: 6.7628193, y: 89.07283, z: -20.072636}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4361923012293584}
@@ -2281,8 +2281,8 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1
-    height: 1
+    width: 0.5
+    height: 0.5
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 90
@@ -3153,6 +3153,8 @@ MonoBehaviour:
   bullet: {fileID: 1376497754090704, guid: e48484b8507782841944bd9fc87af869, type: 2}
   bomb: {fileID: 1319319283391872, guid: 4df723cffc8bf0848afef83a9ffab22b, type: 2}
   muzzle: {fileID: 1410035739703090}
+  muzzleFlashParticle: {fileID: 1088917819537440, guid: 1a899ea20528ed941b40883fbb9956d5,
+    type: 2}
   bulletSpeed: 50
   bombSpeed: 5
   bombVerticalCompensation: 1.3
@@ -3912,7 +3914,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -16.50151, y: 12.25724}
-  m_SizeDelta: {x: 25, y: 20}
+  m_SizeDelta: {x: 30, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224294596825316188
 RectTransform:
@@ -4077,8 +4079,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2, y: -8.699997}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 3, y: -7}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224588701975511626
 RectTransform:

@@ -8,7 +8,8 @@ public class ItemController : MonoBehaviour
 
     [SerializeField] private Vector3 stageCenterPoint;
     [SerializeField] private GameObject[] itemPopSpecificPlaces;
-    private float popItemUpValue = 6;
+    public static bool[] enablePopSpecificPlaces;
+    private float popItemUpValue = 3;
     [SerializeField] private int SpecialItemPopProbability = 30;
 
     [SerializeField] private float[] upperPartRadius;// [0] -> start [1] -> end
@@ -28,6 +29,11 @@ public class ItemController : MonoBehaviour
 
     private void Awake()
     {
+        enablePopSpecificPlaces = new bool[itemPopSpecificPlaces.Length];
+        for (int i = 0; i < enablePopSpecificPlaces.Length; i++)
+        {
+            enablePopSpecificPlaces[i] = true;
+        }
         ItemDict = new Dictionary<GameObject, int>();
         for (int i = 0; i < Items.Length; i++)
         {
@@ -123,7 +129,12 @@ public class ItemController : MonoBehaviour
         int length = itemPopSpecificPlaces.Length;
         for (int i = 0; i < length; i++)
         {
-            GenerateItem(itemPopSpecificPlaces[i].transform.position + Vector3.up * popItemUpValue, SpecialItem);
+            if (enablePopSpecificPlaces[i] == true)
+            {
+                Instantiate(SpecialItem, itemPopSpecificPlaces[i].transform.position + Vector3.up * popItemUpValue,
+                    Quaternion.Euler(new Vector3(-90, 0, 0))).GetComponent<CureItem>().myPopPlaceIndex = i;
+                enablePopSpecificPlaces[i] = false;
+            }
         }
     }
 

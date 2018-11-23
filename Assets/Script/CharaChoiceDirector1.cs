@@ -13,6 +13,7 @@ public class CharaChoiceDirector1 : MonoBehaviour
     private void Start()
     {
         nullpoDestroy = true;
+        AudioManager.Instance.ChangeBGM(2);
     }
     // Update is called once per frame
     void Update()

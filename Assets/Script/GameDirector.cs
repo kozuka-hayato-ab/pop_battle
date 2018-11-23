@@ -64,12 +64,11 @@ public class GameDirector : Singleton<GameDirector>
         //tmp();
         //Debug.Log("tmp for debug");
         GenerateAllPlayer();
-        preSeconds = 0f;
+        preSeconds = startTime;
         GamePanel.gameObject.SetActive(true);
         CenterTimer.gameObject.SetActive(true);
         KillLogText.gameObject.SetActive(false);
         isGameStart = false;
-        AudioManager.Instance.PlaySEClipFromIndex(2, 1f);
     }
 
     // Update is called once per frame
@@ -137,6 +136,7 @@ public class GameDirector : Singleton<GameDirector>
             if ((int)startTime != (int)preSeconds)
             {
                 CenterTimer.text = ((int)startTime).ToString();
+                AudioManager.Instance.PlaySEClipFromIndex(2, 1f);
             }
 
             preSeconds = startTime;
@@ -144,6 +144,7 @@ public class GameDirector : Singleton<GameDirector>
             if (startTime <= 0f)
             {
                 GameStart();
+                AudioManager.Instance.PlaySEClipFromIndex(11, 1f);
             }
         }
     }
@@ -155,6 +156,7 @@ public class GameDirector : Singleton<GameDirector>
         GamePanel.gameObject.SetActive(false);
         CenterTimer.gameObject.SetActive(false);
         isGameStart = true;
+        AudioManager.Instance.ChangeBGM(3);
     }
 
     private void GameFinish()

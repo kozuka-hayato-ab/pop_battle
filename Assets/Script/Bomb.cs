@@ -35,7 +35,7 @@ public class Bomb : MonoBehaviour {
 
     public void ExecuteBomb()
     {
-        AudioManager.Instance.PlaySEClipFromIndex(8, 1f);
+        AudioManager.Instance.PlaySEClipFromIndex(8, 0.25f);
         Instantiate(BombParticle,
             transform.position,
             transform.rotation).GetComponent<BombOption>().ThrowPlayerID = playerID;

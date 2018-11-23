@@ -53,8 +53,13 @@ public abstract class Item : MonoBehaviour
             string layerName = LayerMask.LayerToName(hit.collider.gameObject.layer);
             if(layerName == "Stage")
             {
-                onGround = true;
+                onGroundTrue();
             }
         }
+    }
+
+    protected void onGroundTrue()
+    {
+        onGround = true;
     }
 }

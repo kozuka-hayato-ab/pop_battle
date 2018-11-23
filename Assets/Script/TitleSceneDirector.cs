@@ -16,7 +16,7 @@ public class TitleSceneDirector : MonoBehaviour {
     [SerializeField] GameObject Title;
 	// Use this for initialization
 	void Start () {
-        
+        AudioManager.Instance.ChangeBGM(1);
 	}
 	
 	// Update is called once per frame

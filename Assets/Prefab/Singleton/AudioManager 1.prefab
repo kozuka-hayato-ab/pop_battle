@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1203982306611078}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -6.656559, y: 8.8, z: -15.001106}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -223,10 +223,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmClips:
   - {fileID: 8300000, guid: 6a383a94163995c4ba55a870f65f6b0b, type: 3}
+  - {fileID: 8300000, guid: ae524a01215c67a419a1489a64dacb8f, type: 3}
+  - {fileID: 8300000, guid: c7a774bb88f1b464ea9c2ad1c664ffbf, type: 3}
+  - {fileID: 8300000, guid: 75589e70fbfe93341852891e2943933f, type: 3}
   seClips:
   - {fileID: 8300000, guid: 3604b6ce9f1ce3d4fa0fc3394cb32c6b, type: 3}
-  - {fileID: 8300000, guid: 821b58612154dac40a659bfb102bf9ee, type: 3}
-  - {fileID: 8300000, guid: 701c6570ecbd7ec4bb69f483440d7384, type: 3}
+  - {fileID: 8300000, guid: ccab334431bb0c64a8db828d1f3006af, type: 3}
+  - {fileID: 8300000, guid: e5f03248ef78a0540b41bb763ba40b62, type: 3}
   - {fileID: 8300000, guid: dd6919a73fe2a75458c4c8be46638633, type: 3}
   - {fileID: 8300000, guid: 6c9c71af970364a4081657cec0bf4034, type: 3}
   - {fileID: 8300000, guid: 377a9a1ca0de8f84b9b03e203d4d16c5, type: 3}
@@ -235,7 +238,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8e18dbb180a217c45aaa028c6427c398, type: 3}
   - {fileID: 8300000, guid: 4ca2ebfc99f37d0419f8b12176033720, type: 3}
   - {fileID: 8300000, guid: 5eabe84dbd9fcf44eb9f9cd629a97d97, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 732ac33b9350960488540f0fef748cba, type: 3}
+  - {fileID: 8300000, guid: 13174cea39f1fcf45b6363569c9700f7, type: 3}
   - {fileID: 0}
   - {fileID: 0}

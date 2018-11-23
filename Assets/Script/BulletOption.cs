@@ -27,7 +27,7 @@ public class BulletOption : MonoBehaviour {
             ExecuteEvents.Execute<PlayerControllerRecieveInterface>(
                 target: collision.transform.root.gameObject,
                 eventData: null,
-                functor: (reciever, y) => reciever.Damage(damageValue, shotPlayerNumber)
+                functor: (reciever, y) => reciever.BulletDamage(damageValue, shotPlayerNumber)
                 );
             Destroy(gameObject);
         }

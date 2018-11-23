@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public interface PlayerControllerRecieveInterface : IEventSystemHandler
 {
     void Damage(int damageValue, int playerNumber);
+    void BulletDamage(int damageValue, int shotPlayerID);
     void BombDamage(int damageValue, int throwPlayerID);
 }
 
@@ -120,8 +121,8 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     {
         playerHealth = maxHealth;
         bulletNumber = 60;
-        bombNumber = 25;
-        balloonNumber = 15;
+        bombNumber = 15;
+        balloonNumber = 5;
     }
     private void Awake()
     {
@@ -131,7 +132,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         MynameUpdate();
         PlayerInfoInit();
         TPS_pos = playerCamera.transform.localPosition;//元のカメラの相対座標
-        FPS_pos = new Vector3(-0.17f, 0.4f, 0f);//Player変えたら調節
+        FPS_pos = new Vector3(-0.21f, 0.4f, 0f);//Player変えたら調節
         SwitchTPS = false;
         Balloon.SetActive(false);
         isFlying = false;
@@ -246,7 +247,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         if ((Input.GetButton(mynameForInputmanager + "Shot2") || Input.GetKey(KeyCode.KeypadEnter)) && bulletShotPossible == true && bulletNumber > 0)
         {
             myGun.SendMessage("BulletShot");
-            AudioManager.Instance.PlaySEClipFromIndex(4, 1f);
+            AudioManager.Instance.PlaySEClipFromIndex(4, 0.5f);
             bulletNumber--;
             PlayerUI.UpdateBulletNumber();
             bulletShotPossible = false;
@@ -256,7 +257,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         if ((Input.GetButton(mynameForInputmanager + "Shot1") || Input.GetKey(KeyCode.KeypadPlus)) && bombShotPossible == true && bombNumber > 0)
         {
             myGun.SendMessage("BombShot");
-            AudioManager.Instance.PlaySEClipFromIndex(5, 1f);
+            AudioManager.Instance.PlaySEClipFromIndex(5, 0.25f);
             bombNumber--;
             PlayerUI.UpdateBombNumber();
             bombShotPossible = false;
@@ -271,8 +272,9 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
                 PlayerUI.UpdateBalloonNumber();
                 Balloon.SetActive(true);
                 isFlying = true;
+                animcon.SetBool("IsFlying", true);
                 timerForFlyingSE = 0f;
-                AudioManager.Instance.PlaySEClipFromIndex(6, 1f);
+                AudioManager.Instance.PlaySEClipFromIndex(6, 0.5f);
                 FlyCoroutine = StartCoroutine(WaitFlyingTimeLimit());
             }
             else
@@ -284,7 +286,8 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
                 if (isFlying)
                 {
                     isFlying = false;
-                    AudioManager.Instance.PlaySEClipFromIndex(7, 1f);
+                    animcon.SetBool("IsFlying", false);
+                    AudioManager.Instance.PlaySEClipFromIndex(7, 0.7f);
                 }
                 Balloon.SetActive(false);
             }
@@ -362,21 +365,21 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
     {
         bulletNumber += bulletValue;
         PlayerUI.UpdateBulletNumber();
-        AudioManager.Instance.PlaySEClipFromIndex(9, 1f);
+        AudioManager.Instance.PlaySEClipFromIndex(9, 0.6f);
     }
 
     public void PickUpBomb(int bombValue)
     {
         bombNumber += bombValue;
         PlayerUI.UpdateBombNumber();
-        AudioManager.Instance.PlaySEClipFromIndex(9, 1f);
+        AudioManager.Instance.PlaySEClipFromIndex(9, 0.6f);
     }
 
     public void PickUpBalloon()
     {
         balloonNumber++;
         PlayerUI.UpdateBalloonNumber();
-        AudioManager.Instance.PlaySEClipFromIndex(9, 1f);
+        AudioManager.Instance.PlaySEClipFromIndex(9, 0.6f);
     }
 
     // shotPlayerNumber == 0 -> self damage
@@ -390,6 +393,13 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
         if (playerHealth <= 0)
         {
             Death(shotPlayerNumber);
+        }
+    }
+    public void BulletDamage(int damageValue, int shotPlayerID)
+    {
+        if(shotPlayerID != PlayerID)
+        {
+            Damage(damageValue, shotPlayerID);
         }
     }
 

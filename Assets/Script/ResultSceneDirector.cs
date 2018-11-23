@@ -104,7 +104,7 @@ public class ResultSceneDirector : MonoBehaviour
         //tmp();
         RankToPlayerIndexArray = playerRankToPlayerIndex();
         PlayerImageInit();
-        AudioManager.Instance.ChangeBGM(0);
+        AudioManager.Instance.ChangeBGM(2);
         StartCoroutine(RankAnnounce());
     }
 
@@ -137,12 +137,15 @@ public class ResultSceneDirector : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(waitTimeAtRankAnnounce[i]);
             if (RankToPlayerIndexArray[i, 0] != -1)
+            {
                 DisplayPlayerInfoFromRank(i);
+                AudioManager.Instance.PlaySEClipFromIndex(12, 1f);
+            }
+
         }
         yield return new WaitForSecondsRealtime(1f);
         finishText.gameObject.SetActive(true);
         rankAnnounceFinished = true;
-        AudioManager.Instance.StopBGM();
     }
 
     // for debug

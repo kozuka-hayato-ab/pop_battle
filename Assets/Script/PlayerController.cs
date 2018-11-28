@@ -272,7 +272,6 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
                 PlayerUI.UpdateBalloonNumber();
                 Balloon.SetActive(true);
                 isFlying = true;
-                animcon.SetBool("IsFlying", true);
                 timerForFlyingSE = 0f;
                 AudioManager.Instance.PlaySEClipFromIndex(6, 0.5f);
                 FlyCoroutine = StartCoroutine(WaitFlyingTimeLimit());
@@ -286,7 +285,6 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
                 if (isFlying)
                 {
                     isFlying = false;
-                    animcon.SetBool("IsFlying", false);
                     AudioManager.Instance.PlaySEClipFromIndex(7, 0.7f);
                 }
                 Balloon.SetActive(false);
@@ -308,6 +306,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerRecieveInterface
             float jumpLeg = (runCycle < halfNumber ? 1 : -1) * forward;
             animcon.SetFloat("JumpLeg", jumpLeg);
         }
+        animcon.SetBool("IsFlying", isFlying);
         animcon.SetFloat("Forward", forward);
         animcon.SetFloat("Right", right);
     }

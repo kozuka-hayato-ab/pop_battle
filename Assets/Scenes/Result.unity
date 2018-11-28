@@ -1776,10 +1776,12 @@ MonoBehaviour:
   - {fileID: 897595138}
   - {fileID: 209831291}
   waitTimeAtRankAnnounce:
-  - 1.2
-  - 3
-  - 2
   - 1
+  - 2.7
+  - 1.5
+  - 0.5
+  rankNumberForDebug: 
+  playerType: 
 --- !u!1 &1432299439
 GameObject:
   m_ObjectHideFlags: 0

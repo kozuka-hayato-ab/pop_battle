@@ -154,15 +154,15 @@ public class ResultSceneDirector : MonoBehaviour
     [SerializeField] PlayerType[] playerType;
     private void tmp()
     {
-        PlayerDataDirector.Instance.PlayerTypes[0] = playerType[0];
-        PlayerDataDirector.Instance.PlayerTypes[1] = playerType[1];
-        PlayerDataDirector.Instance.PlayerTypes[2] = playerType[2];
-        PlayerDataDirector.Instance.PlayerTypes[3] = playerType[3];
+        PlayerDataDirector.Instance.PlayerTypes[0] = PlayerType.Charactor1;
+        PlayerDataDirector.Instance.PlayerTypes[1] = PlayerType.Charactor2;
+        PlayerDataDirector.Instance.PlayerTypes[2] = PlayerType.Charactor3;
+        PlayerDataDirector.Instance.PlayerTypes[3] = PlayerType.Charactor4;
 
-        PlayerDataDirector.Instance.PlayerRank[0] = rankNumberForDebug[0];
-        PlayerDataDirector.Instance.PlayerRank[1] = rankNumberForDebug[1];
-        PlayerDataDirector.Instance.PlayerRank[2] = rankNumberForDebug[2];
-        PlayerDataDirector.Instance.PlayerRank[3] = rankNumberForDebug[3];
+        PlayerDataDirector.Instance.PlayerRank[0] = 2;
+        PlayerDataDirector.Instance.PlayerRank[1] = 4;
+        PlayerDataDirector.Instance.PlayerRank[2] = 3;
+        PlayerDataDirector.Instance.PlayerRank[3] = 1;
 
         PlayerDataDirector.Instance.PlayerKills[0] = 12;
         PlayerDataDirector.Instance.PlayerKills[1] = 4;
@@ -173,7 +173,6 @@ public class ResultSceneDirector : MonoBehaviour
         PlayerDataDirector.Instance.PlayerDeaths[1] = 1;
         PlayerDataDirector.Instance.PlayerDeaths[2] = 5;
         PlayerDataDirector.Instance.PlayerDeaths[3] = 2;
-
     }
     /* for debug
     void debuglogArray()

@@ -31,7 +31,7 @@ public class BulletOption : MonoBehaviour {
                 );
             Destroy(gameObject);
         }
-        if(collision.gameObject.tag == "Stage")
+        if(collision.gameObject.tag == "Stage" || collision.gameObject.tag == "StageExCollider")
         {
             Destroy(gameObject);
         }
